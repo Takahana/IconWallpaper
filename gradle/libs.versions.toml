@@ -1,0 +1,11 @@
+[versions]
+google-android-material = "1.4.0"
+androidx-appcompat = "1.4.0"
+androidx-constraintlayout = "2.1.2"
+
+[libraries]
+google-android-material = { module = "com.google.android.material:material", version.ref = "google-android-material" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+
+[bundles]
