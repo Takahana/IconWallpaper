@@ -1,11 +1,23 @@
 [versions]
+# native
+koru = "0.10.0"
+kotlinx-coroutines-core = "1.6.0-RC3"
+
+# android
 google-android-material = "1.4.0"
 androidx-appcompat = "1.4.0"
 androidx-constraintlayout = "2.1.2"
+androidx-lifecycle-runtime = "2.4.0"
 
 [libraries]
+# native
+koru = { module = "com.futuremind:koru", version.ref = "koru" }
+kotlinx-coroutines-core =  { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
+
+# android
 google-android-material = { module = "com.google.android.material:material", version.ref = "google-android-material" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle-runtime" }
 
 [bundles]
