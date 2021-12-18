@@ -9,3 +9,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+usecaseImpl/onboarding/build
+usecase/onboarding/build
+uilogicImpl/welcome/build
+uilogic/welcome/build
