@@ -21,7 +21,12 @@ android {
 
 dependencies {
     implementation(projects.shared)
+    implementation(projects.uilogic.welcome)
+    implementation(projects.uilogicImpl.welcome)
+    implementation(projects.usecase.onboarding)
+    implementation(projects.usecaseImpl.onboarding)
     implementation(libs.google.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.runtime)
 }
