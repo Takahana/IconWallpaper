@@ -3,6 +3,7 @@ package tech.takahana.iconwallpaper.android
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpapaer.uilogic.welcome.WelcomeUiLogicImpl
 import tech.takahana.iconwallpaper.Greeting
+import tech.takahana.iconwallpaper.android.onbording.ui.WelcomeScreen
 import tech.takahana.iconwallpaper.uilogic.welcome.WelcomeUiLogic
 import tech.takahana.iconwallpaper.usecase.onboarding.WelcomeUseCaseImpl
 
@@ -41,6 +43,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         subscribeFinishOnBoardingEffect()
+        setContent {
+            WelcomeScreen()
+        }
     }
 
     private fun onClickButton() {
