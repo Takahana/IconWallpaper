@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    kotlin("kapt")
     id("com.android.library")
 }
 
@@ -16,16 +17,23 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "welcome"
         }
     }
-
+    
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(libs.koru)
+                configurations.get("kapt").dependencies.add(
+                    org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency(
+                        "com.futuremind", "koru-processor", libs.versions.koru.get()
+                    )
+                )
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(projects.uilogic.welcome)
+                implementation(projects.usecase.onboarding)
             }
         }
         val commonTest by getting {
@@ -49,6 +57,7 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             //iosSimulatorArm64Main.dependsOn(this)
+            kotlin.srcDir("${buildDir.absolutePath}/generated/source/kaptKotlin/")
         }
         val iosX64Test by getting
         val iosArm64Test by getting
