@@ -14,3 +14,7 @@ usecase/onboarding/build
 uilogicImpl/welcome/build
 uilogic/welcome/build
 iosApp/Pods/Pods.xcodeproj/xcuserdata
+iosApp/iosApp.xcodeproj/xcuserdata
+iosApp/iosApp.xcworkspace/xcshareddata
+iosApp/iosApp.xcworkspace/xcuserdata
+androidApp/onbording/build
