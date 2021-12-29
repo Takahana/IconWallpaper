@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_dog">Welcome Dog</string>
+    <string name="welcome_message">壁紙アプリへようこそ</string>
+    <string name="make_cute_wallpapers">かわいい壁紙を作ろう</string>
+    <string name="make">作成する</string>
+</resources>
