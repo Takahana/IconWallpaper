@@ -14,10 +14,10 @@ val Teal100 = Color(0xffb2dfdb)
 private val LightColors = lightColors(
     primary = Red50,
     primaryVariant = Red100,
-    onPrimary = Color.White,
+    onPrimary = Color.Black,
     secondary = Teal50,
     secondaryVariant = Teal100,
-    onSecondary = Color.White,
+    onSecondary = Color.Black,
     error = Red800,
 )
 
