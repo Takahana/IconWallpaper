@@ -10,15 +10,17 @@ val Red100 = Color(0xffffcdd2)
 val Red800 = Color(0xffd00036)
 val Teal50 = Color(0xffe0f2f1)
 val Teal100 = Color(0xffb2dfdb)
+val Gray100 = Color(0xfff5f5f5)
 
 private val LightColors = lightColors(
     primary = Red50,
     primaryVariant = Red100,
-    onPrimary = Color.Black,
     secondary = Teal50,
     secondaryVariant = Teal100,
-    onSecondary = Color.Black,
+    background = Gray100,
     error = Red800,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
 )
 
 @Composable
