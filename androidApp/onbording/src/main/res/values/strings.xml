@@ -4,4 +4,17 @@
     <string name="welcome_message">壁紙アプリへようこそ</string>
     <string name="make_cute_wallpapers">かわいい壁紙を作ろう</string>
     <string name="make">作成する</string>
+    <string name="step1_seclect_stuff">ステップ1. 素材を選択する</string>
+    <string name="please_select_stuff">素材を選択してください</string>
+    <string name="step2_seclect_pattern">ステップ2. パターンを選択する</string>
+    <string name="pattern">パターン</string>
+    <string name="background_color">背景色</string>
+    <string name="navigation_check_result">確認画面へ</string>
+    <string name="grid_on">Grid on</string>
+    <string name="palette">Palette</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="notifications">Notifications</string>
+    <string name="share">Share</string>
+    <string name="search">Search</string>
+    <string name="page_title">Page title</string>
 </resources>

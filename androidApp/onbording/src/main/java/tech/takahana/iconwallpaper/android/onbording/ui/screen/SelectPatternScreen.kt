@@ -23,8 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import tech.takahana.iconwallpaper.android.onbording.R
 import tech.takahana.iconwallpaper.android.onbording.ui.components.Announcements
 import tech.takahana.iconwallpaper.android.onbording.ui.components.AppBar
 import tech.takahana.iconwallpaper.android.onbording.ui.components.BottomButton
@@ -43,7 +45,7 @@ fun SelectPatternScreen() {
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Announcements(message = "ステップ2. パターンを選択する")
+                Announcements(message = stringResource(R.string.step2_seclect_pattern))
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -65,8 +67,8 @@ fun SelectPatternScreen() {
                         contentAlignment = Alignment.Center,
                     ) {
                         Row {
-                            Icon(Icons.Filled.GridOn, contentDescription = null)
-                            Text("パターン")
+                            Icon(Icons.Filled.GridOn, contentDescription = stringResource(R.string.grid_on))
+                            Text(stringResource(R.string.pattern))
                         }
                     }
                     Box(
@@ -78,8 +80,8 @@ fun SelectPatternScreen() {
                         contentAlignment = Alignment.Center,
                     ) {
                         Row {
-                            Icon(Icons.Filled.Palette, contentDescription = null)
-                            Text("背景色")
+                            Icon(Icons.Filled.Palette, contentDescription = stringResource(R.string.palette))
+                            Text(stringResource(R.string.background_color))
                         }
 
                     }
@@ -115,7 +117,7 @@ fun SelectPatternScreen() {
                     BottomButton(
                         onClick = { /*TODO*/ },
                         backgroundColor = MaterialTheme.colors.primary,
-                        text = "確認画面へ",
+                        text = stringResource(R.string.navigation_check_result),
                     )
                 }
             }

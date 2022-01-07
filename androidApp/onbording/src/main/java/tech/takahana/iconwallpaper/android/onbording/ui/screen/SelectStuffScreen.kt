@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.onbording.R
@@ -34,7 +35,7 @@ fun SelectStuffScreen() {
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Announcements(message = "ステップ1. 素材を選択する")
+                Announcements(message = stringResource(R.string.step1_seclect_stuff))
                 Column(
                     modifier = Modifier
                         .padding(20.dp)
@@ -53,7 +54,7 @@ fun SelectStuffScreen() {
                     BottomButton(
                         onClick = { /*TODO*/ },
                         backgroundColor = Color.LightGray,
-                        text = "素材を選択してください",
+                        text = stringResource(R.string.please_select_stuff),
                     )
                 }
             }
