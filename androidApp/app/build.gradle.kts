@@ -1,14 +1,16 @@
+import tech.takahana.iconwallpaper.gradle.propertyAsInt
+
 plugins {
     id("com.android.application")
     kotlin("android")
 }
 
 android {
-    compileSdk = 31
+    compileSdk = propertyAsInt("android.compileSdk")
     defaultConfig {
         applicationId = "tech.takahana.iconwallpaper.android"
-        minSdk = 23
-        targetSdk = 31
+        minSdk = propertyAsInt("android.minSdk")
+        targetSdk = propertyAsInt("android.minSdk")
         versionCode = 1
         versionName = "1.0"
     }
