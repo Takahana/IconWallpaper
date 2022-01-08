@@ -14,3 +14,4 @@ usecase/onboarding/build
 uilogicImpl/welcome/build
 uilogic/welcome/build
 iosApp/Pods/Pods.xcodeproj/xcuserdata
+iosApp/Pods/Pods.xcodeproj/project.pbxproj
