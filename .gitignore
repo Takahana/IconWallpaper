@@ -19,3 +19,4 @@ iosApp/iosApp.xcworkspace/xcshareddata
 iosApp/iosApp.xcworkspace/xcuserdata
 androidApp/onbording/build
 androidApp/app/build
+gradle/projectDependencyGraph.gradle
