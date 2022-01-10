@@ -33,7 +33,7 @@ android {
         jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-beta04"
+        kotlinCompilerExtensionVersion = "1.1.0-rc01"
     }
 }
 

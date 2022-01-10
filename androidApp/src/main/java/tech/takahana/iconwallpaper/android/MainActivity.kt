@@ -10,27 +10,37 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import tech.takahana.iconwallpapaer.uilogic.home.HomeUiLogicImpl
 import tech.takahana.iconwallpapaer.uilogic.welcome.WelcomeUiLogicImpl
 import tech.takahana.iconwallpaper.Greeting
-import tech.takahana.iconwallpaper.android.onbording.ui.screen.SelectStuffScreen
+import tech.takahana.iconwallpaper.android.home.ui.screen.HomeScreen
 import tech.takahana.iconwallpaper.android.onbording.ui.screen.WelcomeScreen
 import tech.takahana.iconwallpaper.android.theme.IconWallPaperTheme
+import tech.takahana.iconwallpaper.uilogic.home.HomeUiLogic
 import tech.takahana.iconwallpaper.uilogic.welcome.WelcomeUiLogic
+import tech.takahana.iconwallpaper.usecase.home.HomeUseCaseImpl
 import tech.takahana.iconwallpaper.usecase.onboarding.WelcomeUseCaseImpl
 
 fun greet(): String {
     return Greeting().greeting()
 }
 
-fun uiLogic(): WelcomeUiLogic {
+fun welcomeUiLogic(): WelcomeUiLogic {
     return WelcomeUiLogicImpl(
         useCase = WelcomeUseCaseImpl()
     )
 }
 
+fun homeUiLogic(): HomeUiLogic {
+    return HomeUiLogicImpl(
+        useCase = HomeUseCaseImpl()
+    )
+}
+
 class MainActivity : AppCompatActivity() {
 
-    private val uiLogic: WelcomeUiLogic by lazy { uiLogic() }
+    private val welcomeUiLogic: WelcomeUiLogic by lazy { welcomeUiLogic() }
+    private val homeUiLogic: HomeUiLogic by lazy { homeUiLogic() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,28 +50,34 @@ class MainActivity : AppCompatActivity() {
         button.also {
             it.text = greet()
             it.setOnClickListener {
-                onClickButton()
+                welcomeOnClickButton()
             }
         }
 
         subscribeFinishOnBoardingEffect()
         setContent {
             IconWallPaperTheme {
-                WelcomeScreen()
+                HomeScreen()
             }
         }
     }
 
-    private fun onClickButton() {
+    private fun welcomeOnClickButton() {
         lifecycleScope.launchWhenStarted {
-            uiLogic.onClickedFinishButton()
+            welcomeUiLogic.onClickedFinishButton()
+        }
+    }
+
+    private fun homeOnClickButton() {
+        lifecycleScope.launchWhenStarted {
+            homeUiLogic.onClickedFinishButton()
         }
     }
 
     private fun subscribeFinishOnBoardingEffect() {
         lifecycleScope.launchWhenCreated {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                uiLogic.finishedOnBoardingEffect
+                welcomeUiLogic.finishedOnBoardingEffect
                     .onEach {
                         showMessageFinishedOnBoarding()
                     }
@@ -70,7 +86,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun subscribeFinishHomeEffect() {
+        lifecycleScope.launchWhenCreated {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeUiLogic.finishedHomeEffect
+                    .onEach {
+                        showMessageFinishedHome()
+                    }
+                    .launchIn(this)
+            }
+        }
+    }
+
     private fun showMessageFinishedOnBoarding() {
         Toast.makeText(this, "Onboarding is finished.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showMessageFinishedHome() {
+        Toast.makeText(this, "Home is finished.", Toast.LENGTH_SHORT).show()
     }
 }
