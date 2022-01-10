@@ -17,7 +17,7 @@ fun Announcements(message: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(50.dp)
             .background(color = Color.White),
         contentAlignment = Alignment.Center,
     ) {

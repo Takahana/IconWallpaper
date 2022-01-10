@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpapaer.uilogic.welcome.WelcomeUiLogicImpl
 import tech.takahana.iconwallpaper.Greeting
 import tech.takahana.iconwallpaper.android.onbording.ui.screen.SelectStuffScreen
+import tech.takahana.iconwallpaper.android.onbording.ui.screen.WelcomeScreen
 import tech.takahana.iconwallpaper.android.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.uilogic.welcome.WelcomeUiLogic
 import tech.takahana.iconwallpaper.usecase.onboarding.WelcomeUseCaseImpl
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         subscribeFinishOnBoardingEffect()
         setContent {
             IconWallPaperTheme {
-                SelectStuffScreen()
+                WelcomeScreen()
             }
         }
     }

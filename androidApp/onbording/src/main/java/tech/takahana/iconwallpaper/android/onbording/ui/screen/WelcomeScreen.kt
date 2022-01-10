@@ -2,6 +2,7 @@ package tech.takahana.iconwallpaper.android.onbording.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,7 +24,6 @@ import tech.takahana.iconwallpaper.android.onbording.ui.components.PrimaryColorB
 fun WelcomeScreen() {
     Column(
         modifier = Modifier
-            .padding(20.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom,
@@ -43,11 +43,17 @@ fun WelcomeScreen() {
             style = MaterialTheme.typography.subtitle1,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        PrimaryColorButton(
-            onClick = { /*TODO*/ },
-            backgroundColor = MaterialTheme.colors.primary,
-            text = stringResource(R.string.make),
-        )
+        Box(
+            modifier = Modifier
+                .padding(20.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            PrimaryColorButton(
+                onClick = { /*TODO*/ },
+                backgroundColor = MaterialTheme.colors.primary,
+                text = stringResource(R.string.make),
+            )
+        }
     }
 }
 
