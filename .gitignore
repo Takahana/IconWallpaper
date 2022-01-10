@@ -18,4 +18,11 @@ uilogicImpl/home/build
 uilogic/welcome/build
 uilogic/home/build
 iosApp/Pods/Pods.xcodeproj/xcuserdata
+<<<<<<< HEAD
 iosApp/Pods/Pods.xcodeproj/project.pbxproj
+=======
+iosApp/iosApp.xcodeproj/xcuserdata
+iosApp/iosApp.xcworkspace/xcshareddata
+iosApp/iosApp.xcworkspace/xcuserdata
+androidApp/onbording/build
+>>>>>>> 7b732bc7cd6a92392ec36e116b0225397c9c7c44

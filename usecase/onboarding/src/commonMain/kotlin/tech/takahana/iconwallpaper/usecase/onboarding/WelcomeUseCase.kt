@@ -1,9 +1,7 @@
 package tech.takahana.iconwallpaper.usecase.onboarding
 
-import com.futuremind.koru.ToNativeInterface
 import kotlinx.coroutines.flow.SharedFlow
 
-@ToNativeInterface(name = "WelcomeUseCaseIosProtocol")
 interface WelcomeUseCase {
 
     /**
