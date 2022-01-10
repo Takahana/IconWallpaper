@@ -18,35 +18,32 @@ import tech.takahana.iconwallpaper.android.onbording.ui.components.Announcements
 import tech.takahana.iconwallpaper.android.onbording.ui.components.AppBar
 import tech.takahana.iconwallpaper.android.onbording.ui.components.BottomButton
 import tech.takahana.iconwallpaper.android.onbording.ui.components.ItemGrid
-import tech.takahana.iconwallpaper.android.onbording.ui.theme.IconWallPaperTheme
 
 @Composable
 fun SelectStuffScreen() {
-    IconWallPaperTheme {
-        Scaffold(
-            topBar = {
-                AppBar()
-            },
-            backgroundColor = MaterialTheme.colors.background
+    Scaffold(
+        topBar = {
+            AppBar()
+        },
+        backgroundColor = MaterialTheme.colors.background
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
+            Announcements(message = stringResource(R.string.step1_seclect_stuff))
+            ItemGrid(columnNum = 5)
+            Box(
                 modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                    .padding(20.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Announcements(message = stringResource(R.string.step1_seclect_stuff))
-                ItemGrid(columnNum = 5)
-                Box(
-                    modifier = Modifier
-                        .padding(20.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    BottomButton(
-                        onClick = { /*TODO*/ },
-                        backgroundColor = Color.LightGray,
-                        text = stringResource(R.string.please_select_stuff),
-                    )
-                }
+                BottomButton(
+                    onClick = { /*TODO*/ },
+                    backgroundColor = Color.LightGray,
+                    text = stringResource(R.string.please_select_stuff),
+                )
             }
         }
     }

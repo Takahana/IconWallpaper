@@ -30,96 +30,99 @@ import tech.takahana.iconwallpaper.android.onbording.R
 import tech.takahana.iconwallpaper.android.onbording.ui.components.Announcements
 import tech.takahana.iconwallpaper.android.onbording.ui.components.AppBar
 import tech.takahana.iconwallpaper.android.onbording.ui.components.BottomButton
-import tech.takahana.iconwallpaper.android.onbording.ui.theme.IconWallPaperTheme
 
 @Composable
 fun SelectPatternScreen() {
-    IconWallPaperTheme {
-        Scaffold(
-            topBar = {
-                AppBar()
-            },
+    Scaffold(
+        topBar = {
+            AppBar()
+        },
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
+            Announcements(message = stringResource(R.string.step2_seclect_pattern))
+            Box(
                 modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                    .fillMaxWidth()
+                    .height(384.dp)
+                    .background(color = Color.Cyan),
+                contentAlignment = Alignment.Center,
             ) {
-                Announcements(message = stringResource(R.string.step2_seclect_pattern))
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(384.dp)
-                        .background(color = Color.Cyan),
+                        .clickable { /*TODO*/ }
+                        .fillMaxWidth(0.5F)
+                        .height(52.dp)
+                        .background(color = MaterialTheme.colors.secondary),
                     contentAlignment = Alignment.Center,
                 ) {
+                    Row {
+                        Icon(
+                            Icons.Filled.GridOn,
+                            contentDescription = stringResource(R.string.grid_on)
+                        )
+                        Text(stringResource(R.string.pattern))
+                    }
                 }
+                Box(
+                    modifier = Modifier
+                        .clickable { /*TODO*/ }
+                        .fillMaxWidth()
+                        .height(52.dp)
+                        .background(color = Color.White),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Row {
+                        Icon(
+                            Icons.Filled.Palette,
+                            contentDescription = stringResource(R.string.palette)
+                        )
+                        Text(stringResource(R.string.background_color))
+                    }
+
+                }
+            }
+            Column(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Bottom,
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     Box(
                         modifier = Modifier
-                            .clickable { /*TODO*/ }
-                            .fillMaxWidth(0.5F)
-                            .height(52.dp)
-                            .background(color = MaterialTheme.colors.secondary),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Row {
-                            Icon(Icons.Filled.GridOn, contentDescription = stringResource(R.string.grid_on))
-                            Text(stringResource(R.string.pattern))
-                        }
-                    }
+                            .size(96.dp)
+                            .background(color = Color.Red),
+                    ) {}
                     Box(
                         modifier = Modifier
-                            .clickable { /*TODO*/ }
-                            .fillMaxWidth()
-                            .height(52.dp)
-                            .background(color = Color.White),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Row {
-                            Icon(Icons.Filled.Palette, contentDescription = stringResource(R.string.palette))
-                            Text(stringResource(R.string.background_color))
-                        }
-
-                    }
+                            .size(96.dp)
+                            .background(color = Color.Green),
+                    ) {}
+                    Box(
+                        modifier = Modifier
+                            .size(96.dp)
+                            .background(color = Color.Blue),
+                    ) {}
                 }
-                Column(
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Bottom,
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceAround
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(96.dp)
-                                .background(color = Color.Red),
-                        ) {}
-                        Box(
-                            modifier = Modifier
-                                .size(96.dp)
-                                .background(color = Color.Green),
-                        ) {}
-                        Box(
-                            modifier = Modifier
-                                .size(96.dp)
-                                .background(color = Color.Blue),
-                        ) {}
-                    }
-                    Spacer(modifier = Modifier.padding(vertical = 16.dp))
-                    BottomButton(
-                        onClick = { /*TODO*/ },
-                        backgroundColor = MaterialTheme.colors.primary,
-                        text = stringResource(R.string.navigation_check_result),
-                    )
-                }
+                Spacer(modifier = Modifier.padding(vertical = 16.dp))
+                BottomButton(
+                    onClick = { /*TODO*/ },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    text = stringResource(R.string.navigation_check_result),
+                )
             }
         }
     }
