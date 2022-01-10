@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -31,17 +32,17 @@ fun WelcomeScreen() {
             painter = painterResource(id = R.drawable.welcome_dog),
             contentDescription = stringResource(R.string.welcome_dog),
         )
-        Spacer(modifier = Modifier.padding(vertical = 24.dp))
+        Spacer(modifier = Modifier.height(height = 24.dp))
         Text(
             text = stringResource(R.string.welcome_message),
             style = MaterialTheme.typography.h5,
         )
-        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+        Spacer(modifier = Modifier.height(height = 8.dp))
         Text(
             text = stringResource(R.string.make_cute_wallpapers),
             style = MaterialTheme.typography.subtitle1,
         )
-        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+        Spacer(modifier = Modifier.height(height = 8.dp))
         BottomButton(
             onClick = { /*TODO*/ },
             backgroundColor = MaterialTheme.colors.primary,
