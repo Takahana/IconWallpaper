@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BottomButton(onClick: () -> Unit, backgroundColor: Color, text: String) {
+fun PrimaryColorButton(onClick: () -> Unit, backgroundColor: Color, text: String) {
     TextButton(
         onClick = onClick,
         shape = CircleShape,
@@ -39,5 +39,5 @@ fun BottomButton(onClick: () -> Unit, backgroundColor: Color, text: String) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewBottomButton() {
-    BottomButton(onClick = { }, backgroundColor = Color(0xffffebee), text = "ボタン")
+    PrimaryColorButton(onClick = { }, backgroundColor = Color(0xffffebee), text = "ボタン")
 }

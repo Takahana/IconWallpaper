@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.onbording.R
 import tech.takahana.iconwallpaper.android.onbording.ui.components.Announcements
 import tech.takahana.iconwallpaper.android.onbording.ui.components.AppBar
-import tech.takahana.iconwallpaper.android.onbording.ui.components.BottomButton
+import tech.takahana.iconwallpaper.android.onbording.ui.components.PrimaryColorButton
 import tech.takahana.iconwallpaper.android.onbording.ui.components.ItemGrid
 
 @Composable
@@ -39,7 +39,7 @@ fun SelectStuffScreen() {
                     .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
-                BottomButton(
+                PrimaryColorButton(
                     onClick = { /*TODO*/ },
                     backgroundColor = Color.LightGray,
                     text = stringResource(R.string.please_select_stuff),

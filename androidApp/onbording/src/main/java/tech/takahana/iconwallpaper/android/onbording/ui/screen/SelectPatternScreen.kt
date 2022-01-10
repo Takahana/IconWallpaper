@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.onbording.R
 import tech.takahana.iconwallpaper.android.onbording.ui.components.Announcements
 import tech.takahana.iconwallpaper.android.onbording.ui.components.AppBar
-import tech.takahana.iconwallpaper.android.onbording.ui.components.BottomButton
+import tech.takahana.iconwallpaper.android.onbording.ui.components.PrimaryColorButton
 
 @Composable
 fun SelectPatternScreen() {
@@ -118,7 +118,7 @@ fun SelectPatternScreen() {
                     ) {}
                 }
                 Spacer(modifier = Modifier.padding(vertical = 16.dp))
-                BottomButton(
+                PrimaryColorButton(
                     onClick = { /*TODO*/ },
                     backgroundColor = MaterialTheme.colors.primary,
                     text = stringResource(R.string.navigation_check_result),
