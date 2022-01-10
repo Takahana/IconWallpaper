@@ -36,7 +36,7 @@ fun PrimaryColorButton(onClick: () -> Unit, backgroundColor: Color, text: String
     }
 }
 
-@Preview(showSystemUi = true)
+@Preview
 @Composable
 fun PreviewBottomButton() {
     PrimaryColorButton(onClick = { }, backgroundColor = Color(0xffffebee), text = "ボタン")

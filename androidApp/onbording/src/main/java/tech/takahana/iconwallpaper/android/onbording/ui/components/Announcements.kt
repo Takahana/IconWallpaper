@@ -9,8 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import tech.takahana.iconwallpaper.android.onbording.R
 
 @Composable
 fun Announcements(message: String) {
@@ -25,8 +27,8 @@ fun Announcements(message: String) {
     }
 }
 
-@Preview(showSystemUi = true)
+@Preview
 @Composable
 fun PreviewAnnouncements() {
-    Announcements("ステップ1. 素材を選択する")
+    Announcements(stringResource(R.string.step1_seclect_stuff))
 }
