@@ -32,17 +32,17 @@ fun WelcomeScreen() {
             painter = painterResource(id = R.drawable.welcome_dog),
             contentDescription = stringResource(R.string.welcome_dog),
         )
-        Spacer(modifier = Modifier.height(height = 24.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.welcome_message),
             style = MaterialTheme.typography.h5,
         )
-        Spacer(modifier = Modifier.height(height = 8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = stringResource(R.string.make_cute_wallpapers),
             style = MaterialTheme.typography.subtitle1,
         )
-        Spacer(modifier = Modifier.height(height = 8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         PrimaryColorButton(
             onClick = { /*TODO*/ },
             backgroundColor = MaterialTheme.colors.primary,

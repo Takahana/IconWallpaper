@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,26 +24,26 @@ import androidx.compose.ui.unit.dp
 fun ItemGrid(columnNum: Int) {
     LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
         for (i in 1..columnNum) {
-            item { Spacer(modifier = Modifier.height(height = 12.dp)) }
+            item { Spacer(modifier = Modifier.height(12.dp)) }
             item {
                 Row(
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Spacer(modifier = Modifier.height(height = 24.dp))
+                    Spacer(modifier = Modifier.width(24.dp))
                     Box(
                         modifier = Modifier
                             .size(80.dp)
                             .clip(RectangleShape)
                             .background(Color.Blue)
                     )
-                    Spacer(modifier = Modifier.height(height = 24.dp))
+                    Spacer(modifier = Modifier.width(24.dp))
                     Box(
                         modifier = Modifier
                             .size(80.dp)
                             .clip(CircleShape)
                             .background(Color.Green)
                     )
-                    Spacer(modifier = Modifier.height(height = 24.dp))
+                    Spacer(modifier = Modifier.width(24.dp))
                     Box(
                         modifier = Modifier
                             .size(80.dp)
