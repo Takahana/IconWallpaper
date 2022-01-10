@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import tech.takahana.iconwallpaper.android.home.R
-import tech.takahana.iconwallpaper.android.onbording.ui.screen.SelectStuffScreen
 
 @Composable
 fun HomeScreen() {

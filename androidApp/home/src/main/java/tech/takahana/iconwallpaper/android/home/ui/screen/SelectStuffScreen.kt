@@ -1,4 +1,4 @@
-package tech.takahana.iconwallpaper.android.onbording.ui.screen
+package tech.takahana.iconwallpaper.android.home.ui.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
