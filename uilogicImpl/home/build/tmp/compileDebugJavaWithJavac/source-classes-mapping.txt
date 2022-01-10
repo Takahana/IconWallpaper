@@ -1,2 +1,0 @@
-tech/takahana/iconwallpapaer/uilogic/home/BuildConfig.java
- tech.takahana.iconwallpapaer.uilogic.home.BuildConfig
