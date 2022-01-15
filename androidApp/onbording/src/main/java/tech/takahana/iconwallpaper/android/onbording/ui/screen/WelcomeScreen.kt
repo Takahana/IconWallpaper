@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import tech.takahana.iconwallpaper.android.core.ui.components.PrimaryColorButton
+import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.onbording.R
 
 @Composable
@@ -48,7 +48,7 @@ fun WelcomeScreen() {
                 .padding(20.dp),
             contentAlignment = Alignment.Center
         ) {
-            PrimaryColorButton(
+            RoundButton(
                 onClick = { /*TODO*/ },
                 backgroundColor = MaterialTheme.colors.primary,
                 text = stringResource(R.string.make),

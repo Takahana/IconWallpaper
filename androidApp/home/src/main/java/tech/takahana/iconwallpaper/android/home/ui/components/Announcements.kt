@@ -29,6 +29,6 @@ fun Announcements(message: String) {
 
 @Preview
 @Composable
-fun PreviewAnnouncements() {
+private fun PreviewAnnouncements() {
     Announcements(stringResource(R.string.step1_seclect_stuff))
 }

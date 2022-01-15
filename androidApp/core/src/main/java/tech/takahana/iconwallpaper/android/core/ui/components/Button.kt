@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PrimaryColorButton(onClick: () -> Unit, backgroundColor: Color, text: String) {
+fun RoundButton(onClick: () -> Unit, backgroundColor: Color, text: String) {
     TextButton(
         onClick = onClick,
         shape = CircleShape,
@@ -38,6 +38,6 @@ fun PrimaryColorButton(onClick: () -> Unit, backgroundColor: Color, text: String
 
 @Preview
 @Composable
-fun PreviewBottomButton() {
-    PrimaryColorButton(onClick = { }, backgroundColor = Color(0xffffebee), text = "ボタン")
+private fun PreviewRoundButton() {
+    RoundButton(onClick = { }, backgroundColor = Color(0xffffebee), text = "ボタン")
 }

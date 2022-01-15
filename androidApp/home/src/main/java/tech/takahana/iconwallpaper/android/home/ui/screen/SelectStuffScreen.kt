@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import tech.takahana.iconwallpaper.android.core.ui.components.PrimaryColorButton
+import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.Announcements
 import tech.takahana.iconwallpaper.android.home.ui.components.ItemGrid
@@ -30,7 +30,7 @@ fun SelectStuffScreen() {
                 .padding(20.dp),
             contentAlignment = Alignment.Center
         ) {
-            PrimaryColorButton(
+            RoundButton(
                 onClick = { /*TODO*/ },
                 backgroundColor = Color.LightGray,
                 text = stringResource(R.string.please_select_stuff),
@@ -41,6 +41,6 @@ fun SelectStuffScreen() {
 
 @Preview(showSystemUi = true)
 @Composable
-fun PreviewSelectStuffScreen() {
+private fun PreviewSelectStuffScreen() {
     SelectStuffScreen()
 }

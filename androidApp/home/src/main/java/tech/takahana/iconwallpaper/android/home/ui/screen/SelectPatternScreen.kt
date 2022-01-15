@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import tech.takahana.iconwallpaper.android.core.ui.components.PrimaryColorButton
+import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.Announcements
 
@@ -111,7 +111,7 @@ fun SelectPatternScreen() {
                 ) {}
             }
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
-            PrimaryColorButton(
+            RoundButton(
                 onClick = { /*TODO*/ },
                 backgroundColor = MaterialTheme.colors.primary,
                 text = stringResource(R.string.navigation_check_result),
@@ -123,6 +123,6 @@ fun SelectPatternScreen() {
 
 @Preview(showSystemUi = true)
 @Composable
-fun PreviewSelectPatternScreen() {
+private fun PreviewSelectPatternScreen() {
     SelectPatternScreen()
 }

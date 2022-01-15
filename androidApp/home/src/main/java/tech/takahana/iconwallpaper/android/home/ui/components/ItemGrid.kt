@@ -58,6 +58,6 @@ fun ItemGrid(columnNum: Int) {
 
 @Preview(showSystemUi = true)
 @Composable
-fun PreviewItemGrid() {
+private fun PreviewItemGrid() {
     ItemGrid(5)
 }
