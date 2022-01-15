@@ -17,8 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import tech.takahana.iconwallpaper.android.core.ui.components.PrimaryColorButton
 import tech.takahana.iconwallpaper.android.onbording.R
-import tech.takahana.iconwallpaper.android.onbording.ui.components.PrimaryColorButton
 
 @Composable
 fun WelcomeScreen() {

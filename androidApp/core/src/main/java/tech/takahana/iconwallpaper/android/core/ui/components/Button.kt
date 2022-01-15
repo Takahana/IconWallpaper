@@ -1,4 +1,4 @@
-package tech.takahana.iconwallpaper.android.home.ui.components
+package tech.takahana.iconwallpaper.android.core.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
