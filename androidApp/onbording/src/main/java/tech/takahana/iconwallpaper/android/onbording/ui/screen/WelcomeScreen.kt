@@ -39,7 +39,7 @@ fun WelcomeScreen() {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = stringResource(R.string.make_cute_wallpapers),
+            text = stringResource(R.string.welcome_make_cute_wallpapers),
             style = MaterialTheme.typography.subtitle1,
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -51,7 +51,7 @@ fun WelcomeScreen() {
             RoundButton(
                 onClick = { /*TODO*/ },
                 backgroundColor = MaterialTheme.colors.primary,
-                text = stringResource(R.string.make),
+                text = stringResource(R.string.welcome_make),
             )
         }
     }
