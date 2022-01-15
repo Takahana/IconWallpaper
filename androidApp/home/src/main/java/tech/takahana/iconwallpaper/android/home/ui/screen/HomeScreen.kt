@@ -16,12 +16,12 @@ fun HomeScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.page_title)) },
+                title = { Text(stringResource(R.string.home_page_title)) },
                 navigationIcon = {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
                             Icons.Filled.Menu,
-                            contentDescription = stringResource(R.string.open_drawer)
+                            contentDescription = stringResource(R.string.home_open_drawer)
                         )
                     }
                 },
@@ -29,19 +29,19 @@ fun HomeScreen() {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
                             Icons.Filled.Notifications,
-                            contentDescription = stringResource(R.string.notifications)
+                            contentDescription = stringResource(R.string.home_notifications)
                         )
                     }
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
                             Icons.Filled.Share,
-                            contentDescription = stringResource(R.string.share)
+                            contentDescription = stringResource(R.string.home_share)
                         )
                     }
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
                             Icons.Filled.Search,
-                            contentDescription = stringResource(R.string.search)
+                            contentDescription = stringResource(R.string.home_search)
                         )
                     }
                 }

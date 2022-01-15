@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.home.R
 
 @Composable
-fun Announcements(message: String) {
+fun StepAnnouncement(message: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,6 +29,6 @@ fun Announcements(message: String) {
 
 @Preview
 @Composable
-private fun PreviewAnnouncements() {
-    Announcements(stringResource(R.string.step1_seclect_stuff))
+private fun PreviewStepAnnouncement() {
+    StepAnnouncement(stringResource(R.string.home_step1_seclect_stuff))
 }

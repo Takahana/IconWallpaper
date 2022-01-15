@@ -19,7 +19,7 @@ fun RoundButton(onClick: () -> Unit, backgroundColor: Color, text: String) {
     TextButton(
         onClick = onClick,
         shape = CircleShape,
-        border = (BorderStroke(1.dp, Color.Black)),
+        border = (BorderStroke(1.dp, Color(0xff707070))),
         modifier = Modifier
             .background(
                 color = backgroundColor,

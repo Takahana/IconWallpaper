@@ -13,8 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.home.R
-import tech.takahana.iconwallpaper.android.home.ui.components.Announcements
 import tech.takahana.iconwallpaper.android.home.ui.components.ItemGrid
+import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 
 @Composable
 fun SelectStuffScreen() {
@@ -23,7 +23,7 @@ fun SelectStuffScreen() {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Announcements(message = stringResource(R.string.step1_seclect_stuff))
+        StepAnnouncement(message = stringResource(R.string.home_step1_seclect_stuff))
         ItemGrid(columnNum = 5)
         Box(
             modifier = Modifier
@@ -33,7 +33,7 @@ fun SelectStuffScreen() {
             RoundButton(
                 onClick = { /*TODO*/ },
                 backgroundColor = Color.LightGray,
-                text = stringResource(R.string.please_select_stuff),
+                text = stringResource(R.string.home_please_select_stuff),
             )
         }
     }

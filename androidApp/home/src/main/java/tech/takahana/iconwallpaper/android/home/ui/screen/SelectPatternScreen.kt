@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.home.R
-import tech.takahana.iconwallpaper.android.home.ui.components.Announcements
+import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 
 @Composable
 fun SelectPatternScreen() {
@@ -36,7 +36,7 @@ fun SelectPatternScreen() {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Announcements(message = stringResource(R.string.step2_seclect_pattern))
+        StepAnnouncement(message = stringResource(R.string.home_step2_seclect_pattern))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -60,9 +60,9 @@ fun SelectPatternScreen() {
                 Row {
                     Icon(
                         Icons.Filled.GridOn,
-                        contentDescription = stringResource(R.string.grid_on)
+                        contentDescription = stringResource(R.string.home_grid_on)
                     )
-                    Text(stringResource(R.string.pattern))
+                    Text(stringResource(R.string.home_pattern))
                 }
             }
             Box(
@@ -76,9 +76,9 @@ fun SelectPatternScreen() {
                 Row {
                     Icon(
                         Icons.Filled.Palette,
-                        contentDescription = stringResource(R.string.palette)
+                        contentDescription = stringResource(R.string.home_palette)
                     )
-                    Text(stringResource(R.string.background_color))
+                    Text(stringResource(R.string.home_background_color))
                 }
 
             }
@@ -114,7 +114,7 @@ fun SelectPatternScreen() {
             RoundButton(
                 onClick = { /*TODO*/ },
                 backgroundColor = MaterialTheme.colors.primary,
-                text = stringResource(R.string.navigation_check_result),
+                text = stringResource(R.string.home_navigation_check_result),
             )
         }
     }
