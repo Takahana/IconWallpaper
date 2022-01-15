@@ -2,7 +2,6 @@ package tech.takahana.iconwallpaper.usecase.home
 
 import com.futuremind.koru.ToNativeClass
 import tech.takahana.iconwallpaper.shared.coroutines.flow.MutableSharedFlowReplayable
-import tech.takahana.iconwallpaper.usecase.onboarding.HomeUseCase
 
 @ToNativeClass(name = "HomeUseCaseImplIos")
 class HomeUseCaseImpl : HomeUseCase {

@@ -14,7 +14,6 @@ import tech.takahana.iconwallpapaer.uilogic.home.HomeUiLogicImpl
 import tech.takahana.iconwallpapaer.uilogic.welcome.WelcomeUiLogicImpl
 import tech.takahana.iconwallpaper.Greeting
 import tech.takahana.iconwallpaper.android.home.ui.screen.HomeScreen
-import tech.takahana.iconwallpaper.android.onbording.ui.screen.WelcomeScreen
 import tech.takahana.iconwallpaper.android.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.uilogic.home.HomeUiLogic
 import tech.takahana.iconwallpaper.uilogic.welcome.WelcomeUiLogic

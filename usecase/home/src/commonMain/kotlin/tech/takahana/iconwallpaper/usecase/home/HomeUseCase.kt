@@ -1,4 +1,4 @@
-package tech.takahana.iconwallpaper.usecase.onboarding
+package tech.takahana.iconwallpaper.usecase.home
 
 import com.futuremind.koru.ToNativeInterface
 import kotlinx.coroutines.flow.SharedFlow
