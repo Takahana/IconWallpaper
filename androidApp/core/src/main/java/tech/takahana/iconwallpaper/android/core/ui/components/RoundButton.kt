@@ -15,12 +15,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RoundButton(onClick: () -> Unit, backgroundColor: Color, text: String) {
+fun RoundButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    backgroundColor: Color,
+    text: String
+) {
     TextButton(
         onClick = onClick,
         shape = CircleShape,
         border = (BorderStroke(1.dp, Color(0xff707070))),
-        modifier = Modifier
+        modifier = modifier
             .background(
                 color = backgroundColor,
                 shape = CircleShape,
