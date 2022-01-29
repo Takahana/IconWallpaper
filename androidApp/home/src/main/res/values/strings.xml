@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_step1_seclect_stuff">ステップ1. 素材を選択する</string>
+    <string name="home_please_select_stuff">素材を選択してください</string>
+    <string name="home_step2_seclect_pattern">ステップ2. パターンを選択する</string>
+    <string name="home_pattern">パターン</string>
+    <string name="home_background_color">背景色</string>
+    <string name="home_navigation_check_result">確認画面へ</string>
+    <string name="home_grid_on">Grid on</string>
+    <string name="home_palette">Palette</string>
+    <string name="home_open_drawer">Open drawer</string>
+    <string name="home_notifications">Notifications</string>
+    <string name="home_share">Share</string>
+    <string name="home_search">Search</string>
+    <string name="home_page_title">Page title</string>
+</resources>

@@ -21,17 +21,22 @@ android {
         }
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-beta04"
+        kotlinCompilerExtensionVersion = "1.1.0-rc01"
     }
 }
 
 dependencies {
     implementation(projects.shared)
     implementation(projects.androidApp.onbording)
+    implementation(projects.androidApp.home)
     implementation(projects.uilogic.welcome)
+    implementation(projects.uilogic.home)
     implementation(projects.uilogicImpl.welcome)
+    implementation(projects.uilogicImpl.home)
     implementation(projects.usecase.onboarding)
+    implementation(projects.usecase.home)
     implementation(projects.usecaseImpl.onboarding)
+    implementation(projects.usecaseImpl.home)
     implementation(libs.google.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
