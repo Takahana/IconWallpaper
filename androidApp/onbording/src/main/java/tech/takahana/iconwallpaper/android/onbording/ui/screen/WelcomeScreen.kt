@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +34,8 @@ fun WelcomeScreen() {
             contentDescription = stringResource(R.string.welcome_dog),
             modifier = Modifier
                 .weight(1f)
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
