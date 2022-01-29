@@ -31,6 +31,9 @@ fun WelcomeScreen() {
         Image(
             painter = painterResource(id = R.drawable.welcome_dog),
             contentDescription = stringResource(R.string.welcome_dog),
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
