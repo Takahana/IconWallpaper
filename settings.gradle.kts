@@ -9,7 +9,7 @@ pluginManagement {
 }
 
 rootProject.name = "IconWallpaper"
-include(":androidApp")
+include(":androidApp:app")
 include(":iosExport")
 include(":shared")
 include(":uilogic:welcome")
