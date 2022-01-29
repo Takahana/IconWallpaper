@@ -25,3 +25,4 @@ iosApp/iosApp.xcworkspace/xcuserdata
 androidApp/onbording/build
 androidApp/app/build
 androidApp/home/build
+gradle/projectDependencyGraph.gradle

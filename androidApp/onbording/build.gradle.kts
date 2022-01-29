@@ -1,14 +1,16 @@
+import tech.takahana.iconwallpaper.gradle.propertyAsInt
+
 plugins {
     id("com.android.library")
     kotlin("android")
 }
 
 android {
-    compileSdk = findProperty("android.compileSdk").toString().toInt()
+    compileSdk = propertyAsInt("android.compileSdk")
 
     defaultConfig {
-        minSdk = findProperty("android.minSdk").toString().toInt()
-        targetSdk = findProperty("android.targetSdk").toString().toInt()
+        minSdk = propertyAsInt("android.minSdk")
+        targetSdk = propertyAsInt("android.minSdk")
         consumerProguardFiles("consumer-rules.pro")
     }
 
