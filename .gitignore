@@ -24,8 +24,5 @@ iosApp/iosApp.xcworkspace/xcshareddata
 iosApp/iosApp.xcworkspace/xcuserdata
 androidApp/onbording/build
 androidApp/app/build
-<<<<<<< HEAD
-gradle/projectDependencyGraph.gradle
-=======
 androidApp/home/build
->>>>>>> main
+gradle/projectDependencyGraph.gradle
