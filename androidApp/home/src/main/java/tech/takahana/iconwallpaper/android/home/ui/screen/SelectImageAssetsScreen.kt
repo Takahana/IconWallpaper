@@ -17,7 +17,7 @@ import tech.takahana.iconwallpaper.android.home.ui.components.ItemGrid
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 
 @Composable
-fun SelectStuffScreen() {
+fun SelectImageAssetsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -42,5 +42,5 @@ fun SelectStuffScreen() {
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewSelectStuffScreen() {
-    SelectStuffScreen()
+    SelectImageAssetsScreen()
 }
