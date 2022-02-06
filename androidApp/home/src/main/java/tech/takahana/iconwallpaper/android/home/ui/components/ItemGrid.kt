@@ -21,8 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ItemGrid(columnNum: Int) {
-    LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
+fun ItemGrid(
+    modifier: Modifier = Modifier,
+    columnNum: Int
+) {
+    LazyColumn(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         for (i in 1..columnNum) {
             item { Spacer(modifier = Modifier.height(12.dp)) }
             item {
@@ -59,5 +65,5 @@ fun ItemGrid(columnNum: Int) {
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewItemGrid() {
-    ItemGrid(5)
+    ItemGrid(columnNum = 5)
 }
