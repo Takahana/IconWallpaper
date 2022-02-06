@@ -29,6 +29,7 @@ android {
 
 dependencies {
     implementation(projects.shared)
+    implementation(projects.androidApp.core)
     implementation(projects.androidApp.onbording)
     implementation(projects.androidApp.home)
     implementation(projects.uilogic.welcome)
