@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
-import tech.takahana.iconwallpaper.shared.domain.domainobject.LocalImageAsset
 
 @OptIn(
     ExperimentalFoundationApi::class,

@@ -24,8 +24,8 @@ import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImageAssetItemGrid
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
+import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
-import tech.takahana.iconwallpaper.shared.domain.domainobject.LocalImageAsset
 
 @Composable
 fun SelectImageAssetsScreen(
