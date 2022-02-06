@@ -33,7 +33,7 @@ fun SelectImageAssetsScreen() {
             RoundButton(
                 onClick = { /*TODO*/ },
                 backgroundColor = Color.LightGray,
-                text = stringResource(R.string.home_please_select_stuff),
+                text = stringResource(R.string.home_please_select_image_assets),
             )
         }
     }

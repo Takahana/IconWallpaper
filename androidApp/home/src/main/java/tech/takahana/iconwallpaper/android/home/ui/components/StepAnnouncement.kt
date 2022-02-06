@@ -30,5 +30,5 @@ fun StepAnnouncement(message: String) {
 @Preview
 @Composable
 private fun PreviewStepAnnouncement() {
-    StepAnnouncement(stringResource(R.string.home_step1_seclect_stuff))
+    StepAnnouncement(stringResource(R.string.home_step1_seclect_image_assets))
 }
