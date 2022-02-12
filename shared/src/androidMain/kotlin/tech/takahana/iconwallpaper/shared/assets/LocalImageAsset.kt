@@ -1,18 +1,24 @@
 package tech.takahana.iconwallpaper.shared.assets
 
 import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 
 actual data class LocalImageAsset actual constructor(
-    val name: AssetName
+    override val id: AssetId,
+    override val name: AssetName,
 ) : ImageAsset {
 
     @DrawableRes
-    var resId: Int = -1
+    var resId: Int = ResourcesCompat.ID_NULL
         private set
 
-    constructor(name: AssetName, @DrawableRes resId: Int) : this(name) {
+    constructor(name: AssetName, @DrawableRes resId: Int) : this(
+        AssetId.requireGet(resId.toString()),
+        name,
+    ) {
         this.resId = resId
     }
 }
