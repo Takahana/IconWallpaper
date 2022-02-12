@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home_step1_seclect_stuff">ステップ1. 素材を選択する</string>
-    <string name="home_please_select_stuff">素材を選択してください</string>
+    <string name="home_step1_seclect_image_assets">ステップ1. 素材を選択する</string>
+    <string name="home_please_select_image_assets">素材を選択してください</string>
     <string name="home_step2_seclect_pattern">ステップ2. パターンを選択する</string>
     <string name="home_pattern">パターン</string>
     <string name="home_background_color">背景色</string>

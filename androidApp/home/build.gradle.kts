@@ -44,5 +44,6 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.coil.compose)
+    implementation(projects.shared)
     implementation(projects.androidApp.core)
 }

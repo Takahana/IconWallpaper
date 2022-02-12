@@ -46,7 +46,7 @@ fun HomeScreen() {
                     }
                 }
             )
-        }, content = { SelectStuffScreen() }
+        }, content = { SelectImageAssetsScreen() }
     )
 }
 

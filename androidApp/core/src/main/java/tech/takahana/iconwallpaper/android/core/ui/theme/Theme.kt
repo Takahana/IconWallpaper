@@ -1,4 +1,4 @@
-package tech.takahana.iconwallpaper.android.theme
+package tech.takahana.iconwallpaper.android.core.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
