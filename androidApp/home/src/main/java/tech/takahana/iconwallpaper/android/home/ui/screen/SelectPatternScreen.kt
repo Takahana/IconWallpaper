@@ -80,7 +80,6 @@ fun SelectPatternScreen() {
                     )
                     Text(stringResource(R.string.home_background_color))
                 }
-
             }
         }
         Column(
@@ -119,7 +118,6 @@ fun SelectPatternScreen() {
         }
     }
 }
-
 
 @Preview(showSystemUi = true)
 @Composable
