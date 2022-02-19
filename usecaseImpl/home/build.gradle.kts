@@ -34,6 +34,7 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(projects.shared)
                 implementation(projects.usecase.home)
+                implementation(projects.repository)
             }
         }
         val commonTest by getting {
