@@ -15,10 +15,7 @@ actual data class LocalImageAsset actual constructor(
     var resId: Int = ResourcesCompat.ID_NULL
         private set
 
-    constructor(name: AssetName, @DrawableRes resId: Int) : this(
-        AssetId.requireGet(resId.toString()),
-        name,
-    ) {
+    constructor(id: AssetId, name: AssetName, @DrawableRes resId: Int) : this(id, name) {
         this.resId = resId
     }
 }
