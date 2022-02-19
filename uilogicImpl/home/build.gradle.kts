@@ -32,6 +32,7 @@ kotlin {
                     )
                 )
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(projects.shared)
                 implementation(projects.uilogic.home)
                 implementation(projects.usecase.home)
             }
