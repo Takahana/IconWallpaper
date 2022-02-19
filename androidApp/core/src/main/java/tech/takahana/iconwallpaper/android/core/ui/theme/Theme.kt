@@ -11,6 +11,7 @@ val Red800 = Color(0xffd00036)
 val Teal50 = Color(0xffe0f2f1)
 val Teal100 = Color(0xffb2dfdb)
 val Gray100 = Color(0xfff5f5f5)
+val LightBlue50 = Color(0xffe1f5fe)
 
 private val LightColors = lightColors(
     primary = Red50,
