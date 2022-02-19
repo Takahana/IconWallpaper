@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpapaer.uilogic.welcome.WelcomeUiLogicImpl
@@ -27,6 +28,7 @@ fun welcomeUiLogic(): WelcomeUiLogic {
     )
 }
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val welcomeUiLogic: WelcomeUiLogic by lazy { welcomeUiLogic() }
