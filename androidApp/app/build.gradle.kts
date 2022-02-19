@@ -3,6 +3,8 @@ import tech.takahana.iconwallpaper.gradle.propertyAsInt
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -47,4 +49,12 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.coil.compose)
+
+    // Dagger Hilt
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+}
+
+kapt {
+    correctErrorTypes = true
 }
