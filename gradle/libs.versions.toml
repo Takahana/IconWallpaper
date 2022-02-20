@@ -2,6 +2,7 @@
 # native
 koru = "0.10.0"
 kotlinx-coroutines-core = "1.6.0-RC3"
+kotlinx-coroutines-test = "1.6.0"
 
 # android
 google-android-material = "1.4.0"
@@ -23,6 +24,7 @@ dagger-hilt = "2.41"
 # native
 koru = { module = "com.futuremind:koru", version.ref = "koru" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 
 # android
 google-android-material = { module = "com.google.android.material:material", version.ref = "google-android-material" }
