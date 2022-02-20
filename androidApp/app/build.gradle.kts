@@ -42,6 +42,8 @@ dependencies {
     implementation(projects.usecase.home)
     implementation(projects.usecaseImpl.onboarding)
     implementation(projects.usecaseImpl.home)
+    implementation(projects.repository)
+    implementation(projects.repositoryImpl)
     implementation(libs.google.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
