@@ -25,6 +25,7 @@ import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImageAssetItemGrid
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 
 @Composable
@@ -55,6 +56,7 @@ fun SelectImageAssetsScreen(
             },
             items = (1..100).map {
                 LocalImageAsset(
+                    id = AssetId("assetId_$it"),
                     name = AssetName("cat"),
                     resId = R.drawable.cat
                 )
