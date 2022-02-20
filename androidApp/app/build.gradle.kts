@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.coil.compose)
+    testImplementation(libs.junit)
 
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
