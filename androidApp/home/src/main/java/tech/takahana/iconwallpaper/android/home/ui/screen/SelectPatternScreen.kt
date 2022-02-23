@@ -29,7 +29,9 @@ import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
+import tech.takahana.iconwallpaper.android.home.ui.type.PatternType
 
 @Composable
 fun SelectPatternScreen() {
@@ -44,8 +46,9 @@ fun SelectPatternScreen() {
                 .fillMaxWidth()
                 .height(384.dp)
                 .background(color = MaterialTheme.colors.secondaryVariant),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
+            ImagePattern(patternType = PatternType.SMALL)
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -98,17 +101,19 @@ fun SelectPatternScreen() {
                 Box(
                     modifier = Modifier
                         .size(96.dp)
-                        .background(color = Color.Red),
+                        .background(color = MaterialTheme.colors.secondaryVariant),
+                ) {
+                    ImagePattern(patternType = PatternType.SMALL)
+                }
+                Box(
+                    modifier = Modifier
+                        .size(96.dp)
+                        .background(color = MaterialTheme.colors.secondaryVariant),
                 ) {}
                 Box(
                     modifier = Modifier
                         .size(96.dp)
-                        .background(color = Color.Green),
-                ) {}
-                Box(
-                    modifier = Modifier
-                        .size(96.dp)
-                        .background(color = Color.Blue),
+                        .background(color = MaterialTheme.colors.secondaryVariant),
                 ) {}
             }
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
