@@ -58,7 +58,6 @@ dependencies {
     kapt(libs.dagger.hilt.compiler)
 }
 
-
 kapt {
     correctErrorTypes = true
 }
