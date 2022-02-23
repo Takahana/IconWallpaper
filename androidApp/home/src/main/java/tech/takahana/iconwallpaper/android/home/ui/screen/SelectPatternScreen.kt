@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridOn
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
+import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 
@@ -41,7 +43,7 @@ fun SelectPatternScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(384.dp)
-                .background(color = Color.Cyan),
+                .background(color = MaterialTheme.colors.secondaryVariant),
             contentAlignment = Alignment.Center,
         ) {
         }
@@ -122,5 +124,9 @@ fun SelectPatternScreen() {
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewSelectPatternScreen() {
-    SelectPatternScreen()
+    IconWallPaperTheme {
+        Surface {
+            SelectPatternScreen()
+        }
+    }
 }
