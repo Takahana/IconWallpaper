@@ -32,6 +32,12 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        filter {
+            exclude("**/generated/**")
+        }
+    }
 }
 
 tasks.register("clean", Delete::class) {
