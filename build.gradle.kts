@@ -36,6 +36,11 @@ allprojects {
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         filter {
             exclude("**/generated/**")
+            ignoreFailures.set(true)
+            reporters {
+                reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+                reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+            }
         }
     }
 }
