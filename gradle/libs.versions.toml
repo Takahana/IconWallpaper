@@ -2,6 +2,7 @@
 # native
 koru = "0.10.0"
 kotlinx-coroutines-core = "1.6.0-RC3"
+kotlinx-coroutines-test = "1.6.0"
 
 # android
 google-android-material = "1.4.0"
@@ -18,11 +19,13 @@ constraintlayout-compose = "1.0.0"
 coil = "1.3.2"
 accompanist = "0.18.0"
 dagger-hilt = "2.41"
+junit = "4.13.2"
 
 [libraries]
 # native
 koru = { module = "com.futuremind:koru", version.ref = "koru" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 
 # android
 google-android-material = { module = "com.google.android.material:material", version.ref = "google-android-material" }
@@ -49,6 +52,7 @@ accompanist-insets = { module = "com.google.accompanist:accompanist-insets", ver
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger-hilt" }
+junit = { module = "junit:junit", version.ref = "junit" }
 
 # plugin
 dagger-hilt-agp = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }

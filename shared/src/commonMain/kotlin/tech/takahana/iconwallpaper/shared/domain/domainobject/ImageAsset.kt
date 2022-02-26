@@ -1,3 +1,6 @@
 package tech.takahana.iconwallpaper.shared.domain.domainobject
 
-interface ImageAsset
+interface ImageAsset {
+    val id: AssetId
+    val name: AssetName
+}

@@ -18,6 +18,7 @@ import coil.annotation.ExperimentalCoilApi
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 
@@ -57,6 +58,7 @@ private fun PreviewItemGrid() {
             ImageAssetItemGrid(
                 items = (1..10).map {
                     LocalImageAsset(
+                        id = AssetId("assetId_$it"),
                         name = AssetName("cat"),
                         resId = R.drawable.cat
                     )
