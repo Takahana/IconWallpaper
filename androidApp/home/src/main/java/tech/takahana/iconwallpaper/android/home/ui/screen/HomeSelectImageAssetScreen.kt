@@ -104,7 +104,7 @@ fun HomeSelectImageAssetScreen(
 private fun PreviewSelectStuffScreen() {
     IconWallPaperTheme {
         Surface {
-            SelectImageAssetsScreen()
+            HomeSelectImageAssetScreen()
         }
     }
 }
