@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun subscribeFinishOnBoardingEffect() {
         lifecycleScope.launchWhenCreated {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
