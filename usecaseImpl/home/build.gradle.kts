@@ -34,12 +34,15 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(projects.shared)
                 implementation(projects.usecase.home)
+                implementation(projects.repository)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.mockk)
             }
         }
         val androidMain by getting

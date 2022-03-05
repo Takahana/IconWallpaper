@@ -17,7 +17,6 @@ import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.ui.screen.HomeScreen
 import tech.takahana.iconwallpaper.uilogic.home.HomeUiLogic
 import tech.takahana.iconwallpaper.uilogic.welcome.WelcomeUiLogic
-import tech.takahana.iconwallpaper.usecase.home.HomeUseCaseImpl
 import tech.takahana.iconwallpaper.usecase.onboarding.WelcomeUseCaseImpl
 
 fun greet(): String {
@@ -31,9 +30,7 @@ fun welcomeUiLogic(): WelcomeUiLogic {
 }
 
 fun homeUiLogic(): HomeUiLogic {
-    return HomeUiLogicImpl(
-        useCase = HomeUseCaseImpl()
-    )
+    return HomeUiLogicImpl()
 }
 
 class MainActivity : AppCompatActivity() {

@@ -32,6 +32,7 @@ kotlin {
                     )
                 )
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(projects.shared)
             }
         }
         val commonTest by getting {
