@@ -50,7 +50,7 @@ fun HomeScreen() {
                     }
                 }
             )
-        }, content = { SelectImageAssetsScreen() }
+        }, content = { SelectPatternScreen() }
     )
 }
 
