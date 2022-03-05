@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import tech.takahana.iconwallpaper.shared.VisibleForTesting
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectImageAssetUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
@@ -17,7 +18,8 @@ class HomeSelectImageAssetUiLogicImpl(
     private val homeSelectImageAssetUseCase: HomeSelectImageAssetUseCase
 ) : HomeSelectImageAssetUiLogic {
 
-    private val mutableImageAssetListSource = MutableStateFlow<List<ImageAsset>>(emptyList())
+    @VisibleForTesting
+    val mutableImageAssetListSource = MutableStateFlow<List<ImageAsset>>(emptyList())
 
     override val imageAssetListStateFlow: StateFlow<List<ImageAssetUiModel>> =
         combine(
