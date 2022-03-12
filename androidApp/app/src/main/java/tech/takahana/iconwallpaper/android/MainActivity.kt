@@ -10,12 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import tech.takahana.iconwallpapaer.uilogic.home.HomeUiLogicImpl
 import tech.takahana.iconwallpapaer.uilogic.welcome.WelcomeUiLogicImpl
 import tech.takahana.iconwallpaper.Greeting
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.ui.screen.HomeScreen
-import tech.takahana.iconwallpaper.uilogic.home.HomeUiLogic
 import tech.takahana.iconwallpaper.uilogic.welcome.WelcomeUiLogic
 import tech.takahana.iconwallpaper.usecase.onboarding.WelcomeUseCaseImpl
 
@@ -29,14 +27,9 @@ fun welcomeUiLogic(): WelcomeUiLogic {
     )
 }
 
-fun homeUiLogic(): HomeUiLogic {
-    return HomeUiLogicImpl()
-}
-
 class MainActivity : AppCompatActivity() {
 
     private val welcomeUiLogic: WelcomeUiLogic by lazy { welcomeUiLogic() }
-    private val homeUiLogic: HomeUiLogic by lazy { homeUiLogic() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,30 +57,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun homeOnClickButton() {
-        lifecycleScope.launchWhenStarted {
-            homeUiLogic.onClickedFinishButton()
-        }
-    }
-
     private fun subscribeFinishOnBoardingEffect() {
         lifecycleScope.launchWhenCreated {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 welcomeUiLogic.finishedOnBoardingEffect
                     .onEach {
                         showMessageFinishedOnBoarding()
-                    }
-                    .launchIn(this)
-            }
-        }
-    }
-
-    private fun subscribeFinishHomeEffect() {
-        lifecycleScope.launchWhenCreated {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeUiLogic.finishedHomeEffect
-                    .onEach {
-                        showMessageFinishedHome()
                     }
                     .launchIn(this)
             }
