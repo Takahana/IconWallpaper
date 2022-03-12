@@ -36,84 +36,55 @@ fun ImagePattern(patternType: PatternType) {
             PatternType.MEDIUM -> {
                 val dstSize = IntSize((canvasWidth / 3).toInt(), (canvasHeight / 3).toInt())
                 val coverSize = Size((canvasWidth / 3 / 2), (canvasHeight / 3))
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(x = 0, y = 0)
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(x = (canvasWidth / 3 * 1).toInt(), y = 0)
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(x = (canvasWidth / 3 * 2).toInt(), y = 0)
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(
-                        x = (canvasWidth / 3 * -1 / 2).toInt(),
-                        y = (canvasHeight / 3).toInt()
-                    )
-                )
-                drawRect(
-                    color = backGroundColor,
-                    topLeft = Offset(x = canvasWidth / 3 * -1 / 2, y = canvasHeight / 3F),
-                    size = coverSize
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(
-                        x = (canvasWidth / 3 * 1 / 2).toInt(),
-                        y = (canvasHeight / 3).toInt()
-                    )
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(
-                        x = (canvasWidth / 3 * 3 / 2).toInt(),
-                        y = (canvasHeight / 3).toInt()
-                    )
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(
-                        x = (canvasWidth / 3 * 5 / 2).toInt(),
-                        y = (canvasHeight / 3).toInt()
-                    )
-                )
-                drawRect(
-                    color = backGroundColor,
-                    topLeft = Offset(x = canvasWidth / 3 * 6 / 2, y = canvasHeight / 3F),
-                    size = coverSize
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(x = 0, y = (canvasHeight / 3 * 2).toInt())
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(
-                        x = (canvasWidth / 3 * 1).toInt(),
-                        y = (canvasHeight / 3 * 2).toInt()
-                    )
-                )
-                drawImage(
-                    image = image,
-                    dstSize = dstSize,
-                    dstOffset = IntOffset(
-                        x = (canvasWidth / 3 * 2).toInt(),
-                        y = (canvasHeight / 3 * 2).toInt()
-                    )
-                )
+                var dstOffset: IntOffset
+                for (j in 0 until 3) {
+                    for (i in 0 until 3) {
+                        if (j % 2 == 0) {
+                            dstOffset = IntOffset(
+                                x = (canvasWidth / 3 * i).toInt(),
+                                y = (canvasHeight / 3 * j).toInt()
+                            )
+                        } else {
+                            if (i == 0) {
+                                drawImage(
+                                    image = image,
+                                    dstSize = dstSize,
+                                    dstOffset = IntOffset(
+                                        x = (canvasWidth / 3 * -1 / 2).toInt(),
+                                        y = (canvasHeight / 3).toInt()
+                                    )
+                                )
+                            }
+                            dstOffset = IntOffset(
+                                x = (canvasWidth / 3 * (i + i + 1) / 2).toInt(),
+                                y = (canvasHeight / 3).toInt()
+                            )
+                        }
+                        drawImage(
+                            image = image,
+                            dstSize = dstSize,
+                            dstOffset = dstOffset
+                        )
+                        if (i == 2) {
+                            drawRect(
+                                color = backGroundColor,
+                                topLeft = Offset(
+                                    x = canvasWidth / 3 * -1 / 2,
+                                    y = canvasHeight / 3F
+                                ),
+                                size = coverSize
+                            )
+                            drawRect(
+                                color = backGroundColor,
+                                topLeft = Offset(
+                                    x = canvasWidth / 3 * 6 / 2,
+                                    y = canvasHeight / 3F
+                                ),
+                                size = coverSize
+                            )
+                        }
+                    }
+                }
             }
             PatternType.LARGE -> {
             }
