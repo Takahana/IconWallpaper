@@ -48,7 +48,7 @@ fun SelectPatternScreen() {
                 .background(color = MaterialTheme.colors.secondaryVariant),
             contentAlignment = Alignment.Center
         ) {
-            ImagePattern(patternType = PatternType.MEDIUM)
+            ImagePattern(patternType = PatternType.LARGE)
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -116,7 +116,9 @@ fun SelectPatternScreen() {
                     modifier = Modifier
                         .size(96.dp)
                         .background(color = MaterialTheme.colors.secondaryVariant),
-                ) {}
+                ) {
+                    ImagePattern(patternType = PatternType.LARGE)
+                }
             }
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
             RoundButton(
