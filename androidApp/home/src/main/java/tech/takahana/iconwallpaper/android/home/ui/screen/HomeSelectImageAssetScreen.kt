@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush.Companion.verticalGradient
@@ -17,20 +20,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.viewmodel.compose.viewModel
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.core.ui.theme.Gray100
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImageAssetItemGrid
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
-import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
-import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
-import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectImageAssetViewModel
+import tech.takahana.iconwallpaper.uilogic.home.HomeSelectImageAssetUiLogic
 
 @Composable
-fun SelectImageAssetsScreen(
-    modifier: Modifier = Modifier
+fun HomeSelectImageAssetScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeSelectImageAssetViewModel = viewModel(),
+    uiLogic: HomeSelectImageAssetUiLogic = viewModel.uiLogic
 ) {
+    val imageAssetList by uiLogic.imageAssetListStateFlow.collectAsState()
     ConstraintLayout(
         modifier = modifier.fillMaxSize()
     ) {
@@ -53,13 +59,8 @@ fun SelectImageAssetsScreen(
                 bottom.linkTo(button.top)
                 height = Dimension.fillToConstraints
             },
-            items = (1..100).map {
-                LocalImageAsset(
-                    id = AssetId("assetId_$it"),
-                    name = AssetName("cat"),
-                    resId = R.drawable.cat
-                )
-            }
+            items = imageAssetList,
+            onClickItem = { imageAsset -> uiLogic.onClickedImageAsset(imageAsset) }
         )
         Box(
             modifier = Modifier
@@ -92,6 +93,10 @@ fun SelectImageAssetsScreen(
             )
         }
     }
+
+    LaunchedEffect(key1 = Unit) {
+        uiLogic.onCreatedScreen()
+    }
 }
 
 @Preview(showSystemUi = true)
@@ -99,7 +104,7 @@ fun SelectImageAssetsScreen(
 private fun PreviewSelectStuffScreen() {
     IconWallPaperTheme {
         Surface {
-            SelectImageAssetsScreen()
+            HomeSelectImageAssetScreen()
         }
     }
 }

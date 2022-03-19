@@ -32,6 +32,7 @@ kotlin {
                     )
                 )
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(projects.shared)
                 implementation(projects.uilogic.home)
                 implementation(projects.usecase.home)
             }
@@ -40,6 +41,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.mockk)
             }
         }
         val androidMain by getting

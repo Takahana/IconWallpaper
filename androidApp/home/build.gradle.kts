@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -45,5 +47,14 @@ dependencies {
     implementation(libs.bundles.accompanist)
     implementation(libs.coil.compose)
     implementation(projects.shared)
+    implementation(projects.uilogic.home)
     implementation(projects.androidApp.core)
+
+    // Dagger Hilt
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+}
+
+kapt {
+    correctErrorTypes = true
 }
