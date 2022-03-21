@@ -12,12 +12,7 @@ interface HomeSelectImageAssetUseCase {
      * 選択済みの素材のFlow
      * 更新されたら新しいデータが放出される
      */
-    val selectedImageAssetFlow: Flow<SelectedImageAssetUseCaseModel>
-
-    /**
-     * @return 全ての画像素材
-     */
-    suspend fun getAllImageAsset(): List<ImageAsset>
+    val imageAssetListFlow: Flow<List<ImageAssetUseCaseModel>>
 
     /**
      * 素材を選択するユースケース

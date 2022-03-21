@@ -15,7 +15,7 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 import tech.takahana.iconwallpaper.usecase.home.HomeSelectImageAssetUseCase
-import tech.takahana.iconwallpaper.usecase.home.SelectedImageAssetUseCaseModel
+import tech.takahana.iconwallpaper.usecase.home.ImageAssetUseCaseModel
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -37,8 +37,8 @@ class HomeSelectImageAssetUiLogicImplTest {
             DummyImageAsset(id = AssetId.requireGet("assetId1")),
             DummyImageAsset(id = AssetId.requireGet("assetId2")),
         )
-        coEvery { mockHomeSelectImageAssetUseCase.selectedImageAssetFlow } returns flowOf(
-            SelectedImageAssetUseCaseModel(asset = null)
+        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(
+            ImageAssetUseCaseModel(asset = null)
         )
         val uiLogic = HomeSelectImageAssetUiLogicImpl(
             TestScope(UnconfinedTestDispatcher(testScheduler)),
@@ -61,8 +61,8 @@ class HomeSelectImageAssetUiLogicImplTest {
             DummyImageAsset(id = AssetId.requireGet("assetId1")),
             DummyImageAsset(id = AssetId.requireGet("assetId2")),
         )
-        coEvery { mockHomeSelectImageAssetUseCase.selectedImageAssetFlow } returns flowOf(
-            SelectedImageAssetUseCaseModel(
+        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(
+            ImageAssetUseCaseModel(
                 asset = DummyImageAsset(id = AssetId.requireGet("assetId1"))
             )
         )
@@ -88,8 +88,8 @@ class HomeSelectImageAssetUiLogicImplTest {
             DummyImageAsset(id = AssetId.requireGet("assetId2")),
         )
         coEvery { mockHomeSelectImageAssetUseCase.getAllImageAsset() } returns dummyImageAssetList
-        coEvery { mockHomeSelectImageAssetUseCase.selectedImageAssetFlow } returns flowOf(
-            SelectedImageAssetUseCaseModel(
+        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(
+            ImageAssetUseCaseModel(
                 asset = DummyImageAsset()
             )
         )
@@ -106,7 +106,7 @@ class HomeSelectImageAssetUiLogicImplTest {
 
     @Test
     fun onClickedImageAsset_isSelected() = runTest {
-        coEvery { mockHomeSelectImageAssetUseCase.selectedImageAssetFlow } returns flowOf(mockk())
+        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(mockk())
         val uiLogic = HomeSelectImageAssetUiLogicImpl(
             TestScope(UnconfinedTestDispatcher(testScheduler)),
             mockHomeSelectImageAssetUseCase
@@ -125,7 +125,7 @@ class HomeSelectImageAssetUiLogicImplTest {
 
     @Test
     fun onClickedImageAsset_isNotSelected() = runTest {
-        coEvery { mockHomeSelectImageAssetUseCase.selectedImageAssetFlow } returns flowOf(mockk())
+        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(mockk())
         val uiLogic = HomeSelectImageAssetUiLogicImpl(
             TestScope(UnconfinedTestDispatcher(testScheduler)),
             mockHomeSelectImageAssetUseCase

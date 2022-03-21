@@ -42,7 +42,7 @@ class HomeSelectImageAssetUseCaseImplTest {
             mockSelectImageAssetRepository
         )
 
-        val actual = useCase.selectedImageAssetFlow.first()
+        val actual = useCase.imageAssetListFlow.first()
 
         verify(exactly = 1) { mockSelectImageAssetRepository.selectedImageAssetFlow }
         assertTrue { actual.isNone }
@@ -56,7 +56,7 @@ class HomeSelectImageAssetUseCaseImplTest {
             mockSelectImageAssetRepository
         )
 
-        val actual = useCase.selectedImageAssetFlow.first()
+        val actual = useCase.imageAssetListFlow.first()
 
         verify(exactly = 1) { mockSelectImageAssetRepository.selectedImageAssetFlow }
         assertFalse { actual.isNone }
