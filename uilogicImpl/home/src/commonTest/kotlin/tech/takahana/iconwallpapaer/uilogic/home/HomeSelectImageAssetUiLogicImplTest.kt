@@ -4,7 +4,6 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestScope
@@ -85,7 +84,7 @@ class HomeSelectImageAssetUiLogicImplTest {
 
     @Test
     fun onClickedImageAsset_isSelected() = runTest {
-        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(mockk())
+        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(emptyList())
         val uiLogic = HomeSelectImageAssetUiLogicImpl(
             TestScope(UnconfinedTestDispatcher(testScheduler)),
             mockHomeSelectImageAssetUseCase
@@ -104,7 +103,7 @@ class HomeSelectImageAssetUiLogicImplTest {
 
     @Test
     fun onClickedImageAsset_isNotSelected() = runTest {
-        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(mockk())
+        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(emptyList())
         val uiLogic = HomeSelectImageAssetUiLogicImpl(
             TestScope(UnconfinedTestDispatcher(testScheduler)),
             mockHomeSelectImageAssetUseCase
