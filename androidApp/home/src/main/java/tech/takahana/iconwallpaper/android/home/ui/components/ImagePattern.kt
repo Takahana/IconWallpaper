@@ -11,8 +11,8 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
-import tech.takahana.iconwallpaper.android.home.ui.type.PatternType
 import tech.takahana.iconwallpaper.android.home.ui.util.DrawScopeUtils.drawPattern
+import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 
 @Composable
 fun ImagePattern(patternType: PatternType) {

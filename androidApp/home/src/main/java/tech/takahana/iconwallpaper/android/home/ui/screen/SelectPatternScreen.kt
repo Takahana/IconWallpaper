@@ -20,26 +20,35 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridOn
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
-import tech.takahana.iconwallpaper.android.home.ui.type.PatternType
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternScreenViewModel
+import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
+import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 
 @Composable
-fun SelectPatternScreen() {
+fun SelectPatternScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeSelectPatternScreenViewModel = viewModel(),
+    uiLogic: HomeSelectPatternUiLogic = viewModel.uiLogic
+) {
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        val patternType by uiLogic.patternTypeStateFlow.collectAsState()
         StepAnnouncement(message = stringResource(R.string.home_step2_seclect_pattern))
         Box(
             modifier = Modifier
@@ -48,7 +57,7 @@ fun SelectPatternScreen() {
                 .background(color = MaterialTheme.colors.secondaryVariant),
             contentAlignment = Alignment.Center
         ) {
-            ImagePattern(patternType = PatternType.LARGE)
+            ImagePattern(patternType = patternType)
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -101,21 +110,24 @@ fun SelectPatternScreen() {
                 Box(
                     modifier = Modifier
                         .size(96.dp)
-                        .background(color = MaterialTheme.colors.secondaryVariant),
+                        .background(color = MaterialTheme.colors.secondaryVariant)
+                        .clickable { uiLogic.onClickedPattern(PatternType.SMALL) },
                 ) {
                     ImagePattern(patternType = PatternType.SMALL)
                 }
                 Box(
                     modifier = Modifier
                         .size(96.dp)
-                        .background(color = MaterialTheme.colors.secondaryVariant),
+                        .background(color = MaterialTheme.colors.secondaryVariant)
+                        .clickable { uiLogic.onClickedPattern(PatternType.MEDIUM) },
                 ) {
                     ImagePattern(patternType = PatternType.MEDIUM)
                 }
                 Box(
                     modifier = Modifier
                         .size(96.dp)
-                        .background(color = MaterialTheme.colors.secondaryVariant),
+                        .background(color = MaterialTheme.colors.secondaryVariant)
+                        .clickable { uiLogic.onClickedPattern(PatternType.LARGE) },
                 ) {
                     ImagePattern(patternType = PatternType.LARGE)
                 }
