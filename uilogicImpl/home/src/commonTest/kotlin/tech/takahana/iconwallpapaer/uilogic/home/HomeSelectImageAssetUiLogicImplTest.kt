@@ -38,18 +38,20 @@ class HomeSelectImageAssetUiLogicImplTest {
             DummyImageAsset(id = AssetId.requireGet("assetId2")),
         )
         coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(
-            ImageAssetUseCaseModel(asset = null)
+            listOf(
+                ImageAssetUseCaseModel.HasAsset(asset = dummyImageAssetList[0], isSelected = false),
+                ImageAssetUseCaseModel.HasAsset(asset = dummyImageAssetList[1], isSelected = false)
+            )
         )
         val uiLogic = HomeSelectImageAssetUiLogicImpl(
             TestScope(UnconfinedTestDispatcher(testScheduler)),
             mockHomeSelectImageAssetUseCase
         )
-        uiLogic.mutableImageAssetListSource.value = dummyImageAssetList
 
         assertEquals(
             expected = listOf(
-                ImageAssetUiModel(dummyImageAssetList[0], isSelected = false),
-                ImageAssetUiModel(dummyImageAssetList[1], isSelected = false),
+                ImageAssetUiModel.Selectable(dummyImageAssetList[0], isSelected = false),
+                ImageAssetUiModel.Selectable(dummyImageAssetList[1], isSelected = false),
             ),
             actual = uiLogic.imageAssetListStateFlow.value
         )
@@ -62,46 +64,23 @@ class HomeSelectImageAssetUiLogicImplTest {
             DummyImageAsset(id = AssetId.requireGet("assetId2")),
         )
         coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(
-            ImageAssetUseCaseModel(
-                asset = DummyImageAsset(id = AssetId.requireGet("assetId1"))
+            listOf(
+                ImageAssetUseCaseModel.HasAsset(asset = dummyImageAssetList[0], isSelected = true),
+                ImageAssetUseCaseModel.HasAsset(asset = dummyImageAssetList[1], isSelected = false)
             )
         )
         val uiLogic = HomeSelectImageAssetUiLogicImpl(
             TestScope(UnconfinedTestDispatcher(testScheduler)),
             mockHomeSelectImageAssetUseCase
         )
-        uiLogic.mutableImageAssetListSource.value = dummyImageAssetList
 
         assertEquals(
             expected = listOf(
-                ImageAssetUiModel(dummyImageAssetList[0], isSelected = true),
-                ImageAssetUiModel(dummyImageAssetList[1], isSelected = false),
+                ImageAssetUiModel.Selectable(dummyImageAssetList[0], isSelected = true),
+                ImageAssetUiModel.Selectable(dummyImageAssetList[1], isSelected = false),
             ),
             actual = uiLogic.imageAssetListStateFlow.value
         )
-    }
-
-    @Test
-    fun onCreatedScreen() = runTest {
-        val dummyImageAssetList = listOf(
-            DummyImageAsset(id = AssetId.requireGet("assetId1")),
-            DummyImageAsset(id = AssetId.requireGet("assetId2")),
-        )
-        coEvery { mockHomeSelectImageAssetUseCase.getAllImageAsset() } returns dummyImageAssetList
-        coEvery { mockHomeSelectImageAssetUseCase.imageAssetListFlow } returns flowOf(
-            ImageAssetUseCaseModel(
-                asset = DummyImageAsset()
-            )
-        )
-        val uiLogic = HomeSelectImageAssetUiLogicImpl(
-            TestScope(UnconfinedTestDispatcher(testScheduler)),
-            mockHomeSelectImageAssetUseCase
-        )
-
-        uiLogic.onCreatedScreen()
-
-        coVerify(exactly = 1) { mockHomeSelectImageAssetUseCase.getAllImageAsset() }
-        assertEquals(dummyImageAssetList, uiLogic.mutableImageAssetListSource.value)
     }
 
     @Test
@@ -113,7 +92,7 @@ class HomeSelectImageAssetUiLogicImplTest {
         )
 
         uiLogic.onClickedImageAsset(
-            imageAsset = ImageAssetUiModel(
+            imageAsset = ImageAssetUiModel.Selectable(
                 imageAsset = DummyImageAsset(),
                 isSelected = true
             )
@@ -133,7 +112,7 @@ class HomeSelectImageAssetUiLogicImplTest {
         val dummyImageAsset = DummyImageAsset()
 
         uiLogic.onClickedImageAsset(
-            imageAsset = ImageAssetUiModel(
+            imageAsset = ImageAssetUiModel.Selectable(
                 imageAsset = dummyImageAsset,
                 isSelected = false
             )

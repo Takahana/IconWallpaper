@@ -12,13 +12,14 @@ import kotlinx.coroutines.test.runTest
 import tech.takahana.iconwallpaper.repository.asset.LocalImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 import tech.takahana.iconwallpaper.usecase.home.HomeSelectImageAssetUseCaseImpl
+import tech.takahana.iconwallpaper.usecase.home.ImageAssetUseCaseModel
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
 class HomeSelectImageAssetUseCaseImplTest {
@@ -35,7 +36,21 @@ class HomeSelectImageAssetUseCaseImplTest {
     }
 
     @Test
-    fun getSelectedImageAssetFlow_isNone() = runTest {
+    fun getSelectedImageAssetFlow_notSelected() = runTest {
+        val dummyImageAssetList = listOf(
+            LocalImageAsset(
+                id = AssetId.requireGet("assetId1"),
+                name = AssetName("assetId1")
+            ),
+            LocalImageAsset(
+                id = AssetId.requireGet("assetId2"),
+                name = AssetName("assetId2")
+            )
+        )
+
+        every { mockLocalImageAssetRepository.getAll() } returns
+            dummyImageAssetList
+
         every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(null)
         val useCase = HomeSelectImageAssetUseCaseImpl(
             mockLocalImageAssetRepository,
@@ -44,13 +59,47 @@ class HomeSelectImageAssetUseCaseImplTest {
 
         val actual = useCase.imageAssetListFlow.first()
 
+        actual.forEachIndexed { index, imageAssetUseCaseModel ->
+            assertEquals(
+                ImageAssetUseCaseModel.HasAsset(
+                    asset = dummyImageAssetList[index],
+                    isSelected = false
+                ),
+                imageAssetUseCaseModel
+            )
+        }
+
         verify(exactly = 1) { mockSelectImageAssetRepository.selectedImageAssetFlow }
-        assertTrue { actual.isNone }
+        verify(exactly = 1) { mockLocalImageAssetRepository.getAll() }
     }
 
     @Test
     fun getSelectedImageAssetFlow_isNotNone() = runTest {
-        every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(mockk<ImageAsset>())
+        val dummyImageAssetList: List<DummyImageAsset> = listOf(
+            DummyImageAsset(
+                localImageAsset = LocalImageAsset(
+                    id = AssetId.requireGet("assetId1"),
+                    name = AssetName("assetId1")
+                ),
+                isSelected = true
+            ),
+            DummyImageAsset(
+                localImageAsset = LocalImageAsset(
+                    id = AssetId.requireGet("assetId2"),
+                    name = AssetName("assetId2")
+                ),
+                isSelected = false
+            )
+        )
+
+        every { mockLocalImageAssetRepository.getAll() } returns
+            dummyImageAssetList.map {
+                it.localImageAsset
+            }
+
+        every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
+            dummyImageAssetList[0].localImageAsset
+        )
         val useCase = HomeSelectImageAssetUseCaseImpl(
             mockLocalImageAssetRepository,
             mockSelectImageAssetRepository
@@ -58,30 +107,25 @@ class HomeSelectImageAssetUseCaseImplTest {
 
         val actual = useCase.imageAssetListFlow.first()
 
+        actual.forEachIndexed { index, imageAssetUseCaseModel ->
+            assertEquals(
+                ImageAssetUseCaseModel.HasAsset(
+                    asset = dummyImageAssetList[index].localImageAsset,
+                    isSelected = dummyImageAssetList[index].isSelected
+                ),
+                imageAssetUseCaseModel
+            )
+        }
+
         verify(exactly = 1) { mockSelectImageAssetRepository.selectedImageAssetFlow }
-        assertFalse { actual.isNone }
-    }
-
-    @Test
-    fun getAllImageAsset() = runTest {
-        val mockLocalImageAssetList: List<LocalImageAsset> = mockk()
-        every { mockLocalImageAssetRepository.getAll() } returns mockLocalImageAssetList
-        every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(null)
-        val useCase = HomeSelectImageAssetUseCaseImpl(
-            mockLocalImageAssetRepository,
-            mockSelectImageAssetRepository
-        )
-
-        val actual = useCase.getAllImageAsset()
-
         verify(exactly = 1) { mockLocalImageAssetRepository.getAll() }
-        assertEquals(mockLocalImageAssetList, actual)
     }
 
     @Test
     fun selectImageAsset() = runTest {
         val mockImageAsset: ImageAsset = mockk()
         every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(null)
+        every { mockLocalImageAssetRepository.getAll() } returns mockk()
         coEvery { mockSelectImageAssetRepository.setSelectedImageAsset(any()) } returns Unit
         val useCase = HomeSelectImageAssetUseCaseImpl(
             mockLocalImageAssetRepository,
@@ -96,6 +140,7 @@ class HomeSelectImageAssetUseCaseImplTest {
     @Test
     fun unselectImageAsset() = runTest {
         every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(null)
+        every { mockLocalImageAssetRepository.getAll() } returns mockk()
         coEvery { mockSelectImageAssetRepository.clearSelectedImageAsset() } returns Unit
         val useCase = HomeSelectImageAssetUseCaseImpl(
             mockLocalImageAssetRepository,
@@ -106,4 +151,9 @@ class HomeSelectImageAssetUseCaseImplTest {
 
         coVerify(exactly = 1) { mockSelectImageAssetRepository.clearSelectedImageAsset() }
     }
+
+    data class DummyImageAsset(
+        val localImageAsset: LocalImageAsset,
+        val isSelected: Boolean
+    )
 }
