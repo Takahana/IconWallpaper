@@ -11,6 +11,8 @@ interface HomeSelectPatternUiLogic {
 
     val patternTypeStateFlow: StateFlow<PatternType>
 
+    val selectedImageAssetStateFlow: StateFlow<ImageAssetUiModel>
+
     fun onClickedPattern(patternType: PatternType)
 
     interface Factory {

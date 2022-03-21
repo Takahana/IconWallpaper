@@ -14,6 +14,8 @@ interface HomeSelectPatternUseCase {
      */
     val selectedPatternFlow: Flow<SelectedPatternUseCaseModel>
 
+    val selectedImageAssetFlow: Flow<ImageAssetUseCaseModel>
+
     /**
      * パターンを選択するユースケース
      */

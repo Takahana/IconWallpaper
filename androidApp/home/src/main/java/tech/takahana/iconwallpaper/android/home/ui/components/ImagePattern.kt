@@ -21,7 +21,6 @@ fun ImagePattern(patternType: PatternType) {
     )
     val backGroundColor = MaterialTheme.colors.background
     Canvas(Modifier.fillMaxSize()) {
-
         when (patternType) {
             PatternType.SMALL -> {
                 drawPattern(

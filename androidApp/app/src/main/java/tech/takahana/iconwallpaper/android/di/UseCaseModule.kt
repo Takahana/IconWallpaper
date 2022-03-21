@@ -29,10 +29,12 @@ object UseCaseModule {
 
     @Provides
     fun provideHomeSelectPatternScreenUseCase(
-        selectPatternTypeRepository: SelectPatternTypeRepository
+        selectPatternTypeRepository: SelectPatternTypeRepository,
+        selectImageAssetRepository: SelectImageAssetRepository
     ): HomeSelectPatternUseCase {
         return HomeSelectPatternUseCaseImpl(
-            selectPatternTypeRepository
+            selectPatternTypeRepository,
+            selectImageAssetRepository
         )
     }
 }
