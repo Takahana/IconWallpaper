@@ -1,5 +1,6 @@
 package tech.takahana.iconwallpaper.android.home.ui.screen
 
+import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
@@ -24,15 +25,26 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
+import tech.takahana.iconwallpaper.android.core.utils.MediaStoreManager
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 
@@ -40,6 +52,10 @@ import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 fun HomeConfirmScreen(
     modifier: Modifier = Modifier,
 ) {
+    val density = LocalDensity.current
+    val layoutDirection = LocalLayoutDirection.current
+    val applicationContext = requireNotNull(LocalContext.current.applicationContext)
+
     ConstraintLayout(
         modifier = modifier.fillMaxSize()
     ) {
@@ -56,6 +72,13 @@ fun HomeConfirmScreen(
             message = stringResource(R.string.home_step3_confirm)
         )
 
+        val onDraw: DrawScope.() -> Unit = {
+            val canvasSize = size
+            drawRect(
+                color = Color.Gray,
+                size = canvasSize
+            )
+        }
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
@@ -63,14 +86,9 @@ fun HomeConfirmScreen(
                     top.linkTo(stepAnnouncement.bottom)
                     bottom.linkTo(buttonContainer.top)
                     height = Dimension.fillToConstraints
-                }
-        ) {
-            val canvasSize = size
-            drawRect(
-                color = Color.Gray,
-                size = canvasSize
-            )
-        }
+                },
+            onDraw = onDraw,
+        )
 
         Row(
             modifier = Modifier
@@ -85,7 +103,10 @@ fun HomeConfirmScreen(
             ActionButton(
                 textResId = R.string.home_confirm_save_image,
                 iconResId = R.drawable.ic_save_24,
-                onClick = {},
+                onClick = {
+                    // TODO ストレージ書き込みの権限をリクエストする
+                    saveImage(applicationContext, density, layoutDirection, onDraw)
+                },
             )
             Spacer(modifier = Modifier.width(40.dp))
             ActionButton(
@@ -135,4 +156,32 @@ fun PreviewHomeConfirmScreen() {
             HomeConfirmScreen()
         }
     }
+}
+
+private fun saveImage(
+    applicationContext: Context,
+    density: Density,
+    layoutDirection: LayoutDirection,
+    onDraw: DrawScope.() -> Unit,
+) {
+    // TODO 端末の縦幅と横幅を指定する
+    val width = 512
+    val height = 512
+    val imageBitmap = ImageBitmap(width, height)
+    val size = Size(
+        width = width.toFloat(),
+        height = height.toFloat()
+    )
+
+    CanvasDrawScope().draw(
+        density,
+        layoutDirection,
+        androidx.compose.ui.graphics.Canvas(imageBitmap),
+        size
+    ) {
+        onDraw(this)
+    }
+
+    val manager = MediaStoreManager(applicationContext)
+    manager.saveToMediaImages(imageBitmap.asAndroidBitmap())
 }
