@@ -21,11 +21,10 @@ class MediaStoreManager(
         // Android 10 以上なら Manifest.permission.WRITE_EXTERNAL_STORAGE の権限がなくても、
         // MediaStore経由でストレージに書き込める
         val canSaveImage =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ||
-                    ContextCompat.checkSelfPermission(
-                        applicationContext,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q || ContextCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
 
         if (!canSaveImage) {
             Log.e(
