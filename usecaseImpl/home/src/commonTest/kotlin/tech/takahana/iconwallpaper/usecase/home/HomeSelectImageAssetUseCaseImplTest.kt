@@ -36,7 +36,7 @@ class HomeSelectImageAssetUseCaseImplTest {
     }
 
     @Test
-    fun getSelectedImageAssetFlow_notSelected() = runTest {
+    fun getImageAssetListFlow_notSelected() = runTest {
         val dummyImageAssetList = listOf(
             LocalImageAsset(
                 id = AssetId.requireGet("assetId1"),
@@ -74,7 +74,7 @@ class HomeSelectImageAssetUseCaseImplTest {
     }
 
     @Test
-    fun getSelectedImageAssetFlow_isNotNone() = runTest {
+    fun getImageAssetListFlow_isNotNone() = runTest {
         val dummyImageAssetList: List<DummyImageAsset> = listOf(
             DummyImageAsset(
                 localImageAsset = LocalImageAsset(

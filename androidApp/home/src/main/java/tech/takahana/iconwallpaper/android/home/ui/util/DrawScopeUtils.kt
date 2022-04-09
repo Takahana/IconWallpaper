@@ -26,27 +26,27 @@ object DrawScopeUtils {
         val dstSize = IntSize((canvasWidth / drawNum).toInt(), (canvasHeight / drawNum).toInt())
         val coverSize = Size((canvasWidth / drawNum / 2), (canvasHeight / drawNum))
         var dstOffset: IntOffset
-        for (j in 0 until drawNum) {
-            for (i in 0 until drawNum) {
-                if (j % 2 == 0) {
+        for (rowIndex in 0 until drawNum) {
+            for (columnIndex in 0 until drawNum) {
+                if (rowIndex % 2 == 0) {
                     dstOffset = IntOffset(
-                        x = (canvasWidth / drawNum * i).toInt(),
-                        y = (canvasHeight / drawNum * j).toInt()
+                        x = (canvasWidth / drawNum * columnIndex).toInt(),
+                        y = (canvasHeight / drawNum * rowIndex).toInt()
                     )
                 } else {
-                    if (i == 0) {
+                    if (columnIndex == 0) {
                         drawImage(
                             image = image,
                             dstSize = dstSize,
                             dstOffset = IntOffset(
                                 x = (canvasWidth / drawNum * -1 / 2).toInt(),
-                                y = (canvasHeight / drawNum * j).toInt()
+                                y = (canvasHeight / drawNum * rowIndex).toInt()
                             )
                         )
                     }
                     dstOffset = IntOffset(
-                        x = (canvasWidth / drawNum * (i + i + 1) / 2).toInt(),
-                        y = (canvasHeight / drawNum * j).toInt()
+                        x = (canvasWidth / drawNum * (columnIndex + columnIndex + 1) / 2).toInt(),
+                        y = (canvasHeight / drawNum * rowIndex).toInt()
                     )
                 }
                 drawImage(
@@ -55,12 +55,12 @@ object DrawScopeUtils {
                     dstOffset = dstOffset
                 )
             }
-            if (j % 2 != 0) {
+            if (rowIndex % 2 != 0) {
                 drawRect(
                     color = backGroundColor,
                     topLeft = Offset(
                         x = canvasWidth / drawNum * -1 / 2,
-                        y = canvasHeight / drawNum * j
+                        y = canvasHeight / drawNum * rowIndex
                     ),
                     size = coverSize
                 )
@@ -68,7 +68,7 @@ object DrawScopeUtils {
                     color = backGroundColor,
                     topLeft = Offset(
                         x = canvasWidth / drawNum * drawNum * 2 / 2,
-                        y = canvasHeight / drawNum * j
+                        y = canvasHeight / drawNum * rowIndex
                     ),
                     size = coverSize
                 )

@@ -19,27 +19,27 @@ fun ImagePattern(patternType: PatternType) {
     val image = ImageBitmap.imageResource(
         id = R.drawable.cat
     )
-    val backGroundColor = MaterialTheme.colors.background
+    val backgroundColor = MaterialTheme.colors.background
     Canvas(Modifier.fillMaxSize()) {
         when (patternType) {
             PatternType.SMALL -> {
                 drawPattern(
                     image = image,
-                    backGroundColor = backGroundColor,
+                    backGroundColor = backgroundColor,
                     drawNum = 1
                 )
             }
             PatternType.MEDIUM -> {
                 drawPattern(
                     image = image,
-                    backGroundColor = backGroundColor,
+                    backGroundColor = backgroundColor,
                     drawNum = 3
                 )
             }
             PatternType.LARGE -> {
                 drawPattern(
                     image = image,
-                    backGroundColor = backGroundColor,
+                    backGroundColor = backgroundColor,
                     drawNum = 5
                 )
             }
