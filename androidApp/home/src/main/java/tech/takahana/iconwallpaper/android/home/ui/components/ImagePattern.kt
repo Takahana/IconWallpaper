@@ -15,9 +15,9 @@ import tech.takahana.iconwallpaper.android.home.ui.util.DrawScopeUtils.drawPatte
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 
 @Composable
-fun ImagePattern(patternType: PatternType) {
+fun ImagePattern(patternType: PatternType, resourceId: Int) {
     val image = ImageBitmap.imageResource(
-        id = R.drawable.cat
+        id = resourceId
     )
     val backgroundColor = MaterialTheme.colors.background
     Canvas(Modifier.fillMaxSize()) {
@@ -52,7 +52,7 @@ fun ImagePattern(patternType: PatternType) {
 private fun PreviewImagePattern() {
     IconWallPaperTheme {
         Surface {
-            ImagePattern(patternType = PatternType.LARGE)
+            ImagePattern(patternType = PatternType.LARGE, R.drawable.cat)
         }
     }
 }

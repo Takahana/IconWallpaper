@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -47,6 +46,7 @@ fun SelectPatternScreen(
     viewModel: HomeSelectPatternScreenViewModel = viewModel(),
     uiLogic: HomeSelectPatternUiLogic = viewModel.uiLogic
 ) {
+    val resId = R.drawable.cat
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,7 +60,7 @@ fun SelectPatternScreen(
                 .background(color = MaterialTheme.colors.secondaryVariant),
             contentAlignment = Alignment.Center
         ) {
-            ImagePattern(patternType = patternType)
+            ImagePattern(patternType = patternType, resourceId = resId)
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -116,7 +116,7 @@ fun SelectPatternScreen(
                         .background(color = MaterialTheme.colors.secondaryVariant)
                         .clickable { uiLogic.onClickedPattern(PatternType.SMALL) },
                 ) {
-                    ImagePattern(patternType = PatternType.SMALL)
+                    ImagePattern(patternType = PatternType.SMALL, resourceId = resId)
                     if (patternType == PatternType.SMALL) {
                         Image(
                             painter = painterResource(R.drawable.ic_check_circle_24),
@@ -131,7 +131,7 @@ fun SelectPatternScreen(
                         .background(color = MaterialTheme.colors.secondaryVariant)
                         .clickable { uiLogic.onClickedPattern(PatternType.MEDIUM) },
                 ) {
-                    ImagePattern(patternType = PatternType.MEDIUM)
+                    ImagePattern(patternType = PatternType.MEDIUM, resourceId = resId)
                     if (patternType == PatternType.MEDIUM) {
                         Image(
                             painter = painterResource(R.drawable.ic_check_circle_24),
@@ -146,7 +146,7 @@ fun SelectPatternScreen(
                         .background(color = MaterialTheme.colors.secondaryVariant)
                         .clickable { uiLogic.onClickedPattern(PatternType.LARGE) },
                 ) {
-                    ImagePattern(patternType = PatternType.LARGE)
+                    ImagePattern(patternType = PatternType.LARGE, resourceId = resId)
                     if (patternType == PatternType.LARGE) {
                         Image(
                             painter = painterResource(R.drawable.ic_check_circle_24),
