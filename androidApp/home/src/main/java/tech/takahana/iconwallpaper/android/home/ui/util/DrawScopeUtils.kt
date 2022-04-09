@@ -55,6 +55,7 @@ object DrawScopeUtils {
                     dstOffset = dstOffset
                 )
             }
+            // 要素がはみ出てしまうので背景と同じ色の長方形でカバー
             if (rowIndex % 2 != 0) {
                 drawRect(
                     color = backGroundColor,
