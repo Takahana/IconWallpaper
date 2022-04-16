@@ -8,11 +8,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -29,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
@@ -48,22 +50,21 @@ fun SelectPatternScreen(
 ) {
     val resId = R.drawable.cat
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val patternType by uiLogic.patternTypeStateFlow.collectAsState()
         StepAnnouncement(message = stringResource(R.string.home_step2_seclect_pattern))
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(384.dp)
+                .heightIn(Dp.Unspecified, 360.dp)
+                .widthIn(Dp.Unspecified, 360.dp)
                 .background(color = MaterialTheme.colors.secondaryVariant),
             contentAlignment = Alignment.Center
         ) {
             ImagePattern(patternType = patternType, resourceId = resId)
         }
         Row(
-            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(
@@ -101,8 +102,7 @@ fun SelectPatternScreen(
         }
         Column(
             modifier = Modifier
-                .padding(20.dp)
-                .fillMaxSize(),
+                .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom,
         ) {
