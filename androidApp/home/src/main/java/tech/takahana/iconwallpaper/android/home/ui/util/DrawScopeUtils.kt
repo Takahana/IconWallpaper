@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.IntSize
 object DrawScopeUtils {
     fun DrawScope.drawPattern(
         image: ImageBitmap,
-        backGroundColor: Color,
+        backgroundColor: Color,
         drawNum: Int
     ) {
         val canvasWidth = size.width
@@ -58,7 +58,7 @@ object DrawScopeUtils {
             // 要素がはみ出てしまうので背景と同じ色の長方形でカバー
             if (rowIndex % 2 != 0) {
                 drawRect(
-                    color = backGroundColor,
+                    color = backgroundColor,
                     topLeft = Offset(
                         x = canvasWidth / drawNum * -1 / 2,
                         y = canvasHeight / drawNum * rowIndex
@@ -66,7 +66,7 @@ object DrawScopeUtils {
                     size = coverSize
                 )
                 drawRect(
-                    color = backGroundColor,
+                    color = backgroundColor,
                     topLeft = Offset(
                         x = canvasWidth / drawNum * drawNum * 2 / 2,
                         y = canvasHeight / drawNum * rowIndex

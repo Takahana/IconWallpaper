@@ -1,5 +1,6 @@
 package tech.takahana.iconwallpaper.android.home.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
@@ -15,7 +16,7 @@ import tech.takahana.iconwallpaper.android.home.ui.util.DrawScopeUtils.drawPatte
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 
 @Composable
-fun ImagePattern(patternType: PatternType, resourceId: Int) {
+fun ImagePattern(patternType: PatternType, @DrawableRes resourceId: Int) {
     val image = ImageBitmap.imageResource(
         id = resourceId
     )
@@ -23,7 +24,7 @@ fun ImagePattern(patternType: PatternType, resourceId: Int) {
     Canvas(Modifier.fillMaxSize()) {
         drawPattern(
             image = image,
-            backGroundColor = backgroundColor,
+            backgroundColor = backgroundColor,
             drawNum = patternType.drawNum
         )
     }
