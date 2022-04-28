@@ -20,11 +20,15 @@ class SelectPatternTypeRepositoryImplTest {
 
     @Test
     fun setSelectedPatternType() = runTest {
-        val patternType = PatternType.SMALL
+        val actual1 = repository.selectedPatternTypeFlow.first()
 
-        repository.setSelectedPatternType(patternType)
-        val actual = repository.selectedPatternTypeFlow.first()
+        assertEquals(PatternType.SMALL, actual1)
 
-        assertEquals(patternType, actual)
+        val patternTypeLarge = PatternType.LARGE
+
+        repository.setSelectedPatternType(patternTypeLarge)
+        val actual2 = repository.selectedPatternTypeFlow.first()
+
+        assertEquals(patternTypeLarge, actual2)
     }
 }
