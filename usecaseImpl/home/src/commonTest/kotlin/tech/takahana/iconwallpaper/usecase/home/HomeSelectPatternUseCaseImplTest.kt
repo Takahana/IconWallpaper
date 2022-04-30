@@ -5,7 +5,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -36,7 +35,7 @@ class HomeSelectPatternUseCaseImplTest {
 
     @Test
     fun selectPattern() = runTest {
-        val mockPatternType: PatternType = mockk()
+        val mockPatternType = PatternType.LARGE
         val dummyLocalImageAsset = LocalImageAsset(
             id = AssetId.requireGet("assetId1"),
             name = AssetName("assetName1")
@@ -61,7 +60,7 @@ class HomeSelectPatternUseCaseImplTest {
     }
 
     @Test
-    fun wrapFlow_inUseCaseModel() = runTest {
+    fun wrapPatternFlow_inUseCaseModel() = runTest {
         val dummyLocalImageAsset = LocalImageAsset(
             id = AssetId.requireGet("assetId1"),
             name = AssetName("assetName1")
@@ -70,21 +69,35 @@ class HomeSelectPatternUseCaseImplTest {
         every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
             dummyLocalImageAsset
         )
-
         val useCase = HomeSelectPatternUseCaseImpl(
             mockSelectPatternTypeRepository,
             mockSelectImageAssetRepository
         )
-        val expectedPatternType = SelectedPatternUseCaseModel(PatternType.SMALL)
 
-        val expectedImageAsset = ImageAssetUseCaseModel.HasAsset(dummyLocalImageAsset, true)
+        val expected = SelectedPatternUseCaseModel(PatternType.SMALL)
+        val actual = useCase.selectedPatternFlow.first()
 
-        val actualPatternType = useCase.selectedPatternFlow.first()
+        assertEquals(expected, actual)
+    }
 
-        val actualImageAsset = useCase.selectedImageAssetFlow.first()
+    @Test
+    fun wrapImageAssetFlow_inUseCaseModel() = runTest {
+        val dummyLocalImageAsset = LocalImageAsset(
+            id = AssetId.requireGet("assetId1"),
+            name = AssetName("assetName1")
+        )
+        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(PatternType.SMALL)
+        every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
+            dummyLocalImageAsset
+        )
+        val useCase = HomeSelectPatternUseCaseImpl(
+            mockSelectPatternTypeRepository,
+            mockSelectImageAssetRepository
+        )
 
-        assertEquals(expectedPatternType, actualPatternType)
+        val expected = ImageAssetUseCaseModel.HasAsset(dummyLocalImageAsset, true)
+        val actual = useCase.selectedImageAssetFlow.first()
 
-        assertEquals(expectedImageAsset, actualImageAsset)
+        assertEquals(expected, actual)
     }
 }
