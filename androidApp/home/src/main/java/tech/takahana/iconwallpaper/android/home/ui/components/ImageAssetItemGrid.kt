@@ -35,8 +35,8 @@ import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 @Composable
 fun ImageAssetItemGrid(
     modifier: Modifier = Modifier,
-    items: List<ImageAssetUiModel>,
-    onClickItem: (ImageAssetUiModel) -> Unit
+    items: List<ImageAssetUiModel.Selectable>,
+    onClickItem: (ImageAssetUiModel.Selectable) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -78,7 +78,7 @@ private fun PreviewItemGrid() {
         Surface {
             ImageAssetItemGrid(
                 items = (1..10).map { num ->
-                    ImageAssetUiModel(
+                    ImageAssetUiModel.Selectable(
                         imageAsset = LocalImageAsset(
                             id = AssetId.requireGet("cat_$num"),
                             name = AssetName("cat"),
