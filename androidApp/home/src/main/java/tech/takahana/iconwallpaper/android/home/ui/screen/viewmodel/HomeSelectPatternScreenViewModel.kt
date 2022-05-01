@@ -4,14 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.HomeSwitchTabUiLogic
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeSelectPatternScreenViewModel @Inject constructor(
-    private val uiLogicFactory: HomeSelectPatternUiLogic.Factory
+    private val selectPatternUiLogicFactory: HomeSelectPatternUiLogic.Factory,
+    val switchTabUiLogic: HomeSwitchTabUiLogic
 ) : ViewModel() {
 
-    val uiLogic: HomeSelectPatternUiLogic by lazy {
-        uiLogicFactory.create(viewModelScope)
+    val selectPatternUiLogic: HomeSelectPatternUiLogic by lazy {
+        selectPatternUiLogicFactory.create(viewModelScope)
     }
 }

@@ -41,19 +41,23 @@ import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternScreenViewModel
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.HomeSwitchTabUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.SwitchTabUiModel
 
 @Composable
 fun SelectPatternScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeSelectPatternScreenViewModel = viewModel(),
-    uiLogic: HomeSelectPatternUiLogic = viewModel.uiLogic
+    selectPatternUiLogic: HomeSelectPatternUiLogic = viewModel.selectPatternUiLogic,
+    switchTabUiLogic: HomeSwitchTabUiLogic = viewModel.switchTabUiLogic
 ) {
     val resId = R.drawable.cat
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val patternType by uiLogic.patternTypeStateFlow.collectAsState()
+        val patternType by selectPatternUiLogic.patternTypeStateFlow.collectAsState()
+        val tabState by switchTabUiLogic.switchTabStateFlow.collectAsState()
         StepAnnouncement(message = stringResource(R.string.home_step2_seclect_pattern))
         Box(
             modifier = Modifier
@@ -69,10 +73,13 @@ fun SelectPatternScreen(
         ) {
             Box(
                 modifier = Modifier
-                    .clickable { /*TODO*/ }
+                    .clickable { switchTabUiLogic.onClickedTab(SwitchTabUiModel.PATTERN) }
                     .fillMaxWidth(0.5F)
                     .height(52.dp)
-                    .background(color = MaterialTheme.colors.secondary),
+                    .background(
+                        color = if (tabState == SwitchTabUiModel.PATTERN)
+                            MaterialTheme.colors.secondary else Color.White
+                    ),
                 contentAlignment = Alignment.Center,
             ) {
                 Row {
@@ -85,10 +92,13 @@ fun SelectPatternScreen(
             }
             Box(
                 modifier = Modifier
-                    .clickable { /*TODO*/ }
+                    .clickable { switchTabUiLogic.onClickedTab(SwitchTabUiModel.BACKGROUNDCOLOR) }
                     .fillMaxWidth()
                     .height(52.dp)
-                    .background(color = Color.White),
+                    .background(
+                        color = if (tabState == SwitchTabUiModel.BACKGROUNDCOLOR)
+                            MaterialTheme.colors.secondary else Color.White
+                    ),
                 contentAlignment = Alignment.Center,
             ) {
                 Row {
@@ -114,7 +124,7 @@ fun SelectPatternScreen(
                     modifier = Modifier
                         .size(96.dp)
                         .background(color = MaterialTheme.colors.secondaryVariant)
-                        .clickable { uiLogic.onClickedPattern(PatternType.SMALL) },
+                        .clickable { selectPatternUiLogic.onClickedPattern(PatternType.SMALL) },
                 ) {
                     ImagePattern(patternType = PatternType.SMALL, resourceId = resId)
                     if (patternType == PatternType.SMALL) {
@@ -129,7 +139,7 @@ fun SelectPatternScreen(
                     modifier = Modifier
                         .size(96.dp)
                         .background(color = MaterialTheme.colors.secondaryVariant)
-                        .clickable { uiLogic.onClickedPattern(PatternType.MEDIUM) },
+                        .clickable { selectPatternUiLogic.onClickedPattern(PatternType.MEDIUM) },
                 ) {
                     ImagePattern(patternType = PatternType.MEDIUM, resourceId = resId)
                     if (patternType == PatternType.MEDIUM) {
@@ -144,7 +154,7 @@ fun SelectPatternScreen(
                     modifier = Modifier
                         .size(96.dp)
                         .background(color = MaterialTheme.colors.secondaryVariant)
-                        .clickable { uiLogic.onClickedPattern(PatternType.LARGE) },
+                        .clickable { selectPatternUiLogic.onClickedPattern(PatternType.LARGE) },
                 ) {
                     ImagePattern(patternType = PatternType.LARGE, resourceId = resId)
                     if (patternType == PatternType.LARGE) {
