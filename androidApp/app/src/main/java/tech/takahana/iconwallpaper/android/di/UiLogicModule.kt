@@ -36,7 +36,11 @@ object UiLogicModule {
     }
 
     @Provides
-    fun provideHomeSwitchTabUiLogic(): HomeSwitchTabUiLogic {
-        return HomeSwitchTabUiLogicImpl()
+    fun provideHomeSwitchTabUiLogic(
+        homeSelectPatternUseCase: HomeSelectPatternUseCase
+    ): HomeSwitchTabUiLogic.Factory {
+        return HomeSwitchTabUiLogicImpl.Factory(
+            homeSelectPatternUseCase
+        )
     }
 }

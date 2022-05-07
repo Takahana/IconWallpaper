@@ -10,10 +10,14 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeSelectPatternScreenViewModel @Inject constructor(
     private val selectPatternUiLogicFactory: HomeSelectPatternUiLogic.Factory,
-    val switchTabUiLogic: HomeSwitchTabUiLogic
+    private val switchTabUiLogicFactory: HomeSwitchTabUiLogic.Factory
 ) : ViewModel() {
 
     val selectPatternUiLogic: HomeSelectPatternUiLogic by lazy {
         selectPatternUiLogicFactory.create(viewModelScope)
+    }
+
+    val switchTabUiLogic: HomeSwitchTabUiLogic by lazy {
+        switchTabUiLogicFactory.create(viewModelScope)
     }
 }

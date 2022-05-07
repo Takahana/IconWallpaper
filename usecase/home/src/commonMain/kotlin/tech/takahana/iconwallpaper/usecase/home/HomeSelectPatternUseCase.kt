@@ -20,4 +20,9 @@ interface HomeSelectPatternUseCase {
      * パターンを選択するユースケース
      */
     suspend fun selectPattern(patternType: PatternType)
+
+    /**
+     * タブを切り替えるユースケース
+     */
+    suspend fun changeTab(target: SwitchTabUseCaseModel): Result<SwitchTabUseCaseModel>
 }

@@ -24,4 +24,8 @@ class HomeSelectPatternUseCaseImpl(
     override suspend fun selectPattern(patternType: PatternType) {
         selectPatternTypeRepository.setSelectedPatternType(patternType)
     }
+
+    override suspend fun changeTab(target: SwitchTabUseCaseModel): Result<SwitchTabUseCaseModel> {
+        return Result.success(target)
+    }
 }
