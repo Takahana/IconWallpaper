@@ -9,14 +9,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
+import tech.takahana.iconwallpaper.shared.domain.domainobject.BackgroundColor
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 
@@ -24,7 +25,8 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 fun SelectPatternTab(
     selectPatternUiLogic: HomeSelectPatternUiLogic,
     resId: Int,
-    patternType: PatternType
+    patternType: PatternType,
+    backgroundColor: BackgroundColor
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -33,7 +35,7 @@ fun SelectPatternTab(
         Box(
             modifier = Modifier
                 .size(96.dp)
-                .background(color = MaterialTheme.colors.secondaryVariant)
+                .background(color = Color(backgroundColor.rgb))
                 .clickable { selectPatternUiLogic.onClickedPattern(PatternType.SMALL) },
         ) {
             ImagePattern(patternType = PatternType.SMALL, resourceId = resId)
@@ -48,7 +50,7 @@ fun SelectPatternTab(
         Box(
             modifier = Modifier
                 .size(96.dp)
-                .background(color = MaterialTheme.colors.secondaryVariant)
+                .background(color = Color(backgroundColor.rgb))
                 .clickable { selectPatternUiLogic.onClickedPattern(PatternType.MEDIUM) },
         ) {
             ImagePattern(patternType = PatternType.MEDIUM, resourceId = resId)
@@ -63,7 +65,7 @@ fun SelectPatternTab(
         Box(
             modifier = Modifier
                 .size(96.dp)
-                .background(color = MaterialTheme.colors.secondaryVariant)
+                .background(color = Color(backgroundColor.rgb))
                 .clickable { selectPatternUiLogic.onClickedPattern(PatternType.LARGE) },
         ) {
             ImagePattern(patternType = PatternType.LARGE, resourceId = resId)

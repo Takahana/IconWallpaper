@@ -36,6 +36,7 @@ import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternScreenViewModel
+import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSwitchTabUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.SwitchTabUiModel
@@ -45,6 +46,7 @@ fun SelectPatternScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeSelectPatternScreenViewModel = viewModel(),
     selectPatternUiLogic: HomeSelectPatternUiLogic = viewModel.selectPatternUiLogic,
+    selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic = viewModel.selectBackgroundColorUiLogic,
     switchTabUiLogic: HomeSwitchTabUiLogic = viewModel.switchTabUiLogic
 ) {
     val resId = R.drawable.cat
@@ -53,13 +55,14 @@ fun SelectPatternScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val patternType by selectPatternUiLogic.patternTypeStateFlow.collectAsState()
+        val backgroundColor by selectBackgroundColorUiLogic.backgroundColorStateFlow.collectAsState()
         val tabState by switchTabUiLogic.switchTabStateFlow.collectAsState()
         StepAnnouncement(message = stringResource(R.string.home_step2_seclect_pattern))
         Box(
             modifier = Modifier
                 .heightIn(Dp.Unspecified, 360.dp)
                 .widthIn(Dp.Unspecified, 360.dp)
-                .background(color = MaterialTheme.colors.secondaryVariant),
+                .background(color = Color(backgroundColor.rgb)),
             contentAlignment = Alignment.Center
         ) {
             ImagePattern(patternType = patternType, resourceId = resId)
@@ -73,8 +76,7 @@ fun SelectPatternScreen(
                     .fillMaxWidth(0.5F)
                     .height(52.dp)
                     .background(
-                        color = if (tabState == SwitchTabUiModel.PATTERN)
-                            MaterialTheme.colors.secondary else Color.White
+                        color = if (tabState == SwitchTabUiModel.PATTERN) MaterialTheme.colors.secondary else Color.White
                     ),
                 contentAlignment = Alignment.Center,
             ) {
@@ -92,8 +94,7 @@ fun SelectPatternScreen(
                     .fillMaxWidth()
                     .height(52.dp)
                     .background(
-                        color = if (tabState == SwitchTabUiModel.BACKGROUNDCOLOR)
-                            MaterialTheme.colors.secondary else Color.White
+                        color = if (tabState == SwitchTabUiModel.BACKGROUNDCOLOR) MaterialTheme.colors.secondary else Color.White
                     ),
                 contentAlignment = Alignment.Center,
             ) {
@@ -107,16 +108,16 @@ fun SelectPatternScreen(
             }
         }
         Column(
-            modifier = Modifier
-                .padding(20.dp),
+            modifier = Modifier.padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom,
         ) {
             if (tabState == SwitchTabUiModel.PATTERN) SelectPatternTab(
-                selectPatternUiLogic,
-                resId,
-                patternType
-            ) else SelectBackgroundTab()
+                selectPatternUiLogic, resId, patternType, backgroundColor
+            ) else SelectBackgroundTab(
+                selectBackgroundColorUiLogic,
+                backgroundColor
+            )
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
             RoundButton(
                 onClick = { /*TODO*/ },
