@@ -4,9 +4,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import tech.takahana.iconwallpapaer.uilogic.home.HomeSelectBackgroundColorUiLogicImpl
 import tech.takahana.iconwallpapaer.uilogic.home.HomeSelectImageAssetUiLogicImpl
 import tech.takahana.iconwallpapaer.uilogic.home.HomeSelectPatternUiLogicImpl
 import tech.takahana.iconwallpapaer.uilogic.home.HomeSwitchTabUiLogicImpl
+import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectImageAssetUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSwitchTabUiLogic
@@ -31,6 +33,15 @@ object UiLogicModule {
         homeSelectPatternUseCase: HomeSelectPatternUseCase
     ): HomeSelectPatternUiLogic.Factory {
         return HomeSelectPatternUiLogicImpl.Factory(
+            homeSelectPatternUseCase
+        )
+    }
+
+    @Provides
+    fun provideHomeBackgroundColorUiLogicFactor(
+        homeSelectPatternUseCase: HomeSelectPatternUseCase
+    ): HomeSelectBackgroundColorUiLogic.Factory {
+        return HomeSelectBackgroundColorUiLogicImpl.Factory(
             homeSelectPatternUseCase
         )
     }
