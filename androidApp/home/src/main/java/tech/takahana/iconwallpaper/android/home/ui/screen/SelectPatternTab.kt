@@ -23,13 +23,14 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 
 @Composable
 fun SelectPatternTab(
+    modifier: Modifier = Modifier,
     selectPatternUiLogic: HomeSelectPatternUiLogic,
     resId: Int,
     patternType: PatternType,
     backgroundColor: ColorType
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         Box(

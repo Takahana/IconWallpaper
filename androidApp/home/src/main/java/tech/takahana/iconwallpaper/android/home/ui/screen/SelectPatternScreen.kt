@@ -113,10 +113,13 @@ fun SelectPatternScreen(
             verticalArrangement = Arrangement.Bottom,
         ) {
             if (tabState == SwitchTabUiModel.PATTERN) SelectPatternTab(
-                selectPatternUiLogic, resId, patternType, backgroundColor
+                selectPatternUiLogic = selectPatternUiLogic,
+                resId = resId,
+                patternType = patternType,
+                backgroundColor = backgroundColor
             ) else SelectBackgroundTab(
-                selectBackgroundColorUiLogic,
-                backgroundColor
+                selectBackgroundColorUiLogic = selectBackgroundColorUiLogic,
+                backgroundColor = backgroundColor
             )
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
             RoundButton(
