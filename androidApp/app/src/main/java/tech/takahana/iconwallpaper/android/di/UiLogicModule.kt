@@ -38,7 +38,7 @@ object UiLogicModule {
     }
 
     @Provides
-    fun provideHomeBackgroundColorUiLogicFactor(
+    fun provideHomeBackgroundColorUiLogicFactory(
         homeSelectPatternUseCase: HomeSelectPatternUseCase
     ): HomeSelectBackgroundColorUiLogic.Factory {
         return HomeSelectBackgroundColorUiLogicImpl.Factory(
@@ -47,7 +47,7 @@ object UiLogicModule {
     }
 
     @Provides
-    fun provideHomeSwitchTabUiLogic(
+    fun provideHomeSwitchTabUiLogicFactory(
         homeSelectPatternUseCase: HomeSelectPatternUseCase
     ): HomeSwitchTabUiLogic.Factory {
         return HomeSwitchTabUiLogicImpl.Factory(
