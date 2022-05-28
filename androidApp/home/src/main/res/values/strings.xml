@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home_step1_seclect_image_assets">ステップ1. 素材を選択する</string>
-    <string name="home_please_select_image_assets">素材を選択してください</string>
-    <string name="home_step2_seclect_pattern">ステップ2. パターンを選択する</string>
-    <string name="home_step3_confirm">ステップ3. 確認</string>
-    <string name="home_pattern">パターン</string>
-    <string name="home_background_color">背景色</string>
-    <string name="home_navigation_check_result">確認画面へ</string>
-    <string name="home_grid_on">Grid on</string>
-    <string name="home_palette">Palette</string>
-    <string name="home_open_drawer">Open drawer</string>
-    <string name="home_notifications">Notifications</string>
-    <string name="home_share">Share</string>
-    <string name="home_search">Search</string>
-    <string name="home_page_title">Page title</string>
-    <string name="home_confirm_save_image">写真として保存</string>
-    <string name="home_confirm_set_wallpaper">壁紙として設定</string>
+  <string name="home_step1_seclect_image_assets">ステップ1. 素材を選択する</string>
+  <string name="home_please_select_image_assets">素材を選択してください</string>
+  <string name="home_step2_seclect_pattern">ステップ2. パターンを選択する</string>
+  <string name="home_step3_confirm">ステップ3. 確認</string>
+  <string name="home_pattern">パターン</string>
+  <string name="home_background_color">背景色</string>
+  <string name="home_navigation_check_result">確認画面へ</string>
+  <string name="home_grid_on">Grid on</string>
+  <string name="home_palette">Palette</string>
+  <string name="home_open_drawer">Open drawer</string>
+  <string name="home_notifications">Notifications</string>
+  <string name="home_share">Share</string>
+  <string name="home_search">Search</string>
+  <string name="home_page_title">Page title</string>
+  <string name="home_confirm_save_image">写真として保存</string>
+  <string name="home_confirm_set_wallpaper">壁紙として設定</string>
+  <string name="home_confirm_set_wallpaper_target">壁紙の設定対象の選択</string>
+  <string name="home_confirm_set_wallpaper_to_home">ホーム画面</string>
+  <string name="home_confirm_set_wallpaper_to_lock">ロック画面</string>
+  <string name="home_confirm_set_wallpaper_to_home_and_lock">ホーム画面とロック画面</string>
+  <string name="home_confirm_set_wallpaper_with_other_app">他のアプリで設定する</string>
 </resources>
