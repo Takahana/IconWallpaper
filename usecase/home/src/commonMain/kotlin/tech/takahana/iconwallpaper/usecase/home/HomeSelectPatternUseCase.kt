@@ -1,7 +1,7 @@
 package tech.takahana.iconwallpaper.usecase.home
 
 import kotlinx.coroutines.flow.Flow
-import tech.takahana.iconwallpaper.shared.domain.domainobject.BackgroundColor
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 
 /**
@@ -33,7 +33,7 @@ interface HomeSelectPatternUseCase {
     /**
      * 背景色を選択するユースケース
      */
-    suspend fun selectBackgroundColor(backgroundColor: BackgroundColor)
+    suspend fun selectBackgroundColor(backgroundColor: ColorType)
 
     /**
      * タブを切り替えるユースケース

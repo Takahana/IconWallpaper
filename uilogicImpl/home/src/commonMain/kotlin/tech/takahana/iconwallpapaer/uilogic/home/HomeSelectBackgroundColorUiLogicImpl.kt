@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import tech.takahana.iconwallpaper.shared.domain.domainobject.BackgroundColor
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 import tech.takahana.iconwallpaper.usecase.home.HomeSelectPatternUseCase
 
@@ -15,17 +15,17 @@ class HomeSelectBackgroundColorUiLogicImpl(
     private val homeSelectPatternUseCase: HomeSelectPatternUseCase
 ) : HomeSelectBackgroundColorUiLogic {
 
-    override val backgroundColorStateFlow: StateFlow<BackgroundColor> =
+    override val backgroundColorStateFlow: StateFlow<ColorType> =
         homeSelectPatternUseCase.selectedBackgroundColorFlow.map { selectedBackgroundColorUseCaseModel ->
             selectedBackgroundColorUseCaseModel.backgroundColor
         }.stateIn(
             viewModelScope, SharingStarted.Eagerly,
-            BackgroundColor.Other(0xffb2dfdb)
+            ColorType.Other(0xffb2dfdb)
         )
 
-    override fun onClickedBackgroundColor(backgroundColor: BackgroundColor) {
+    override fun onClickedBackgroundColor(colorType: ColorType) {
         viewModelScope.launch {
-            homeSelectPatternUseCase.selectBackgroundColor(backgroundColor)
+            homeSelectPatternUseCase.selectBackgroundColor(colorType)
         }
     }
 

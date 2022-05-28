@@ -62,7 +62,7 @@ fun SelectPatternScreen(
             modifier = Modifier
                 .heightIn(Dp.Unspecified, 360.dp)
                 .widthIn(Dp.Unspecified, 360.dp)
-                .background(color = Color(backgroundColor.rgb)),
+                .background(color = Color(backgroundColor.hex)),
             contentAlignment = Alignment.Center
         ) {
             ImagePattern(patternType = patternType, resourceId = resId)

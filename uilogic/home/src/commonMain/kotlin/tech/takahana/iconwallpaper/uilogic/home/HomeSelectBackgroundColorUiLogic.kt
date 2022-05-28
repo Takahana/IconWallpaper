@@ -2,16 +2,16 @@ package tech.takahana.iconwallpaper.uilogic.home
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
-import tech.takahana.iconwallpaper.shared.domain.domainobject.BackgroundColor
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 
 /**
  * パターン選択ページのUiLogic
  */
 interface HomeSelectBackgroundColorUiLogic {
 
-    val backgroundColorStateFlow: StateFlow<BackgroundColor>
+    val backgroundColorStateFlow: StateFlow<ColorType>
 
-    fun onClickedBackgroundColor(backgroundColor: BackgroundColor)
+    fun onClickedBackgroundColor(colorType: ColorType)
 
     interface Factory {
         fun create(viewModelScope: CoroutineScope): HomeSelectBackgroundColorUiLogic

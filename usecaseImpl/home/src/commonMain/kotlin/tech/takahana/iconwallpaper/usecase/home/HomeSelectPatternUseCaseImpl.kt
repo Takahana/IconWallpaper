@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 import tech.takahana.iconwallpaper.repository.asset.SelectBackgroundColorRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectPatternTypeRepository
-import tech.takahana.iconwallpaper.shared.domain.domainobject.BackgroundColor
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 
 class HomeSelectPatternUseCaseImpl(
@@ -33,7 +33,7 @@ class HomeSelectPatternUseCaseImpl(
         selectPatternTypeRepository.setSelectedPatternType(patternType)
     }
 
-    override suspend fun selectBackgroundColor(backgroundColor: BackgroundColor) {
+    override suspend fun selectBackgroundColor(backgroundColor: ColorType) {
         selectBackgroundColorRepository.setSelectedBackgroundColor(backgroundColor)
     }
 

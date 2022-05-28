@@ -28,15 +28,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.home.R
-import tech.takahana.iconwallpaper.shared.domain.domainobject.BackgroundColor
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 
 @Composable
 fun SelectBackgroundTab(
     selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic,
-    backgroundColor: BackgroundColor
+    backgroundColor: ColorType
 ) {
-    val onClick = { color: BackgroundColor ->
+    val onClick = { color: ColorType ->
         selectBackgroundColorUiLogic.onClickedBackgroundColor(color)
     }
     Column {
@@ -44,23 +44,23 @@ fun SelectBackgroundTab(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
         ) {
             BackgroundColorCompose(
-                color = BackgroundColor.RED, currentColor = backgroundColor, onClick
+                color = ColorType.Red, currentColor = backgroundColor, onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             BackgroundColorCompose(
-                color = BackgroundColor.BLUE, currentColor = backgroundColor, onClick
+                color = ColorType.Blue, currentColor = backgroundColor, onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             BackgroundColorCompose(
-                color = BackgroundColor.GREEN, currentColor = backgroundColor, onClick
+                color = ColorType.Green, currentColor = backgroundColor, onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             BackgroundColorCompose(
-                color = BackgroundColor.PURPLE, currentColor = backgroundColor, onClick
+                color = ColorType.Purple, currentColor = backgroundColor, onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             BackgroundColorCompose(
-                color = BackgroundColor.YELLOW, currentColor = backgroundColor, onClick
+                color = ColorType.Yellow, currentColor = backgroundColor, onClick
             )
         }
         Spacer(modifier = Modifier.padding(8.dp))
@@ -68,11 +68,11 @@ fun SelectBackgroundTab(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
         ) {
             BackgroundColorCompose(
-                color = BackgroundColor.BEIGE, currentColor = backgroundColor, onClick
+                color = ColorType.Beige, currentColor = backgroundColor, onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             BackgroundColorCompose(
-                color = BackgroundColor.CYAN, currentColor = backgroundColor, onClick
+                color = ColorType.Cyan, currentColor = backgroundColor, onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             OutlinedButton(
@@ -92,16 +92,16 @@ fun SelectBackgroundTab(
 
 @Composable
 fun BackgroundColorCompose(
-    color: BackgroundColor,
-    currentColor: BackgroundColor,
-    onClick: (BackgroundColor) -> Unit
+    color: ColorType,
+    currentColor: ColorType,
+    onClick: (ColorType) -> Unit
 ) {
     Box(
         modifier = Modifier
             .clip(CircleShape)
             .clickable { onClick(color) }
             .size(40.dp)
-            .background(Color(color.rgb))
+            .background(Color(color.hex))
     ) {
         if (color == currentColor) {
             Image(
