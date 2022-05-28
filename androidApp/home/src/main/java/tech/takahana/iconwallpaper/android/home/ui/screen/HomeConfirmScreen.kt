@@ -51,6 +51,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.utils.MediaStoreManager
+import tech.takahana.iconwallpaper.android.core.utils.wallpaper.WallpaperManagerWrapper
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
@@ -137,7 +138,20 @@ fun HomeConfirmScreen(
     LaunchedEffect(key1 = Unit) {
         uiLogic.setWallpaperEffect
             .onEach { target ->
-                // 壁紙設定
+                setWallpaper(
+                    applicationContext,
+                    localContext,
+                    density,
+                    layoutDirection,
+                    target,
+                    onDraw,
+                    onSuccess = {
+                        // TODO メッセージを表示
+                    },
+                    onFailure = {
+                        // TODO メッセージを表示
+                    },
+                )
             }
             .launchIn(this)
     }
@@ -183,12 +197,11 @@ fun PreviewHomeConfirmScreen() {
     }
 }
 
-private fun saveImage(
-    applicationContext: Context,
+private fun createImageBitmap(
     density: Density,
     layoutDirection: LayoutDirection,
     onDraw: DrawScope.() -> Unit,
-) {
+): ImageBitmap {
     // TODO 端末の縦幅と横幅を指定する
     val width = 512
     val height = 512
@@ -207,6 +220,63 @@ private fun saveImage(
         onDraw(this)
     }
 
+    return imageBitmap
+}
+
+private fun saveImage(
+    applicationContext: Context,
+    density: Density,
+    layoutDirection: LayoutDirection,
+    onDraw: DrawScope.() -> Unit,
+) {
+    val imageBitmap = createImageBitmap(density, layoutDirection, onDraw)
     val manager = MediaStoreManager(applicationContext)
     manager.saveToMediaImages(imageBitmap.asAndroidBitmap())
+}
+
+private fun setWallpaper(
+    applicationContext: Context,
+    localContext: Context,
+    density: Density,
+    layoutDirection: LayoutDirection,
+    target: PlatformSetWallpaperTargetUiModel,
+    onDraw: DrawScope.() -> Unit,
+    onSuccess: () -> Unit,
+    onFailure: () -> Unit,
+) {
+    val imageBitmap = createImageBitmap(density, layoutDirection, onDraw)
+    val manager = WallpaperManagerWrapper(applicationContext)
+
+    when (target) {
+        PlatformSetWallpaperTargetUiModel.Home -> {
+            manager.setBitmapToSystem(
+                bitmap = imageBitmap.asAndroidBitmap(),
+                onSuccess = onSuccess,
+                onFailure = { onFailure() },
+            )
+        }
+        PlatformSetWallpaperTargetUiModel.Lock -> {
+            manager.setBitmapToLock(
+                bitmap = imageBitmap.asAndroidBitmap(),
+                onSuccess = onSuccess,
+                onFailure = { onFailure() },
+            )
+        }
+        PlatformSetWallpaperTargetUiModel.HomeAndLock -> {
+            manager.setBitmapToLockAndSystem(
+                bitmap = imageBitmap.asAndroidBitmap(),
+                onSuccess = onSuccess,
+                onFailure = { onFailure() },
+            )
+        }
+        PlatformSetWallpaperTargetUiModel.OtherApp -> openSetWallpaperChooser(localContext)
+    }
+}
+
+private fun openSetWallpaperChooser(
+    localContext: Context,
+) {
+    val manager = WallpaperManagerWrapper(localContext)
+    val chooserIntent = manager.getChooserIntentForSetWallpaper()
+    localContext.startActivity(chooserIntent)
 }
