@@ -9,11 +9,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import tech.takahana.iconwallpaper.repository.asset.SelectBackgroundColorRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectPatternTypeRepository
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -24,6 +26,9 @@ class HomeSelectPatternUseCaseImplTest {
 
     @MockK
     lateinit var mockSelectPatternTypeRepository: SelectPatternTypeRepository
+
+    @MockK
+    lateinit var mockSelectBackgroundColorRepository: SelectBackgroundColorRepository
 
     @MockK
     lateinit var mockSelectImageAssetRepository: SelectImageAssetRepository
@@ -40,13 +45,21 @@ class HomeSelectPatternUseCaseImplTest {
             id = AssetId.requireGet("assetId1"),
             name = AssetName("assetName1")
         )
+
+        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(
+            PatternType.SMALL
+        )
+        every { mockSelectBackgroundColorRepository.selectBackgroundColorFlow } returns flowOf(
+            ColorType.Other(0xffb2dfdb)
+        )
         every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
             dummyLocalImageAsset
         )
-        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(PatternType.SMALL)
         coEvery { mockSelectPatternTypeRepository.setSelectedPatternType(any()) } returns Unit
+
         val useCase = HomeSelectPatternUseCaseImpl(
             mockSelectPatternTypeRepository,
+            mockSelectBackgroundColorRepository,
             mockSelectImageAssetRepository
         )
 
@@ -60,17 +73,56 @@ class HomeSelectPatternUseCaseImplTest {
     }
 
     @Test
+    fun selectBackgroundColor() = runTest {
+        val mockColorType = ColorType.Red
+        val dummyLocalImageAsset = LocalImageAsset(
+            id = AssetId.requireGet("assetId1"),
+            name = AssetName("assetName1")
+        )
+        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(
+            PatternType.SMALL
+        )
+        every { mockSelectBackgroundColorRepository.selectBackgroundColorFlow } returns flowOf(
+            ColorType.Other(0xffb2dfdb)
+        )
+        every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
+            dummyLocalImageAsset
+        )
+        coEvery { mockSelectBackgroundColorRepository.setSelectedBackgroundColor(any()) } returns Unit
+
+        val useCase = HomeSelectPatternUseCaseImpl(
+            mockSelectPatternTypeRepository,
+            mockSelectBackgroundColorRepository,
+            mockSelectImageAssetRepository
+        )
+
+        useCase.selectBackgroundColor(mockColorType)
+
+        coVerify(exactly = 1) {
+            mockSelectBackgroundColorRepository.setSelectedBackgroundColor(
+                mockColorType
+            )
+        }
+    }
+
+    @Test
     fun wrapPatternFlow_inUseCaseModel() = runTest {
         val dummyLocalImageAsset = LocalImageAsset(
             id = AssetId.requireGet("assetId1"),
             name = AssetName("assetName1")
         )
-        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(PatternType.SMALL)
+        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(
+            PatternType.SMALL
+        )
+        every { mockSelectBackgroundColorRepository.selectBackgroundColorFlow } returns flowOf(
+            ColorType.Other(0xffb2dfdb)
+        )
         every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
             dummyLocalImageAsset
         )
         val useCase = HomeSelectPatternUseCaseImpl(
             mockSelectPatternTypeRepository,
+            mockSelectBackgroundColorRepository,
             mockSelectImageAssetRepository
         )
 
@@ -81,17 +133,50 @@ class HomeSelectPatternUseCaseImplTest {
     }
 
     @Test
-    fun wrapImageAssetFlow_inUseCaseModel() = runTest {
+    fun wrapBackgroundColorFlow_inUseCaseModel() = runTest {
         val dummyLocalImageAsset = LocalImageAsset(
             id = AssetId.requireGet("assetId1"),
             name = AssetName("assetName1")
         )
-        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(PatternType.SMALL)
+        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(
+            PatternType.SMALL
+        )
+        every { mockSelectBackgroundColorRepository.selectBackgroundColorFlow } returns flowOf(
+            ColorType.Other(0xffb2dfdb)
+        )
         every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
             dummyLocalImageAsset
         )
         val useCase = HomeSelectPatternUseCaseImpl(
             mockSelectPatternTypeRepository,
+            mockSelectBackgroundColorRepository,
+            mockSelectImageAssetRepository
+        )
+
+        val expected = SelectedBackgroundColorUseCaseModel(ColorType.Other(0xffb2dfdb))
+        val actual = useCase.selectedBackgroundColorFlow.first()
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun wrapImageAssetFlow_inUseCaseModel() = runTest {
+        val dummyLocalImageAsset = LocalImageAsset(
+            id = AssetId.requireGet("assetId1"),
+            name = AssetName("assetName1")
+        )
+        every { mockSelectPatternTypeRepository.selectedPatternTypeFlow } returns flowOf(
+            PatternType.SMALL
+        )
+        every { mockSelectBackgroundColorRepository.selectBackgroundColorFlow } returns flowOf(
+            ColorType.Other(0xffb2dfdb)
+        )
+        every { mockSelectImageAssetRepository.selectedImageAssetFlow } returns flowOf(
+            dummyLocalImageAsset
+        )
+        val useCase = HomeSelectPatternUseCaseImpl(
+            mockSelectPatternTypeRepository,
+            mockSelectBackgroundColorRepository,
             mockSelectImageAssetRepository
         )
 
