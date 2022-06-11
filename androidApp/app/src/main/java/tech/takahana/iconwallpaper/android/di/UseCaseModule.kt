@@ -7,6 +7,8 @@ import dagger.hilt.android.components.ViewModelComponent
 import tech.takahana.iconwallpaper.repository.asset.LocalImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectPatternTypeRepository
+import tech.takahana.iconwallpaper.usecase.home.HomeConfirmUseCase
+import tech.takahana.iconwallpaper.usecase.home.HomeConfirmUseCaseImpl
 import tech.takahana.iconwallpaper.usecase.home.HomeSelectImageAssetUseCase
 import tech.takahana.iconwallpaper.usecase.home.HomeSelectImageAssetUseCaseImpl
 import tech.takahana.iconwallpaper.usecase.home.HomeSelectPatternUseCase
@@ -36,5 +38,10 @@ object UseCaseModule {
             selectPatternTypeRepository,
             selectImageAssetRepository
         )
+    }
+
+    @Provides
+    fun provideHomeConfirmUseCase(): HomeConfirmUseCase {
+        return HomeConfirmUseCaseImpl()
     }
 }
