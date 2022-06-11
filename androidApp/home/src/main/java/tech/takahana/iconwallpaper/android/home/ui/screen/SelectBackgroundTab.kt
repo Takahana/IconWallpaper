@@ -34,28 +34,31 @@ fun SelectBackgroundTab(
     val onClick = { color: ColorType ->
         selectBackgroundColorUiLogic.onClickedBackgroundColor(color)
     }
+    val isChecked = { colorType: ColorType ->
+        colorType == backgroundColor
+    }
     Column {
         Row(
             modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
         ) {
             ColorButton(
-                color = ColorType.Red, currentColor = backgroundColor, onClick
+                color = ColorType.Red, isChecked = isChecked(ColorType.Red), onClick = onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             ColorButton(
-                color = ColorType.Blue, currentColor = backgroundColor, onClick
+                color = ColorType.Blue, isChecked = isChecked(ColorType.Blue), onClick = onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             ColorButton(
-                color = ColorType.Green, currentColor = backgroundColor, onClick
+                color = ColorType.Green, isChecked = isChecked(ColorType.Green), onClick = onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             ColorButton(
-                color = ColorType.Purple, currentColor = backgroundColor, onClick
+                color = ColorType.Purple, isChecked = isChecked(ColorType.Purple), onClick = onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             ColorButton(
-                color = ColorType.Yellow, currentColor = backgroundColor, onClick
+                color = ColorType.Yellow, isChecked = isChecked(ColorType.Yellow), onClick = onClick
             )
         }
         Spacer(modifier = Modifier.padding(8.dp))
@@ -63,11 +66,11 @@ fun SelectBackgroundTab(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
         ) {
             ColorButton(
-                color = ColorType.Beige, currentColor = backgroundColor, onClick
+                color = ColorType.Beige, isChecked = isChecked(ColorType.Beige), onClick = onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             ColorButton(
-                color = ColorType.Cyan, currentColor = backgroundColor, onClick
+                color = ColorType.Cyan, isChecked = isChecked(ColorType.Cyan), onClick = onClick
             )
             Spacer(modifier = Modifier.padding(12.dp))
             OutlinedButton(
