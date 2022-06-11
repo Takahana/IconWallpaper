@@ -1,5 +1,6 @@
 package tech.takahana.iconwallpaper.android.home.ui.screen
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,7 +26,7 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 fun SelectPatternTab(
     modifier: Modifier = Modifier,
     selectPatternUiLogic: HomeSelectPatternUiLogic,
-    resId: Int,
+    @DrawableRes resId: Int,
     patternType: PatternType,
     backgroundColor: ColorType
 ) {
