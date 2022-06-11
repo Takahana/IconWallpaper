@@ -1,6 +1,6 @@
 package tech.takahana.iconwallpaper.shared.domain.domainobject
 
-sealed class ColorType(open val hex: Long) {
+abstract class ColorType(open val hex: Long) {
     object Red : ColorType(0xFFFF0000)
     object Blue : ColorType(0xFF0000FF)
     object Green : ColorType(0xFF00FF00)
