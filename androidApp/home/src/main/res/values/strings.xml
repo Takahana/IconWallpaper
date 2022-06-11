@@ -16,5 +16,4 @@
     <string name="home_page_title">Page title</string>
     <string name="home_confirm_save_image">写真として保存</string>
     <string name="home_confirm_set_wallpaper">壁紙として設定</string>
-    <string name="others">その他</string>
 </resources>
