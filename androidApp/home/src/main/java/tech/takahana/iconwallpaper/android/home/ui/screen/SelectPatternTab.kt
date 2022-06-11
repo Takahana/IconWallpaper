@@ -20,6 +20,7 @@ import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
+import tech.takahana.iconwallpaper.uilogic.home.FakeHomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 
 @Composable
@@ -31,8 +32,7 @@ fun SelectPatternTab(
     backgroundColor: ColorType
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceAround
+        modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround
     ) {
         Box(
             modifier = Modifier
@@ -82,8 +82,13 @@ fun SelectPatternTab(
     }
 }
 
-@Preview(showSystemUi = true)
+@Preview
 @Composable
 private fun PreviewSelectPatternTab() {
-//    SelectPatternTab(HomeSelectPatternUiLogic(), R.drawable.cat, PatternType.SMALL)
+    SelectPatternTab(
+        selectPatternUiLogic = FakeHomeSelectPatternUiLogic(),
+        resId = R.drawable.cat,
+        patternType = PatternType.SMALL,
+        backgroundColor = ColorType.Other(0xffb2dfdb)
+    )
 }

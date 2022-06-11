@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ColorButton
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.uilogic.home.FakeHomeSelectBackgroundColorUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 
 @Composable
@@ -91,5 +92,8 @@ fun SelectBackgroundTab(
 @Preview
 @Composable
 private fun PreviewSelectBackgroundTab() {
-//    SelectBackgroundTab()
+    SelectBackgroundTab(
+        selectBackgroundColorUiLogic = FakeHomeSelectBackgroundColorUiLogic(),
+        backgroundColor = ColorType.Other(0xffb2dfdb)
+    )
 }
