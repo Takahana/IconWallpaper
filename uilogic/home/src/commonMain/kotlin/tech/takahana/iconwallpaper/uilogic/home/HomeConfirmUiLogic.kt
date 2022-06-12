@@ -8,14 +8,14 @@ interface HomeConfirmUiLogic {
 
     val openSetWallpaperTargetDialogStateFlow: StateFlow<Boolean>
 
-    val setWallpaperEffect: SharedFlow<PlatformSetWallpaperTargetUiModel>
+    val setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel>
 
     fun onClickedSetWallpaper()
 
     fun onSetWallpaperTargetDialogDismissRequested()
 
     fun onClickedSetWallpaperTarget(
-        target: PlatformSetWallpaperTargetUiModel
+        target: SetWallpaperTargetUiModel
     )
 
     interface Factory {
