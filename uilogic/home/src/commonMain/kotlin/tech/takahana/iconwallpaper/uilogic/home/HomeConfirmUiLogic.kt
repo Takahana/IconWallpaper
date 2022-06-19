@@ -39,6 +39,8 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
+    var onClickedSetWallpaperTargetImpl: (SetWallpaperTargetUiModel) -> Unit = {}
+
     override val openSetWallpaperTargetDialogStateFlow: StateFlow<Boolean> =
         openSetWallpaperTargetDialogStateFlowImpl.asStateFlow()
 
@@ -53,5 +55,6 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
         openSetWallpaperTargetDialogStateFlowImpl.value = false
     }
 
-    override fun onClickedSetWallpaperTarget(target: PlatformSetWallpaperTargetUiModel) = Unit
+    override fun onClickedSetWallpaperTarget(target: SetWallpaperTargetUiModel) =
+        onClickedSetWallpaperTargetImpl(target)
 }
