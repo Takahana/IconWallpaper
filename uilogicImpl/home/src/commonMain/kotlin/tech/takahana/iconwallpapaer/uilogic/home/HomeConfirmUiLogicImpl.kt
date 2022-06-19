@@ -12,22 +12,25 @@ import mapToUseCaseModel
 import tech.takahana.iconwallpaper.shared.coroutines.flow.MutableEffectSharedFlow
 import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.PlatformSetWallpaperTargetUiModel
+import tech.takahana.iconwallpaper.uilogic.home.SetWallpaperTargetUiModel
 import tech.takahana.iconwallpaper.usecase.home.HomeConfirmUseCase
 import tech.takahana.iconwallpaper.usecase.home.PlatformSetWallpaperTargetUseCaseModel
+import tech.takahana.iconwallpaper.usecase.home.SetWallpaperTargetUseCaseModel
 
 class HomeConfirmUiLogicImpl(
     private val viewModelScope: CoroutineScope,
     private val useCase: HomeConfirmUseCase,
+    private val setWallpaperTargetMapper: AbstractMapper<SetWallpaperTargetUiModel, SetWallpaperTargetUseCaseModel> = PlatformSetWallpaperTargetMapper()
 ) : HomeConfirmUiLogic {
 
     private val mutableSetWallpaperTargetDialogSource = MutableStateFlow(false)
 
     private val mutableSetWallpaperEffect =
-        MutableEffectSharedFlow<PlatformSetWallpaperTargetUiModel>()
+        MutableEffectSharedFlow<SetWallpaperTargetUiModel>()
 
     override val openSetWallpaperTargetDialogStateFlow: StateFlow<Boolean> =
         mutableSetWallpaperTargetDialogSource.asStateFlow()
-    override val setWallpaperEffect: SharedFlow<PlatformSetWallpaperTargetUiModel> =
+    override val setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel> =
         mutableSetWallpaperEffect.asSharedFlow()
 
     override fun onClickedSetWallpaper() {
@@ -44,14 +47,12 @@ class HomeConfirmUiLogicImpl(
             }
     }
 
-    override fun onClickedSetWallpaperTarget(target: PlatformSetWallpaperTargetUiModel) {
+    override fun onClickedSetWallpaperTarget(target: SetWallpaperTargetUiModel) {
         viewModelScope.launch {
-            useCase.selectSetWallpaperTarget(target.mapToUseCaseModel())
+            useCase.selectSetWallpaperTarget(setWallpaperTargetMapper.mapToUseCaseModel(target))
                 .onSuccess { target ->
-                    (target as? PlatformSetWallpaperTargetUseCaseModel)?.let {
-                        mutableSetWallpaperEffect.emit(target.mapToUiModel())
-                        mutableSetWallpaperTargetDialogSource.value = false
-                    }
+                    mutableSetWallpaperEffect.emit(setWallpaperTargetMapper.mapToUiModel(target))
+                    mutableSetWallpaperTargetDialogSource.value = false
                 }
         }
     }
@@ -62,5 +63,31 @@ class HomeConfirmUiLogicImpl(
         override fun create(viewModelScope: CoroutineScope): HomeConfirmUiLogic {
             return HomeConfirmUiLogicImpl(viewModelScope, useCase)
         }
+    }
+
+    class PlatformSetWallpaperTargetMapper :
+        AbstractMapper<SetWallpaperTargetUiModel, SetWallpaperTargetUseCaseModel>() {
+
+        override fun mapToUseCaseModel(uiModel: Any): PlatformSetWallpaperTargetUseCaseModel {
+            require(uiModel is PlatformSetWallpaperTargetUiModel)
+            return uiModel.mapToUseCaseModel()
+        }
+
+        override fun mapToUiModel(useCaseModel: Any): PlatformSetWallpaperTargetUiModel {
+            require(useCaseModel is PlatformSetWallpaperTargetUseCaseModel)
+            return useCaseModel.mapToUiModel()
+        }
+    }
+
+    /**
+     * 各プラットフォームのマッピングの差異を吸収するためのMapper
+     * テストする時にもFakeのクラスをマッピングする時に使う
+     * 他のUiLogicでも似たケースがあれば共通処理として切り出してもいいかも
+     */
+    abstract class AbstractMapper<UiModel, UseCaseModel> {
+
+        abstract fun mapToUseCaseModel(uiModel: Any): UseCaseModel
+
+        abstract fun mapToUiModel(useCaseModel: Any): UiModel
     }
 }
