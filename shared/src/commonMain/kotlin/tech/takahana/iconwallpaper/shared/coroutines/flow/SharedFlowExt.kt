@@ -8,3 +8,12 @@ fun <T> MutableSharedFlowReplayable() = MutableSharedFlow<T>(
     extraBufferCapacity = 1,
     onBufferOverflow = BufferOverflow.DROP_OLDEST
 )
+
+/**
+ * 主にUiLogicからUIにEffectを通知するために使う
+ */
+fun <T> MutableEffectSharedFlow() = MutableSharedFlow<T>(
+    replay = 0,
+    extraBufferCapacity = 1,
+    onBufferOverflow = BufferOverflow.DROP_OLDEST
+)
