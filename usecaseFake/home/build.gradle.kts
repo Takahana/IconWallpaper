@@ -1,7 +1,8 @@
+import tech.takahana.iconwallpaper.gradle.propertyAsInt
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    kotlin("kapt")
     id("com.android.library")
 }
 
@@ -25,15 +26,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.koru)
-                configurations.get("kapt").dependencies.add(
-                    org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency(
-                        "com.futuremind", "koru-processor", libs.versions.koru.get()
-                    )
-                )
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(projects.shared)
-                implementation(projects.uilogic.home)
                 implementation(projects.usecase.home)
             }
         }
@@ -41,10 +35,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(libs.kotlinx.coroutines.test)
-                implementation(libs.mockk)
-                implementation(libs.turbine)
-                implementation(projects.usecaseFake.home)
             }
         }
         val androidMain by getting
@@ -62,7 +52,6 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             // iosSimulatorArm64Main.dependsOn(this)
-            kotlin.srcDir("${buildDir.absolutePath}/generated/source/kaptKotlin/")
         }
         val iosX64Test by getting
         val iosArm64Test by getting
@@ -77,10 +66,10 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = propertyAsInt("android.compileSdk")
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 23
-        targetSdk = 31
+        minSdk = propertyAsInt("android.minSdk")
+        targetSdk = propertyAsInt("android.targetSdk")
     }
 }

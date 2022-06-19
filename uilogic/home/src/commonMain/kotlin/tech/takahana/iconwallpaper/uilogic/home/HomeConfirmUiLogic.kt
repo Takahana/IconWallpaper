@@ -13,14 +13,14 @@ interface HomeConfirmUiLogic {
 
     val openSetWallpaperTargetDialogStateFlow: StateFlow<Boolean>
 
-    val setWallpaperEffect: SharedFlow<PlatformSetWallpaperTargetUiModel>
+    val setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel>
 
     fun onClickedSetWallpaper()
 
     fun onSetWallpaperTargetDialogDismissRequested()
 
     fun onClickedSetWallpaperTarget(
-        target: PlatformSetWallpaperTargetUiModel
+        target: SetWallpaperTargetUiModel
     )
 
     interface Factory {
@@ -39,6 +39,8 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
+    var onClickedSetWallpaperTargetImpl: (SetWallpaperTargetUiModel) -> Unit = {}
+
     override val openSetWallpaperTargetDialogStateFlow: StateFlow<Boolean> =
         openSetWallpaperTargetDialogStateFlowImpl.asStateFlow()
 
@@ -53,5 +55,6 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
         openSetWallpaperTargetDialogStateFlowImpl.value = false
     }
 
-    override fun onClickedSetWallpaperTarget(target: PlatformSetWallpaperTargetUiModel) = Unit
+    override fun onClickedSetWallpaperTarget(target: SetWallpaperTargetUiModel) =
+        onClickedSetWallpaperTargetImpl(target)
 }

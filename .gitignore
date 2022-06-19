@@ -13,6 +13,7 @@ usecaseImpl/onboarding/build
 usecaseImpl/home/build
 usecase/onboarding/build
 usecase/home/build
+usecaseFake/home/build
 usecase/home/kotlin/build
 uilogicImpl/welcome/build
 uilogicImpl/home/build
