@@ -56,6 +56,7 @@ import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
 import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.PlatformSetWallpaperTargetUiModel
 
 @Composable
 fun HomeConfirmScreen(
@@ -142,7 +143,7 @@ fun HomeConfirmScreen(
                     localContext,
                     density,
                     layoutDirection,
-                    target,
+                    target as PlatformSetWallpaperTargetUiModel,
                     onDraw,
                     onSuccess = {
                         // TODO メッセージを表示
