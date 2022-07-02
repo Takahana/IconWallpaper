@@ -5,19 +5,22 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.content.ContextCompat
 import java.io.FileNotFoundException
-import java.util.Calendar
-import java.util.TimeZone
+import java.util.*
 
 class MediaStoreManager(
     private val applicationContext: Context
 ) {
 
-    fun saveToMediaImages(bitmap: Bitmap) {
+    fun saveToMediaImages(
+        bitmap: Bitmap,
+        directory: String? = null
+    ): Uri {
 
         // Android 10 以上なら Manifest.permission.WRITE_EXTERNAL_STORAGE の権限がなくても、
         // MediaStore経由でストレージに書き込める
@@ -32,7 +35,7 @@ class MediaStoreManager(
                 "MediaStoreManager",
                 "Permission denied. Manifest.permission.WRITE_EXTERNAL_STORAGE"
             )
-            return
+            return Uri.EMPTY
         }
 
         val resolver = applicationContext.contentResolver
@@ -46,11 +49,17 @@ class MediaStoreManager(
         val contentValues = ContentValues().apply {
             put(MediaStore.Images.Media.DISPLAY_NAME, createMediaImagesDisplayName())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                put(MediaStore.Audio.Media.IS_PENDING, 1)
+                if (directory != null) {
+                    put(
+                        MediaStore.Images.Media.RELATIVE_PATH,
+                        "Pictures/${applicationContext.packageName}/$directory"
+                    )
+                }
+                put(MediaStore.Images.Media.IS_PENDING, 1)
             }
         }
 
-        val contentUri = resolver.insert(imageCollection, contentValues) ?: return
+        val contentUri = resolver.insert(imageCollection, contentValues) ?: return Uri.EMPTY
 
         try {
             resolver.openOutputStream(contentUri).use { outputStream ->
@@ -69,6 +78,8 @@ class MediaStoreManager(
         resolver.update(contentUri, contentValues, null, null)
 
         bitmap.recycle()
+
+        return contentUri
     }
 
     private fun createMediaImagesDisplayName(): String {
