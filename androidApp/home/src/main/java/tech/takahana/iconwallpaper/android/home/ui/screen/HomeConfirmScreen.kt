@@ -1,6 +1,7 @@
 package tech.takahana.iconwallpaper.android.home.ui.screen
 
 import android.content.Context
+import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
@@ -269,14 +270,30 @@ private fun setWallpaper(
                 onFailure = { onFailure() },
             )
         }
-        PlatformSetWallpaperTargetUiModel.OtherApp -> openSetWallpaperChooser(localContext)
+        PlatformSetWallpaperTargetUiModel.OtherApp -> openSetWallpaperChooser(
+            applicationContext,
+            localContext,
+            imageBitmap.asAndroidBitmap(),
+        )
     }
 }
 
 private fun openSetWallpaperChooser(
+    applicationContext: Context,
     localContext: Context,
+    bitmap: Bitmap,
 ) {
-    val manager = WallpaperManagerWrapper(localContext)
-    val chooserIntent = manager.getChooserIntentForSetWallpaper()
+    val wallpaperManagerWrapper = WallpaperManagerWrapper(applicationContext)
+    val mediaStoreManager = MediaStoreManager(localContext)
+    val uri = mediaStoreManager.saveToMediaImages(
+        bitmap = bitmap,
+        directory = "cacheForSetWallpaperByOtherApp",
+    )
+
+    val chooserIntent = wallpaperManagerWrapper.getChooserIntentForSetWallpaper(
+        uri = uri,
+        type = "image/png",
+        stringRes = R.string.home_confirm_set_wallpaper_with_other_app,
+    )
     localContext.startActivity(chooserIntent)
 }
