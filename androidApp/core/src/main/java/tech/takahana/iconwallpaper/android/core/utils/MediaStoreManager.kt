@@ -147,7 +147,7 @@ class MediaStoreManager(
     }
 
     enum class Group(val value: String) {
-        // ユーザが壁紙を保存するアクションをした時の保存先
+        // デフォルトの保存先
         Default("default"),
 
         // ユーザが壁紙を保存するアクションをした時の保存先
