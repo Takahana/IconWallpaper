@@ -13,13 +13,25 @@ import androidx.core.content.ContextCompat
 import java.io.FileNotFoundException
 import java.util.*
 
+/**
+ * MediaStoreへのアクセスを行うManager。
+ *
+ * このクラス内で扱っているグループという概念は、コレクション以下に作られるディレクトリのようなもの。
+ * グループを指定することで、任意のグループのファイルをまとめて削除できるようにしている。
+ */
 class MediaStoreManager(
     private val applicationContext: Context
 ) {
 
+    /**
+     * 画像コレクション以下に画像を保存する。
+     *
+     * @param bitmap [android.graphics.Bitmap]
+     * @param group 画像コレクション以下に作るグループ
+     */
     fun saveToMediaImages(
         bitmap: Bitmap,
-        directory: String? = null
+        group: String?
     ): Uri {
 
         // Android 10 以上なら Manifest.permission.WRITE_EXTERNAL_STORAGE の権限がなくても、
@@ -40,19 +52,22 @@ class MediaStoreManager(
 
         val resolver = applicationContext.contentResolver
 
-        val imageCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-        } else {
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        }
+        val imageCollection = getImageCollection()
 
         val contentValues = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, createMediaImagesDisplayName())
+            put(
+                MediaStore.Images.Media.DISPLAY_NAME,
+                createMediaImagesDisplayName(group.orEmpty())
+            )
+            put(
+                MediaStore.Images.Media.MIME_TYPE,
+                "image/png"
+            )
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                if (directory != null) {
+                if (group != null) {
                     put(
                         MediaStore.Images.Media.RELATIVE_PATH,
-                        "Pictures/${applicationContext.packageName}/$directory"
+                        "Pictures/${applicationContext.packageName}/$group"
                     )
                 }
                 put(MediaStore.Images.Media.IS_PENDING, 1)
@@ -82,10 +97,54 @@ class MediaStoreManager(
         return contentUri
     }
 
-    private fun createMediaImagesDisplayName(): String {
+    /**
+     * 画像コレクション以下の指定したグループを削除する。
+     *
+     * @param group 画像コレクション以下のグループ。
+     */
+    fun delete(
+        group: String
+    ) {
+        val resolver = applicationContext.contentResolver
+        val selection =
+            "${MediaStore.Images.Media.DISPLAY_NAME} LIKE ?"
+        val selectionArgs = arrayOf(
+            "%${getHashCode(group)}%"
+        )
+
+        resolver.delete(
+            getImageCollection(),
+            selection,
+            selectionArgs,
+        )
+    }
+
+    private fun getImageCollection(): Uri {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+        } else {
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        }
+    }
+
+    /**
+     * ファイルの表示名を生成する。
+     *
+     * @param group 画像コレクション以下のグループ
+     */
+    private fun createMediaImagesDisplayName(
+        group: String,
+    ): String {
         val timeZone = TimeZone.getDefault()
         val calendar = Calendar.getInstance(timeZone)
-        val filename = calendar.time.time.toString()
-        return "$filename.png"
+        val time = calendar.time.time.toString()
+        return "${getHashCode(group)}$time.png"
+    }
+
+    /**
+     * アプリケーションのパッケージ名を元にhashCodeを生成する。
+     */
+    private fun getHashCode(extra: String): String {
+        return "${(applicationContext.packageName + extra).hashCode()}"
     }
 }
