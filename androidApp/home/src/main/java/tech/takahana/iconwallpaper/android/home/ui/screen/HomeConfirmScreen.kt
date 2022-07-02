@@ -234,7 +234,7 @@ private fun saveImage(
     val manager = MediaStoreManager(applicationContext)
     manager.saveToMediaImages(
         bitmap = imageBitmap.asAndroidBitmap(),
-        group = "output",
+        group = MediaStoreManager.Group.Output,
     )
 }
 
@@ -290,7 +290,7 @@ private fun openSetWallpaperChooser(
     val mediaStoreManager = MediaStoreManager(localContext)
     val uri = mediaStoreManager.saveToMediaImages(
         bitmap = bitmap,
-        group = "cacheForSetWallpaperByOtherApp",
+        group = MediaStoreManager.Group.TmpForSetWallpaperByOtherApp,
     )
 
     val chooserIntent = wallpaperManagerWrapper.getChooserIntentForSetWallpaper(

@@ -22,6 +22,6 @@ class App : Application(), DefaultLifecycleObserver {
 
     override fun onStop(owner: LifecycleOwner) {
         super.onStop(owner)
-        mediaStoreManager.delete("cacheForSetWallpaperByOtherApp")
+        mediaStoreManager.delete(MediaStoreManager.Group.TmpForSetWallpaperByOtherApp)
     }
 }

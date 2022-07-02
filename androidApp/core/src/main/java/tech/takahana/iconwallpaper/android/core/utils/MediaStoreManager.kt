@@ -31,7 +31,7 @@ class MediaStoreManager(
      */
     fun saveToMediaImages(
         bitmap: Bitmap,
-        group: String?
+        group: Group = Group.Default,
     ): Uri {
 
         // Android 10 以上なら Manifest.permission.WRITE_EXTERNAL_STORAGE の権限がなくても、
@@ -57,19 +57,17 @@ class MediaStoreManager(
         val contentValues = ContentValues().apply {
             put(
                 MediaStore.Images.Media.DISPLAY_NAME,
-                createMediaImagesDisplayName(group.orEmpty())
+                createMediaImagesDisplayName(group)
             )
             put(
                 MediaStore.Images.Media.MIME_TYPE,
                 "image/png"
             )
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                if (group != null) {
-                    put(
-                        MediaStore.Images.Media.RELATIVE_PATH,
-                        "Pictures/${applicationContext.packageName}/$group"
-                    )
-                }
+                put(
+                    MediaStore.Images.Media.RELATIVE_PATH,
+                    "Pictures/${applicationContext.packageName}/${group.value}"
+                )
                 put(MediaStore.Images.Media.IS_PENDING, 1)
             }
         }
@@ -103,13 +101,13 @@ class MediaStoreManager(
      * @param group 画像コレクション以下のグループ。
      */
     fun delete(
-        group: String
+        group: Group = Group.Default,
     ) {
         val resolver = applicationContext.contentResolver
         val selection =
             "${MediaStore.Images.Media.DISPLAY_NAME} LIKE ?"
         val selectionArgs = arrayOf(
-            "%${getHashCode(group)}%"
+            "%${getHashCode(group.value)}%"
         )
 
         resolver.delete(
@@ -133,18 +131,30 @@ class MediaStoreManager(
      * @param group 画像コレクション以下のグループ
      */
     private fun createMediaImagesDisplayName(
-        group: String,
+        group: Group,
     ): String {
         val timeZone = TimeZone.getDefault()
         val calendar = Calendar.getInstance(timeZone)
         val time = calendar.time.time.toString()
-        return "${getHashCode(group)}$time.png"
+        return "${getHashCode(group.value)}$time.png"
     }
 
     /**
      * アプリケーションのパッケージ名を元にhashCodeを生成する。
      */
     private fun getHashCode(extra: String): String {
-        return "${(applicationContext.packageName + extra).hashCode()}"
+        return "${applicationContext.packageName.hashCode()}${extra.hashCode()}"
     }
+
+    enum class Group(val value: String) {
+        // ユーザが壁紙を保存するアクションをした時の保存先
+        Default("default"),
+
+        // ユーザが壁紙を保存するアクションをした時の保存先
+        Output("output"),
+
+        // ユーザが壁紙を保存するアクションをした時の保存先
+        TmpForSetWallpaperByOtherApp("TmpForSetWallpaperByOtherApp"),
+    }
+
 }
