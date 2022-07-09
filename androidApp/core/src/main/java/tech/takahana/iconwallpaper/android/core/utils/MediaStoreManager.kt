@@ -11,7 +11,8 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.core.content.ContextCompat
 import java.io.FileNotFoundException
-import java.util.*
+import java.util.TimeZone
+import java.util.Calendar
 
 /**
  * MediaStoreへのアクセスを行うManager。
@@ -156,5 +157,4 @@ class MediaStoreManager(
         // ユーザが壁紙を保存するアクションをした時の保存先
         TmpForSetWallpaperByOtherApp("TmpForSetWallpaperByOtherApp"),
     }
-
 }
