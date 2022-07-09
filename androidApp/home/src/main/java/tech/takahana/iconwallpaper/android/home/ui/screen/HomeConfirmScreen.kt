@@ -23,6 +23,9 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
@@ -43,18 +46,35 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.utils.MediaStoreManager
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
+import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
 
 @Composable
 fun HomeConfirmScreen(
     modifier: Modifier = Modifier,
+    viewModel: HomeConfirmViewModel = viewModel(),
+    uiLogic: HomeConfirmUiLogic = viewModel.uiLogic,
 ) {
     val density = LocalDensity.current
     val layoutDirection = LocalLayoutDirection.current
     val applicationContext = requireNotNull(LocalContext.current.applicationContext)
+    val localContext = LocalContext.current
+    val onDraw: DrawScope.() -> Unit = {
+        val canvasSize = size
+        drawRect(
+            color = Color.Gray,
+            size = canvasSize
+        )
+    }
+
+    val openSetWallpaperDialog: Boolean by uiLogic.openSetWallpaperTargetDialogStateFlow.collectAsState()
 
     ConstraintLayout(
         modifier = modifier.fillMaxSize()
@@ -71,14 +91,6 @@ fun HomeConfirmScreen(
             },
             message = stringResource(R.string.home_step3_confirm)
         )
-
-        val onDraw: DrawScope.() -> Unit = {
-            val canvasSize = size
-            drawRect(
-                color = Color.Gray,
-                size = canvasSize
-            )
-        }
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
@@ -112,9 +124,21 @@ fun HomeConfirmScreen(
             ActionButton(
                 textResId = R.string.home_confirm_set_wallpaper,
                 iconResId = R.drawable.ic_wallpaper_24,
-                onClick = {},
+                onClick = { uiLogic.onClickedSetWallpaper() },
             )
         }
+    }
+
+    if (openSetWallpaperDialog) {
+        HomeConfirmSetWallpaperDialog(uiLogic)
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        uiLogic.setWallpaperEffect
+            .onEach { target ->
+                // 壁紙設定
+            }
+            .launchIn(this)
     }
 }
 
