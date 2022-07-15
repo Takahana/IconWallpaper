@@ -18,11 +18,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.onbording.R
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -54,7 +57,7 @@ fun WelcomeScreen() {
             contentAlignment = Alignment.Center
         ) {
             RoundButton(
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate("home") },
                 backgroundColor = MaterialTheme.colors.primary,
                 text = stringResource(R.string.welcome_make),
             )
@@ -65,5 +68,5 @@ fun WelcomeScreen() {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewWelcomeScreen() {
-    WelcomeScreen()
+//    WelcomeScreen()
 }

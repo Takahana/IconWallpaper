@@ -16,7 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import tech.takahana.iconwallpaper.android.home.R
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    content: @Composable () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -50,12 +52,12 @@ fun HomeScreen() {
                     }
                 }
             )
-        }, content = { HomeConfirmScreen() }
+        }, content = { content() }
     )
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewHomeScreen() {
-    HomeScreen()
+//    HomeScreen()
 }
