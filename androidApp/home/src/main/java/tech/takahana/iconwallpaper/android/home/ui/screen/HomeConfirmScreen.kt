@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
@@ -59,8 +60,8 @@ import tech.takahana.iconwallpaper.uilogic.home.PlatformSetWallpaperTargetUiMode
 
 @Composable
 fun HomeConfirmScreen(
-    viewModel: HomeConfirmViewModel,
     modifier: Modifier = Modifier,
+    viewModel: HomeConfirmViewModel = viewModel(),
     uiLogic: HomeConfirmUiLogic = viewModel.uiLogic,
 ) {
     val density = LocalDensity.current
@@ -191,7 +192,7 @@ private fun ActionButton(
 fun PreviewHomeConfirmScreen() {
     IconWallPaperTheme {
         Surface {
-//            HomeConfirmScreen()
+            HomeConfirmScreen()
         }
     }
 }

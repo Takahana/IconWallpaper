@@ -59,5 +59,5 @@ fun HomeScreen(
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewHomeScreen() {
-//    HomeScreen()
+    HomeScreen(content = {})
 }

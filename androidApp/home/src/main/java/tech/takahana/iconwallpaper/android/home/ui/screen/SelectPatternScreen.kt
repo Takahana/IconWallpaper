@@ -29,7 +29,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
@@ -43,9 +45,9 @@ import tech.takahana.iconwallpaper.uilogic.home.SwitchTabUiModel
 
 @Composable
 fun SelectPatternScreen(
-    navController: NavController,
-    viewModel: HomeSelectPatternScreenViewModel,
     modifier: Modifier = Modifier,
+    navController: NavController,
+    viewModel: HomeSelectPatternScreenViewModel = viewModel(),
     selectPatternUiLogic: HomeSelectPatternUiLogic = viewModel.selectPatternUiLogic,
     selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic = viewModel.selectBackgroundColorUiLogic,
     switchTabUiLogic: HomeSwitchTabUiLogic = viewModel.switchTabUiLogic
@@ -137,7 +139,7 @@ fun SelectPatternScreen(
 private fun PreviewSelectPatternScreen() {
     IconWallPaperTheme {
         Surface {
-//            SelectPatternScreen()
+            SelectPatternScreen(navController = rememberNavController())
         }
     }
 }

@@ -19,7 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.core.ui.theme.Gray100
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
@@ -31,9 +33,9 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeSelectImageAssetUiLogic
 
 @Composable
 fun HomeSelectImageAssetScreen(
-    navController: NavController,
-    viewModel: HomeSelectImageAssetViewModel,
     modifier: Modifier = Modifier,
+    navController: NavController,
+    viewModel: HomeSelectImageAssetViewModel = viewModel(),
     uiLogic: HomeSelectImageAssetUiLogic = viewModel.uiLogic
 ) {
     val imageAssetList by uiLogic.imageAssetListStateFlow.collectAsState()
@@ -100,7 +102,7 @@ fun HomeSelectImageAssetScreen(
 private fun PreviewSelectStuffScreen() {
     IconWallPaperTheme {
         Surface {
-//            HomeSelectImageAssetScreen()
+            HomeSelectImageAssetScreen(navController = rememberNavController())
         }
     }
 }
