@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.onbording.R
 
@@ -57,7 +58,7 @@ fun WelcomeScreen(
             contentAlignment = Alignment.Center
         ) {
             RoundButton(
-                onClick = { navController.navigate("home") },
+                onClick = { navController.navigate(Screen.HomeScreen.route) },
                 backgroundColor = MaterialTheme.colors.primary,
                 text = stringResource(R.string.welcome_make),
             )

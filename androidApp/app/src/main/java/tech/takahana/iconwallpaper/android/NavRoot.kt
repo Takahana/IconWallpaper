@@ -7,46 +7,50 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import tech.takahana.iconwallpaper.android.home.ui.screen.HomeConfirmScreen
+import tech.takahana.iconwallpaper.android.core.Screen
+import tech.takahana.iconwallpaper.android.home.ui.screen.HomeConfirmContent
 import tech.takahana.iconwallpaper.android.home.ui.screen.HomeScreen
-import tech.takahana.iconwallpaper.android.home.ui.screen.HomeSelectImageAssetScreen
-import tech.takahana.iconwallpaper.android.home.ui.screen.SelectPatternScreen
+import tech.takahana.iconwallpaper.android.home.ui.screen.HomeSelectImageAssetContent
+import tech.takahana.iconwallpaper.android.home.ui.screen.HomeSelectPatternContent
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectImageAssetViewModel
-import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternScreenViewModel
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
 import tech.takahana.iconwallpaper.android.onbording.ui.screen.WelcomeScreen
 
 @Composable
 fun NavRoot() {
     val navController = rememberNavController()
     val homeSelectImageAssetViewModel = hiltViewModel<HomeSelectImageAssetViewModel>()
-    val homeSelectPatternScreenViewModel = hiltViewModel<HomeSelectPatternScreenViewModel>()
+    val homeSelectPatternViewModel = hiltViewModel<HomeSelectPatternViewModel>()
     val homeConfirmViewModel = hiltViewModel<HomeConfirmViewModel>()
-    NavHost(navController = navController, startDestination = "welcome") {
-        composable("welcome") { WelcomeScreen(navController = navController) }
-        navigation(startDestination = "selectImage", route = "home") {
-            composable("selectImage") {
+    NavHost(navController = navController, startDestination = Screen.WelcomeScreen.route) {
+        composable(Screen.WelcomeScreen.route) { WelcomeScreen(navController = navController) }
+        navigation(
+            startDestination = Screen.HomeSelectImageAssetContent.route,
+            route = Screen.HomeScreen.route
+        ) {
+            composable(Screen.HomeSelectImageAssetContent.route) {
                 HomeScreen(
                     content = {
-                        HomeSelectImageAssetScreen(
+                        HomeSelectImageAssetContent(
                             navController = navController,
                             viewModel = homeSelectImageAssetViewModel
                         )
                     }
                 )
             }
-            composable("selectPattern") {
+            composable(Screen.HomeSelectPatternContent.route) {
                 HomeScreen(
                     content = {
-                        SelectPatternScreen(
+                        HomeSelectPatternContent(
                             navController = navController,
-                            viewModel = homeSelectPatternScreenViewModel
+                            viewModel = homeSelectPatternViewModel
                         )
                     }
                 )
             }
-            composable("confirm") {
-                HomeScreen(content = { HomeConfirmScreen(viewModel = homeConfirmViewModel) })
+            composable(Screen.HomeConfirmContent.route) {
+                HomeScreen(content = { HomeConfirmContent(viewModel = homeConfirmViewModel) })
             }
         }
     }
