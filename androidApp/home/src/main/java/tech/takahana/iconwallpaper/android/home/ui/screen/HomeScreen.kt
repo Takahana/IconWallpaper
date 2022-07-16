@@ -13,12 +13,25 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectImageAssetViewModel
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
 
 @Composable
 fun HomeScreen(
-    content: @Composable () -> Unit
+    rootNavController: NavHostController
 ) {
+    val homeNavHostController = rememberNavController()
+    val homeSelectImageAssetViewModel = hiltViewModel<HomeSelectImageAssetViewModel>()
+    val homeSelectPatternViewModel = hiltViewModel<HomeSelectPatternViewModel>()
+    val homeConfirmViewModel = hiltViewModel<HomeConfirmViewModel>()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,12 +65,37 @@ fun HomeScreen(
                     }
                 }
             )
-        }, content = { content() }
+        },
+        content = {
+            NavHost(
+                navController = homeNavHostController,
+                startDestination = Screen.HomeSelectImageAssetContent.route
+            ) {
+                composable(Screen.HomeSelectImageAssetContent.route) {
+                    HomeSelectImageAssetContent(
+                        navController = homeNavHostController,
+                        viewModel = homeSelectImageAssetViewModel
+                    )
+                }
+                composable(Screen.HomeSelectPatternContent.route) {
+                    HomeSelectPatternContent(
+                        navController = homeNavHostController,
+                        viewModel = homeSelectPatternViewModel
+                    )
+                }
+                composable(Screen.HomeConfirmContent.route) {
+                    HomeConfirmContent(
+                        rootNavController = rootNavController,
+                        viewModel = homeConfirmViewModel
+                    )
+                }
+            }
+        }
     )
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewHomeScreen() {
-    HomeScreen(content = {})
+    HomeScreen(rootNavController = rememberNavController())
 }
