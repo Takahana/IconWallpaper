@@ -49,7 +49,6 @@ dependencies {
     implementation(projects.shared)
     implementation(projects.uilogic.home)
     implementation(projects.androidApp.core)
-    implementation(libs.androidx.hilt.navigation.compose)
 
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)

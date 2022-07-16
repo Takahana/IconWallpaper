@@ -65,5 +65,5 @@ junit = { module = "junit:junit", version.ref = "junit" }
 dagger-hilt-agp = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }
 
 [bundles]
-compose = ["androidx-lifecycle-viewmodel-compose", "androidx-activity-compose", "androidx-compose-ui", "androidx-compose-tooling", "androidx-compose-foundation", "androidx-compose-material-core", "androidx-compose-material-icons-core", "androidx-compose-material-icons-extended", "androidx-compose-runtime-livedata", "material-compose-theme-adapter", "androidx-nav-compose", "androidx-compose-constraintlayout"]
+compose = ["androidx-lifecycle-viewmodel-compose", "androidx-activity-compose", "androidx-compose-ui", "androidx-compose-tooling", "androidx-compose-foundation", "androidx-compose-material-core", "androidx-compose-material-icons-core", "androidx-compose-material-icons-extended", "androidx-compose-runtime-livedata", "material-compose-theme-adapter", "androidx-nav-compose", "androidx-compose-constraintlayout", "androidx-hilt-navigation-compose"]
 accompanist = ["accompanist-pager", "accompanist-systemuicontroller", "accompanist-insets"]

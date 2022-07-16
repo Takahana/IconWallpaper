@@ -20,18 +20,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.home.R
-import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
-import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectImageAssetViewModel
-import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
 
 @Composable
 fun HomeScreen(
     rootNavController: NavHostController
 ) {
     val homeNavHostController = rememberNavController()
-    val homeSelectImageAssetViewModel = hiltViewModel<HomeSelectImageAssetViewModel>()
-    val homeSelectPatternViewModel = hiltViewModel<HomeSelectPatternViewModel>()
-    val homeConfirmViewModel = hiltViewModel<HomeConfirmViewModel>()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -74,19 +68,19 @@ fun HomeScreen(
                 composable(Screen.HomeSelectImageAssetContent.route) {
                     HomeSelectImageAssetContent(
                         homeNavController = homeNavHostController,
-                        viewModel = homeSelectImageAssetViewModel
+                        viewModel = hiltViewModel()
                     )
                 }
                 composable(Screen.HomeSelectPatternContent.route) {
                     HomeSelectPatternContent(
                         homeNavController = homeNavHostController,
-                        viewModel = homeSelectPatternViewModel
+                        viewModel = hiltViewModel()
                     )
                 }
                 composable(Screen.HomeConfirmContent.route) {
                     HomeConfirmContent(
                         rootNavController = rootNavController,
-                        viewModel = homeConfirmViewModel
+                        viewModel = hiltViewModel()
                     )
                 }
             }
