@@ -47,7 +47,7 @@ import tech.takahana.iconwallpaper.uilogic.home.SwitchTabUiModel
 @Composable
 fun HomeSelectPatternContent(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    homeNavController: NavController,
     viewModel: HomeSelectPatternViewModel = viewModel(),
     selectPatternUiLogic: HomeSelectPatternUiLogic = viewModel.selectPatternUiLogic,
     selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic = viewModel.selectBackgroundColorUiLogic,
@@ -127,7 +127,7 @@ fun HomeSelectPatternContent(
             )
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
             RoundButton(
-                onClick = { navController.navigate(Screen.HomeConfirmContent.route) },
+                onClick = { homeNavController.navigate(Screen.HomeConfirmContent.route) },
                 backgroundColor = MaterialTheme.colors.primary,
                 text = stringResource(R.string.home_navigation_check_result),
             )
@@ -137,10 +137,10 @@ fun HomeSelectPatternContent(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun PreviewSelectPatternScreen() {
+private fun PreviewSelectPatternContent() {
     IconWallPaperTheme {
         Surface {
-            HomeSelectPatternContent(navController = rememberNavController())
+            HomeSelectPatternContent(homeNavController = rememberNavController())
         }
     }
 }

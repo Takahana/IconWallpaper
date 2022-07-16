@@ -195,7 +195,7 @@ private fun ActionButton(
 
 @Preview
 @Composable
-fun PreviewHomeConfirmScreen() {
+fun PreviewHomeConfirmContent() {
     IconWallPaperTheme {
         Surface {
             HomeConfirmContent(rootNavController = rememberNavController())

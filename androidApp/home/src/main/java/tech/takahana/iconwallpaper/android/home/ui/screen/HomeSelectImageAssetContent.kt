@@ -35,7 +35,7 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeSelectImageAssetUiLogic
 @Composable
 fun HomeSelectImageAssetContent(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    homeNavController: NavController,
     viewModel: HomeSelectImageAssetViewModel = viewModel(),
     uiLogic: HomeSelectImageAssetUiLogic = viewModel.uiLogic
 ) {
@@ -90,7 +90,7 @@ fun HomeSelectImageAssetContent(
             contentAlignment = Alignment.Center
         ) {
             RoundButton(
-                onClick = { navController.navigate(Screen.HomeSelectPatternContent.route) },
+                onClick = { homeNavController.navigate(Screen.HomeSelectPatternContent.route) },
                 backgroundColor = Color.LightGray,
                 text = stringResource(R.string.home_please_select_image_assets),
             )
@@ -100,10 +100,10 @@ fun HomeSelectImageAssetContent(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun PreviewSelectStuffScreen() {
+private fun PreviewSelectStuffContent() {
     IconWallPaperTheme {
         Surface {
-            HomeSelectImageAssetContent(navController = rememberNavController())
+            HomeSelectImageAssetContent(homeNavController = rememberNavController())
         }
     }
 }

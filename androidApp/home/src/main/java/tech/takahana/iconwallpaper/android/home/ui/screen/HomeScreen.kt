@@ -73,13 +73,13 @@ fun HomeScreen(
             ) {
                 composable(Screen.HomeSelectImageAssetContent.route) {
                     HomeSelectImageAssetContent(
-                        navController = homeNavHostController,
+                        homeNavController = homeNavHostController,
                         viewModel = homeSelectImageAssetViewModel
                     )
                 }
                 composable(Screen.HomeSelectPatternContent.route) {
                     HomeSelectPatternContent(
-                        navController = homeNavHostController,
+                        homeNavController = homeNavHostController,
                         viewModel = homeSelectPatternViewModel
                     )
                 }
