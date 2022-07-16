@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 
 class WallpaperManagerWrapper(
@@ -51,8 +53,16 @@ class WallpaperManagerWrapper(
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun getChooserIntentForSetWallpaper(): Intent {
-        TODO("Intent.ACTION_ATTACH_DATAのIntentを作成する")
+    fun getChooserIntentForSetWallpaper(
+        uri: Uri,
+        type: String,
+        @StringRes stringRes: Int,
+    ): Intent {
+        val intent = Intent(Intent.ACTION_ATTACH_DATA).apply {
+            setDataAndType(uri, type)
+            putExtra("mimeType", type)
+        }
+        return Intent.createChooser(intent, applicationContext.getString(stringRes))
     }
 
     private fun setBitmap(

@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.coil.compose)
