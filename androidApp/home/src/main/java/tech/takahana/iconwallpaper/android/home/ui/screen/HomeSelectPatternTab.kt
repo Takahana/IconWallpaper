@@ -24,7 +24,7 @@ import tech.takahana.iconwallpaper.uilogic.home.FakeHomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 
 @Composable
-fun SelectPatternTab(
+fun HomeSelectPatternTab(
     modifier: Modifier = Modifier,
     selectPatternUiLogic: HomeSelectPatternUiLogic,
     @DrawableRes resId: Int,
@@ -85,7 +85,7 @@ fun SelectPatternTab(
 @Preview
 @Composable
 private fun PreviewSelectPatternTab() {
-    SelectPatternTab(
+    HomeSelectPatternTab(
         selectPatternUiLogic = FakeHomeSelectPatternUiLogic(),
         resId = R.drawable.cat,
         patternType = PatternType.SMALL,

@@ -27,7 +27,7 @@ import tech.takahana.iconwallpaper.uilogic.home.FakeHomeSelectBackgroundColorUiL
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 
 @Composable
-fun SelectBackgroundTab(
+fun HomeSelectBackgroundTab(
     modifier: Modifier = Modifier,
     selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic,
     backgroundColor: ColorType
@@ -92,7 +92,7 @@ fun SelectBackgroundTab(
 @Preview
 @Composable
 private fun PreviewSelectBackgroundTab() {
-    SelectBackgroundTab(
+    HomeSelectBackgroundTab(
         selectBackgroundColorUiLogic = FakeHomeSelectBackgroundColorUiLogic(),
         backgroundColor = ColorType.Other(0xffb2dfdb)
     )

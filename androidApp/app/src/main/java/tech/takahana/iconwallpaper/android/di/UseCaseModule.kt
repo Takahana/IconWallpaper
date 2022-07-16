@@ -30,7 +30,7 @@ object UseCaseModule {
     }
 
     @Provides
-    fun provideHomeSelectPatternScreenUseCase(
+    fun provideHomeSelectPatternUseCase(
         selectPatternTypeRepository: SelectPatternTypeRepository,
         selectBackgroundColorRepository: SelectBackgroundColorRepository,
         selectImageAssetRepository: SelectImageAssetRepository

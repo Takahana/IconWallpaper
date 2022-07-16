@@ -13,10 +13,19 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.home.R
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    rootNavController: NavHostController
+) {
+    val homeNavHostController = rememberNavController()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -50,12 +59,37 @@ fun HomeScreen() {
                     }
                 }
             )
-        }, content = { HomeConfirmScreen() }
+        },
+        content = {
+            NavHost(
+                navController = homeNavHostController,
+                startDestination = Screen.HomeSelectImageAssetContent.route
+            ) {
+                composable(Screen.HomeSelectImageAssetContent.route) {
+                    HomeSelectImageAssetContent(
+                        homeNavController = homeNavHostController,
+                        viewModel = hiltViewModel()
+                    )
+                }
+                composable(Screen.HomeSelectPatternContent.route) {
+                    HomeSelectPatternContent(
+                        homeNavController = homeNavHostController,
+                        viewModel = hiltViewModel()
+                    )
+                }
+                composable(Screen.HomeConfirmContent.route) {
+                    HomeConfirmContent(
+                        rootNavController = rootNavController,
+                        viewModel = hiltViewModel()
+                    )
+                }
+            }
+        }
     )
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewHomeScreen() {
-    HomeScreen()
+    HomeScreen(rootNavController = rememberNavController())
 }

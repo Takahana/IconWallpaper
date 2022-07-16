@@ -30,21 +30,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
-import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternScreenViewModel
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSwitchTabUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.SwitchTabUiModel
 
 @Composable
-fun SelectPatternScreen(
+fun HomeSelectPatternContent(
     modifier: Modifier = Modifier,
-    viewModel: HomeSelectPatternScreenViewModel = viewModel(),
+    homeNavController: NavController,
+    viewModel: HomeSelectPatternViewModel = viewModel(),
     selectPatternUiLogic: HomeSelectPatternUiLogic = viewModel.selectPatternUiLogic,
     selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic = viewModel.selectBackgroundColorUiLogic,
     switchTabUiLogic: HomeSwitchTabUiLogic = viewModel.switchTabUiLogic
@@ -112,18 +116,18 @@ fun SelectPatternScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom,
         ) {
-            if (tabState == SwitchTabUiModel.PATTERN) SelectPatternTab(
+            if (tabState == SwitchTabUiModel.PATTERN) HomeSelectPatternTab(
                 selectPatternUiLogic = selectPatternUiLogic,
                 resId = resId,
                 patternType = patternType,
                 backgroundColor = backgroundColor
-            ) else SelectBackgroundTab(
+            ) else HomeSelectBackgroundTab(
                 selectBackgroundColorUiLogic = selectBackgroundColorUiLogic,
                 backgroundColor = backgroundColor
             )
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
             RoundButton(
-                onClick = { /*TODO*/ },
+                onClick = { homeNavController.navigate(Screen.HomeConfirmContent.route) },
                 backgroundColor = MaterialTheme.colors.primary,
                 text = stringResource(R.string.home_navigation_check_result),
             )
@@ -133,10 +137,10 @@ fun SelectPatternScreen(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun PreviewSelectPatternScreen() {
+private fun PreviewSelectPatternContent() {
     IconWallPaperTheme {
         Surface {
-            SelectPatternScreen()
+            HomeSelectPatternContent(homeNavController = rememberNavController())
         }
     }
 }

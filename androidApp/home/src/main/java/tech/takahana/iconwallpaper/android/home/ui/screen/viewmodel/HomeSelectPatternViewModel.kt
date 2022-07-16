@@ -9,7 +9,7 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeSwitchTabUiLogic
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeSelectPatternScreenViewModel @Inject constructor(
+class HomeSelectPatternViewModel @Inject constructor(
     private val selectPatternUiLogicFactory: HomeSelectPatternUiLogic.Factory,
     private val selectBackgroundColorUiLogicFactory: HomeSelectBackgroundColorUiLogic.Factory,
     private val switchTabUiLogicFactory: HomeSwitchTabUiLogic.Factory

@@ -48,8 +48,11 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.utils.MediaStoreManager
 import tech.takahana.iconwallpaper.android.core.utils.wallpaper.WallpaperManagerWrapper
@@ -60,8 +63,9 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.PlatformSetWallpaperTargetUiModel
 
 @Composable
-fun HomeConfirmScreen(
+fun HomeConfirmContent(
     modifier: Modifier = Modifier,
+    rootNavController: NavHostController,
     viewModel: HomeConfirmViewModel = viewModel(),
     uiLogic: HomeConfirmUiLogic = viewModel.uiLogic,
 ) {
@@ -120,6 +124,7 @@ fun HomeConfirmScreen(
                 iconResId = R.drawable.ic_save_24,
                 onClick = {
                     // TODO ストレージ書き込みの権限をリクエストする
+                    rootNavController.navigate(Screen.WelcomeScreen.route)
                     saveImage(applicationContext, density, layoutDirection, onDraw)
                 },
             )
@@ -190,10 +195,10 @@ private fun ActionButton(
 
 @Preview
 @Composable
-fun PreviewHomeConfirmScreen() {
+fun PreviewHomeConfirmContent() {
     IconWallPaperTheme {
         Surface {
-            HomeConfirmScreen()
+            HomeConfirmContent(rootNavController = rememberNavController())
         }
     }
 }

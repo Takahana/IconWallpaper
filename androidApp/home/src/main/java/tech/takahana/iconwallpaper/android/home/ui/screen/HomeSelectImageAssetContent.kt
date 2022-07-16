@@ -20,6 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.core.ui.theme.Gray100
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
@@ -30,8 +33,9 @@ import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectIm
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectImageAssetUiLogic
 
 @Composable
-fun HomeSelectImageAssetScreen(
+fun HomeSelectImageAssetContent(
     modifier: Modifier = Modifier,
+    homeNavController: NavController,
     viewModel: HomeSelectImageAssetViewModel = viewModel(),
     uiLogic: HomeSelectImageAssetUiLogic = viewModel.uiLogic
 ) {
@@ -86,7 +90,7 @@ fun HomeSelectImageAssetScreen(
             contentAlignment = Alignment.Center
         ) {
             RoundButton(
-                onClick = { /*TODO*/ },
+                onClick = { homeNavController.navigate(Screen.HomeSelectPatternContent.route) },
                 backgroundColor = Color.LightGray,
                 text = stringResource(R.string.home_please_select_image_assets),
             )
@@ -96,10 +100,10 @@ fun HomeSelectImageAssetScreen(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun PreviewSelectStuffScreen() {
+private fun PreviewSelectStuffContent() {
     IconWallPaperTheme {
         Surface {
-            HomeSelectImageAssetScreen()
+            HomeSelectImageAssetContent(homeNavController = rememberNavController())
         }
     }
 }
