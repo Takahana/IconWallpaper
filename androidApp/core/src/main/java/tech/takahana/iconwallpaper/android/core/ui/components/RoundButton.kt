@@ -18,11 +18,13 @@ import androidx.compose.ui.unit.dp
 fun RoundButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    enabled: Boolean = true,
     backgroundColor: Color,
     text: String
 ) {
     TextButton(
         onClick = onClick,
+        enabled = enabled,
         shape = CircleShape,
         border = (BorderStroke(1.dp, Color(0xff707070))),
         modifier = modifier

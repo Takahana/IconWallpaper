@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,6 +32,7 @@ import tech.takahana.iconwallpaper.android.home.ui.components.ImageAssetItemGrid
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectImageAssetViewModel
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectImageAssetUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel.Companion.hasSelectedImageAsset
 
 @Composable
 fun HomeSelectImageAssetContent(
@@ -90,9 +92,22 @@ fun HomeSelectImageAssetContent(
             contentAlignment = Alignment.Center
         ) {
             RoundButton(
-                onClick = { homeNavController.navigate(Screen.HomeSelectPatternContent.route) },
-                backgroundColor = Color.LightGray,
-                text = stringResource(R.string.home_please_select_image_assets),
+                onClick = {
+                    if (imageAssetList.hasSelectedImageAsset()) {
+                        homeNavController.navigate(Screen.HomeSelectPatternContent.route)
+                    }
+                },
+                enabled = imageAssetList.hasSelectedImageAsset(),
+                backgroundColor = if (imageAssetList.hasSelectedImageAsset()) {
+                    MaterialTheme.colors.primary
+                } else {
+                    Color.LightGray
+                },
+                text = if (imageAssetList.hasSelectedImageAsset()) {
+                    stringResource(R.string.home_next_to_select_pattern)
+                } else {
+                    stringResource(R.string.home_please_select_image_assets)
+                },
             )
         }
     }
