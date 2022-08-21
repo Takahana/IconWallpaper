@@ -53,6 +53,24 @@ fun HomeSelectPatternContent(
     selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic = viewModel.selectBackgroundColorUiLogic,
     switchTabUiLogic: HomeSwitchTabUiLogic = viewModel.switchTabUiLogic
 ) {
+
+    HomeSelectPatternImageAssetSelected(
+        modifier = modifier,
+        homeNavController = homeNavController,
+        selectPatternUiLogic = selectPatternUiLogic,
+        selectBackgroundColorUiLogic = selectBackgroundColorUiLogic,
+        switchTabUiLogic = switchTabUiLogic,
+    )
+}
+
+@Composable
+private fun HomeSelectPatternImageAssetSelected(
+    modifier: Modifier = Modifier,
+    homeNavController: NavController,
+    selectPatternUiLogic: HomeSelectPatternUiLogic,
+    selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic,
+    switchTabUiLogic: HomeSwitchTabUiLogic,
+) {
     val resId = R.drawable.cat
     Column(
         modifier = modifier,
@@ -69,7 +87,10 @@ fun HomeSelectPatternContent(
                 .background(color = Color(backgroundColor.hex)),
             contentAlignment = Alignment.Center
         ) {
-            ImagePattern(patternType = patternType, resourceId = resId)
+            ImagePattern(
+                patternType = patternType,
+                resourceId = resId
+            )
         }
         Row(
             horizontalArrangement = Arrangement.SpaceBetween
