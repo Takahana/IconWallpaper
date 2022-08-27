@@ -62,6 +62,7 @@ fun HomeSelectImageAssetContent(
                 bottom.linkTo(button.top)
                 height = Dimension.fillToConstraints
             },
+            homeNavController = homeNavController,
             items = imageAssetList,
             onClickItem = { imageAsset -> uiLogic.onClickedImageAsset(imageAsset) }
         )
