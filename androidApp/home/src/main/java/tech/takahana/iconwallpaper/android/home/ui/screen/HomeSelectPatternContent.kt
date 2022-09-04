@@ -39,9 +39,11 @@ import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
+import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectBackgroundColorUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSwitchTabUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 import tech.takahana.iconwallpaper.uilogic.home.SwitchTabUiModel
 
 @Composable
@@ -53,7 +55,35 @@ fun HomeSelectPatternContent(
     selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic = viewModel.selectBackgroundColorUiLogic,
     switchTabUiLogic: HomeSwitchTabUiLogic = viewModel.switchTabUiLogic
 ) {
-    val resId = R.drawable.cat
+    when (val imageAssetUiModel = selectPatternUiLogic.selectedImageAssetStateFlow.value) {
+        ImageAssetUiModel.None -> TODO("素材選択ページに戻す")
+        is ImageAssetUiModel.Selectable -> {
+            val localImageAsset = imageAssetUiModel.imageAsset as? LocalImageAsset
+            if (localImageAsset != null) {
+                HomeSelectPatternImageAssetSelected(
+                    modifier = modifier,
+                    homeNavController = homeNavController,
+                    imageAsset = localImageAsset,
+                    selectPatternUiLogic = selectPatternUiLogic,
+                    selectBackgroundColorUiLogic = selectBackgroundColorUiLogic,
+                    switchTabUiLogic = switchTabUiLogic,
+                )
+            } else {
+                TODO("素材選択ページに戻す")
+            }
+        }
+    }
+}
+
+@Composable
+private fun HomeSelectPatternImageAssetSelected(
+    modifier: Modifier = Modifier,
+    homeNavController: NavController,
+    imageAsset: LocalImageAsset,
+    selectPatternUiLogic: HomeSelectPatternUiLogic,
+    selectBackgroundColorUiLogic: HomeSelectBackgroundColorUiLogic,
+    switchTabUiLogic: HomeSwitchTabUiLogic,
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,7 +99,10 @@ fun HomeSelectPatternContent(
                 .background(color = Color(backgroundColor.hex)),
             contentAlignment = Alignment.Center
         ) {
-            ImagePattern(patternType = patternType, resourceId = resId)
+            ImagePattern(
+                patternType = patternType,
+                resourceId = imageAsset.resId,
+            )
         }
         Row(
             horizontalArrangement = Arrangement.SpaceBetween
@@ -118,7 +151,7 @@ fun HomeSelectPatternContent(
         ) {
             if (tabState == SwitchTabUiModel.PATTERN) HomeSelectPatternTab(
                 selectPatternUiLogic = selectPatternUiLogic,
-                resId = resId,
+                resId = imageAsset.resId,
                 patternType = patternType,
                 backgroundColor = backgroundColor
             ) else HomeSelectBackgroundTab(
