@@ -1,6 +1,33 @@
 package tech.takahana.iconwallpaper.usecase.home
 
-class HomeConfirmUseCaseImpl : HomeConfirmUseCase {
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import tech.takahana.iconwallpaper.repository.asset.SelectBackgroundColorRepository
+import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
+import tech.takahana.iconwallpaper.repository.asset.SelectPatternTypeRepository
+
+class HomeConfirmUseCaseImpl(
+    selectPatternTypeRepository: SelectPatternTypeRepository,
+    selectBackgroundColorRepository: SelectBackgroundColorRepository,
+    selectImageAssetRepository: SelectImageAssetRepository
+) : HomeConfirmUseCase {
+
+    override val selectedImageAssetFlow: Flow<ImageAssetUseCaseModel> =
+        selectImageAssetRepository.selectedImageAssetFlow.filterNotNull().map { imageAsset ->
+            ImageAssetUseCaseModel.HasAsset(asset = imageAsset, isSelected = true)
+        }
+
+    override val selectedPatternFlow: Flow<SelectedPatternUseCaseModel> =
+        selectPatternTypeRepository.selectedPatternTypeFlow.map { patternType ->
+            SelectedPatternUseCaseModel(patternType)
+        }
+
+    override val selectedBackgroundColorFlow: Flow<SelectedBackgroundColorUseCaseModel> =
+        selectBackgroundColorRepository.selectBackgroundColorFlow.map { backgroundColor ->
+            SelectedBackgroundColorUseCaseModel(backgroundColor)
+        }
+
     override fun saveWallpaper(): Result<Unit> {
         return Result.success(Unit)
     }
