@@ -85,7 +85,8 @@ fun HomeScreen(
                 }
                 composable(Screen.HomePreviewIconContent.route) {
                     HomePreviewIconContent(
-                        homeNavController = homeNavHostController
+                        homeNavController = homeNavHostController,
+                        viewModel = hiltViewModel()
                     )
                 }
             }
