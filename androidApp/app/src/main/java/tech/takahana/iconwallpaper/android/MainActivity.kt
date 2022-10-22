@@ -12,14 +12,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpapaer.uilogic.welcome.WelcomeUiLogicImpl
-import tech.takahana.iconwallpaper.Greeting
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.uilogic.welcome.WelcomeUiLogic
 import tech.takahana.iconwallpaper.usecase.onboarding.WelcomeUseCaseImpl
-
-fun greet(): String {
-    return Greeting().greeting()
-}
 
 fun welcomeUiLogic(): WelcomeUiLogic {
     return WelcomeUiLogicImpl(
@@ -38,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.button)
         button.also {
-            it.text = greet()
+            it.text = ""
             it.setOnClickListener {
                 welcomeOnClickButton()
             }
