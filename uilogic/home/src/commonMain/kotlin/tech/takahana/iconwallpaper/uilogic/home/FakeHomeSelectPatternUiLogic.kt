@@ -16,7 +16,7 @@ class FakeHomeSelectPatternUiLogic : HomeSelectPatternUiLogic {
     override val patternTypeStateFlow: StateFlow<PatternType> = MutableStateFlow(PatternType.SMALL)
 
     override val selectedImageAssetStateFlow: StateFlow<ImageAssetUiModel> =
-        MutableStateFlow(ImageAssetUiModel.Selectable(dummyLocalImageAsset, true))
+        MutableStateFlow(ImageAssetUiModel.AssetSelectable(dummyLocalImageAsset, true))
 
     override fun onClickedPattern(patternType: PatternType) = onClickedPatternImpl()
 }

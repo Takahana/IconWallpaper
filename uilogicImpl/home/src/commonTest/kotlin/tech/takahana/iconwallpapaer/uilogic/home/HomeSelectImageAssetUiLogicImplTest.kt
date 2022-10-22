@@ -49,8 +49,8 @@ class HomeSelectImageAssetUiLogicImplTest {
 
         assertEquals(
             expected = listOf(
-                ImageAssetUiModel.Selectable(dummyImageAssetList[0], isSelected = false),
-                ImageAssetUiModel.Selectable(dummyImageAssetList[1], isSelected = false),
+                ImageAssetUiModel.AssetSelectable(dummyImageAssetList[0], isSelected = false),
+                ImageAssetUiModel.AssetSelectable(dummyImageAssetList[1], isSelected = false),
             ),
             actual = uiLogic.imageAssetListStateFlow.value
         )
@@ -75,8 +75,8 @@ class HomeSelectImageAssetUiLogicImplTest {
 
         assertEquals(
             expected = listOf(
-                ImageAssetUiModel.Selectable(dummyImageAssetList[0], isSelected = true),
-                ImageAssetUiModel.Selectable(dummyImageAssetList[1], isSelected = false),
+                ImageAssetUiModel.AssetSelectable(dummyImageAssetList[0], isSelected = true),
+                ImageAssetUiModel.AssetSelectable(dummyImageAssetList[1], isSelected = false),
             ),
             actual = uiLogic.imageAssetListStateFlow.value
         )
@@ -91,7 +91,7 @@ class HomeSelectImageAssetUiLogicImplTest {
         )
 
         uiLogic.onClickedImageAsset(
-            imageAsset = ImageAssetUiModel.Selectable(
+            imageAsset = ImageAssetUiModel.AssetSelectable(
                 imageAsset = DummyImageAsset(),
                 isSelected = true
             )
@@ -111,7 +111,7 @@ class HomeSelectImageAssetUiLogicImplTest {
         val dummyImageAsset = DummyImageAsset()
 
         uiLogic.onClickedImageAsset(
-            imageAsset = ImageAssetUiModel.Selectable(
+            imageAsset = ImageAssetUiModel.AssetSelectable(
                 imageAsset = dummyImageAsset,
                 isSelected = false
             )

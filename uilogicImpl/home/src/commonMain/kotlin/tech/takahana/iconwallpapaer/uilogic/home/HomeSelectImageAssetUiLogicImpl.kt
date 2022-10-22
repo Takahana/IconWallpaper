@@ -16,11 +16,11 @@ class HomeSelectImageAssetUiLogicImpl(
     private val homeSelectImageAssetUseCase: HomeSelectImageAssetUseCase
 ) : HomeSelectImageAssetUiLogic {
 
-    override val imageAssetListStateFlow: StateFlow<List<ImageAssetUiModel.Selectable>> =
+    override val imageAssetListStateFlow: StateFlow<List<ImageAssetUiModel.AssetSelectable>> =
 
         homeSelectImageAssetUseCase.imageAssetListFlow.map { imageAssetList ->
             imageAssetList.filterIsInstance<ImageAssetUseCaseModel.HasAsset>().map { imageAsset ->
-                ImageAssetUiModel.Selectable(
+                ImageAssetUiModel.AssetSelectable(
                     imageAsset = imageAsset.asset,
                     isSelected = imageAsset.isSelected
                 )
@@ -28,7 +28,7 @@ class HomeSelectImageAssetUiLogicImpl(
         }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     override fun onClickedImageAsset(imageAsset: ImageAssetUiModel) {
-        if (imageAsset is ImageAssetUiModel.Selectable) {
+        if (imageAsset is ImageAssetUiModel.AssetSelectable) {
             viewModelScope.launch {
                 if (imageAsset.isSelected) {
                     homeSelectImageAssetUseCase.unselectImageAsset()

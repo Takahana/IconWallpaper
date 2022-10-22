@@ -1,5 +1,7 @@
 package tech.takahana.iconwallpaper.android.home.ui.components
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +30,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import tech.takahana.iconwallpaper.android.core.Screen
+import tech.takahana.iconwallpaper.android.core.domain.domainobject.BitmapImageAsset
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.ui.theme.LightBlue50
 import tech.takahana.iconwallpaper.android.home.R
@@ -44,9 +47,22 @@ import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 fun ImageAssetItemGrid(
     modifier: Modifier = Modifier,
     homeNavController: NavController,
-    items: List<ImageAssetUiModel.Selectable>,
-    onClickItem: (ImageAssetUiModel.Selectable) -> Unit
+    items: List<ImageAssetUiModel.AssetSelectable>,
+    onClickItem: (ImageAssetUiModel.AssetSelectable) -> Unit
 ) {
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+        onClickItem(
+            ImageAssetUiModel.AssetSelectable(
+                imageAsset = BitmapImageAsset(
+                    id = AssetId(
+                        it.hashCode().toString(),
+                    ),
+                    name = AssetName("")
+                ),
+                isSelected = true
+            )
+        )
+    }
     val cellsSize = 120.dp
     LazyVerticalGrid(
         modifier = modifier,
@@ -63,6 +79,7 @@ fun ImageAssetItemGrid(
                 ),
                 onClick = {
                     // カメラ・ファイルピッカーに遷移
+                    launcher.launch(null)
                     homeNavController.navigate(Screen.HomePreviewIconContent.route)
                 }
             ) {
@@ -105,7 +122,7 @@ private fun PreviewItemGrid() {
             ImageAssetItemGrid(
                 homeNavController = rememberNavController(),
                 items = (1..10).map { num ->
-                    ImageAssetUiModel.Selectable(
+                    ImageAssetUiModel.AssetSelectable(
                         imageAsset = LocalImageAsset(
                             id = AssetId.requireGet("cat_$num"),
                             name = AssetName("cat"),
