@@ -3,7 +3,6 @@ package tech.takahana.iconwallpaper.repository.asset
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import tech.takahana.iconwallpaper.repository.asset.SelectPatternTypeRepository
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 
 class FakeSelectPatternTypeRepository : SelectPatternTypeRepository {
