@@ -4,9 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import tech.takahana.iconwallpaper.android.domain.repository.BitmapImageAssetRepositoryImpl
 import tech.takahana.iconwallpaper.android.domain.repository.LocalImageAssetRepositoryImpl
-import tech.takahana.iconwallpaper.repository.asset.BitmapImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.LocalImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectBackgroundColorRepository
 import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
@@ -42,11 +40,5 @@ object RepositoryModule {
     @Provides
     fun provideSelectBackgroundColorRepository(): SelectBackgroundColorRepository {
         return SelectBackgroundColorRepositoryImpl()
-    }
-
-    @Singleton
-    @Provides
-    fun provideBitmapImageAssetRepository(): BitmapImageAssetRepository {
-        return BitmapImageAssetRepositoryImpl()
     }
 }
