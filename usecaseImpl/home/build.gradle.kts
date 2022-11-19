@@ -43,6 +43,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
                 implementation(libs.kotlinx.coroutines.test)
                 implementation(libs.mockk)
+                implementation(projects.repositoryFake)
             }
         }
         val androidMain by getting
