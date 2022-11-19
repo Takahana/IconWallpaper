@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,17 +21,49 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
+import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
+import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 
 @Composable
 fun HomePreviewIconContent(
-    homeNavController: NavHostController
+    homeNavController: NavHostController,
+    viewModel: HomeSelectPatternViewModel = viewModel(),
+    uiLogic: HomeSelectPatternUiLogic = viewModel.selectPatternUiLogic
 ) {
+    val imageAssetUiModel by uiLogic.selectedImageAssetStateFlow.collectAsState()
+    val imageAsset = when (imageAssetUiModel) {
+        is ImageAssetUiModel.AssetSelectable -> {
+            (imageAssetUiModel as ImageAssetUiModel.AssetSelectable).imageAsset
+        }
+        is ImageAssetUiModel.None -> {
+            LocalImageAsset(
+                id = AssetId(""),
+                name = AssetName("")
+            )
+        }
+    }
+//    val bitmap = when(imageAsset) {
+//        is BitmapImageAsset -> {
+//            imageAsset.bitmap
+//        }
+//        is LocalImageAsset -> {
+//            Exception("")
+//        }
+//        else -> {
+//            Exception("")
+//        }
+//    }
     val image = ImageBitmap.imageResource(
-        id = R.drawable.cat
+        id = R.drawable.dachou
     )
     Column(
         Modifier.fillMaxSize(),
@@ -39,8 +73,7 @@ fun HomePreviewIconContent(
         Image(bitmap = image, contentDescription = null)
         Text(text = "この画像でよろしいですか？")
         Row(
-            modifier = Modifier.padding(12.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            modifier = Modifier.padding(12.dp), horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             RoundButton(
                 modifier = Modifier.fillMaxWidth(0.5F),
