@@ -61,9 +61,10 @@ fun ImageAssetItemGrid(
                         name = AssetName("Cropped Image Material"),
                         bitmap = bitmap
                     ),
-                    isSelected = true
+                    isSelected = false
                 )
             )
+            homeNavController.navigate(Screen.HomePreviewIconContent.route)
         }
     val cellsSize = 120.dp
     LazyVerticalGrid(
@@ -82,7 +83,6 @@ fun ImageAssetItemGrid(
                 onClick = {
                     // カメラ・ファイルピッカーに遷移
                     launcher.launch(null)
-                    homeNavController.navigate(Screen.HomePreviewIconContent.route)
                 }
             ) {
                 Text(text = "写真から選ぶ")

@@ -17,16 +17,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
-import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.android.core.utils.bitmap.rotate90
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
+import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
@@ -40,6 +40,7 @@ fun HomePreviewIconContent(
     uiLogic: HomeSelectPatternUiLogic = viewModel.selectPatternUiLogic
 ) {
     val imageAssetUiModel by uiLogic.selectedImageAssetStateFlow.collectAsState()
+
     val imageAsset = when (imageAssetUiModel) {
         is ImageAssetUiModel.AssetSelectable -> {
             (imageAssetUiModel as ImageAssetUiModel.AssetSelectable).imageAsset
@@ -51,26 +52,16 @@ fun HomePreviewIconContent(
             )
         }
     }
-//    val bitmap = when(imageAsset) {
-//        is BitmapImageAsset -> {
-//            imageAsset.bitmap
-//        }
-//        is LocalImageAsset -> {
-//            Exception("")
-//        }
-//        else -> {
-//            Exception("")
-//        }
-//    }
-    val image = ImageBitmap.imageResource(
-        id = R.drawable.dachou
-    )
+    val bitmapImageAsset = imageAsset as BitmapImageAsset
+
+    val bitmap = bitmapImageAsset.bitmap.rotate90()
+
     Column(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(bitmap = image, contentDescription = null)
+        Image(bitmap = bitmap.asImageBitmap(), contentDescription = null)
         Text(text = "この画像でよろしいですか？")
         Row(
             modifier = Modifier.padding(12.dp), horizontalArrangement = Arrangement.SpaceEvenly
