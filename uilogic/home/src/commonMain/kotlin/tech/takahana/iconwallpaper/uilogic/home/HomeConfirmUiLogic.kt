@@ -8,12 +8,23 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 
 interface HomeConfirmUiLogic {
 
     val openSetWallpaperTargetDialogStateFlow: StateFlow<Boolean>
 
     val setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel>
+
+    val patternTypeStateFlow: StateFlow<PatternType>
+
+    val selectedImageAssetStateFlow: StateFlow<ImageAssetUiModel>
+
+    val backgroundColorStateFlow: StateFlow<ColorType>
 
     fun onClickedSetWallpaper()
 
@@ -46,6 +57,20 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
 
     override val setWallpaperEffect: SharedFlow<PlatformSetWallpaperTargetUiModel> =
         setWallpaperEffectImpl.asSharedFlow()
+
+    override val patternTypeStateFlow: StateFlow<PatternType> = MutableStateFlow(PatternType.MEDIUM)
+
+    override val selectedImageAssetStateFlow: StateFlow<ImageAssetUiModel> = MutableStateFlow(
+        ImageAssetUiModel.Selectable(
+            imageAsset = LocalImageAsset(
+                id = AssetId("assetId"),
+                name = AssetName("assetName"),
+            ),
+            isSelected = true,
+        )
+    )
+
+    override val backgroundColorStateFlow: StateFlow<ColorType> = MutableStateFlow(ColorType.Red)
 
     override fun onClickedSetWallpaper() {
         openSetWallpaperTargetDialogStateFlowImpl.value = true
