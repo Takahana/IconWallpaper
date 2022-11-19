@@ -30,10 +30,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import tech.takahana.iconwallpaper.android.core.Screen
-import tech.takahana.iconwallpaper.android.core.domain.domainobject.BitmapImageAsset
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.ui.theme.LightBlue50
 import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
@@ -50,19 +50,21 @@ fun ImageAssetItemGrid(
     items: List<ImageAssetUiModel.AssetSelectable>,
     onClickItem: (ImageAssetUiModel.AssetSelectable) -> Unit
 ) {
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) {
-        onClickItem(
-            ImageAssetUiModel.AssetSelectable(
-                imageAsset = BitmapImageAsset(
-                    id = AssetId(
-                        it.hashCode().toString(),
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+            onClickItem(
+                ImageAssetUiModel.AssetSelectable(
+                    imageAsset = BitmapImageAsset(
+                        id = AssetId(
+                            bitmap.hashCode().toString(),
+                        ),
+                        name = AssetName("Cropped Image Material"),
+                        bitmap = bitmap
                     ),
-                    name = AssetName("")
-                ),
-                isSelected = true
+                    isSelected = true
+                )
             )
-        )
-    }
+        }
     val cellsSize = 120.dp
     LazyVerticalGrid(
         modifier = modifier,
