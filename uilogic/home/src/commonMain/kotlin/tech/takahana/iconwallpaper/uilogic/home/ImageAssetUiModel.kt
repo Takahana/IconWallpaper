@@ -9,4 +9,12 @@ sealed class ImageAssetUiModel {
     ) : ImageAssetUiModel()
 
     object None : ImageAssetUiModel()
+
+    companion object {
+        fun List<ImageAssetUiModel>.hasSelectedImageAsset(): Boolean {
+            return any { imageAsset ->
+                (imageAsset as? Selectable)?.isSelected ?: false
+            }
+        }
+    }
 }
