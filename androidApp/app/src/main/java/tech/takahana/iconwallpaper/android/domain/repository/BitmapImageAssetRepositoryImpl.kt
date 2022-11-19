@@ -15,4 +15,8 @@ class BitmapImageAssetRepositoryImpl : BitmapImageAssetRepository {
     override fun getBitmap(id: AssetId): BitmapImageAsset? {
         return bitmapMap[id]
     }
+
+    override fun recycleBitmap(id: AssetId) {
+        bitmapMap[id]?.bitmap?.recycle()
+    }
 }

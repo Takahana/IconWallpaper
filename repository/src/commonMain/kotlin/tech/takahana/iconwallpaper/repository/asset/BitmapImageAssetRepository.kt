@@ -11,4 +11,6 @@ interface BitmapImageAssetRepository {
     fun setBitmap(bitmapImageAsset: BitmapImageAsset)
 
     fun getBitmap(id: AssetId): BitmapImageAsset?
+
+    fun recycleBitmap(id: AssetId)
 }
