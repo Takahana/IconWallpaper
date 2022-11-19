@@ -1,8 +1,7 @@
 [versions]
 # native
 koru = "0.10.0"
-kotlinx-coroutines-core = "1.6.0-RC3"
-kotlinx-coroutines-test = "1.6.0"
+kotlinx-coroutines = "1.6.4"
 mockk = "1.12.2"
 turbine = "0.8.0"
 
@@ -27,8 +26,8 @@ junit = "4.13.2"
 [libraries]
 # native
 koru = { module = "com.futuremind:koru", version.ref = "koru" }
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
