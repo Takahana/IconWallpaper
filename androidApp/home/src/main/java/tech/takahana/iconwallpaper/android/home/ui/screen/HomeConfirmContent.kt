@@ -51,6 +51,7 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpaper.android.core.Screen
@@ -62,9 +63,12 @@ import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
 import tech.takahana.iconwallpaper.android.home.ui.util.DrawScopeUtils.drawPattern
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 import tech.takahana.iconwallpaper.uilogic.home.PlatformSetWallpaperTargetUiModel
+import tech.takahana.iconwallpaper.uilogic.home.SetWallpaperTargetUiModel
 
 @Composable
 fun HomeConfirmContent(
@@ -76,10 +80,10 @@ fun HomeConfirmContent(
     val density = LocalDensity.current
     val layoutDirection = LocalLayoutDirection.current
     val applicationContext = requireNotNull(LocalContext.current.applicationContext)
-    val localContext = LocalContext.current
     val patternType by uiLogic.patternTypeStateFlow.collectAsState()
     val backgroundColor by uiLogic.backgroundColorStateFlow.collectAsState()
     val selectedImageAsset by uiLogic.selectedImageAssetStateFlow.collectAsState()
+    val openSetWallpaperDialog: Boolean by uiLogic.openSetWallpaperTargetDialogStateFlow.collectAsState()
 
     when (selectedImageAsset) {
         ImageAssetUiModel.None -> {
@@ -90,102 +94,124 @@ fun HomeConfirmContent(
             val imageAsset = selectedImageAsset as ImageAssetUiModel.Selectable
 
             when (imageAsset.imageAsset) {
-                is LocalImageAsset -> {
-                    // スマートキャストを聞かせるためにasを利用する
-                    val localImageAsset = imageAsset.imageAsset as LocalImageAsset
-                    val imageBitmap = ImageBitmap.imageResource(id = localImageAsset.resId)
-
-                    val onDraw: DrawScope.() -> Unit = {
-                        drawPattern(
-                            image = imageBitmap,
-                            backgroundColor = Color(backgroundColor.hex),
-                            drawNum = patternType.drawNum
-                        )
+                is LocalImageAsset -> LocalImageAssetConfirmContent(
+                    modifier = modifier,
+                    patternType = patternType,
+                    backgroundColor = backgroundColor,
+                    localImageAsset = imageAsset.imageAsset as LocalImageAsset,
+                    setWallpaperEffect = uiLogic.setWallpaperEffect,
+                    onClickedSaveWallpaper = { onDraw ->
+                        // TODO ストレージ書き込みの権限をリクエストする
+                        rootNavController.navigate(Screen.WelcomeScreen.route)
+                        saveImage(applicationContext, density, layoutDirection, onDraw)
+                    },
+                    onClickedSetWallpaper = {
+                        uiLogic.onClickedSetWallpaper()
                     }
-
-                    val openSetWallpaperDialog: Boolean by uiLogic.openSetWallpaperTargetDialogStateFlow.collectAsState()
-
-                    ConstraintLayout(
-                        modifier = modifier.fillMaxSize()
-                    ) {
-                        val (
-                            stepAnnouncement,
-                            canvas,
-                            buttonContainer,
-                        ) = createRefs()
-
-                        StepAnnouncement(
-                            modifier = Modifier.constrainAs(stepAnnouncement) {
-                                top.linkTo(parent.top)
-                            },
-                            message = stringResource(R.string.home_step3_confirm)
-                        )
-                        Canvas(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .constrainAs(canvas) {
-                                    top.linkTo(stepAnnouncement.bottom)
-                                    bottom.linkTo(buttonContainer.top)
-                                    height = Dimension.fillToConstraints
-                                },
-                            onDraw = onDraw,
-                        )
-
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(24.dp)
-                                .constrainAs(buttonContainer) {
-                                    top.linkTo(canvas.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                },
-                            horizontalArrangement = Arrangement.Center,
-                        ) {
-                            ActionButton(
-                                textResId = R.string.home_confirm_save_image,
-                                iconResId = R.drawable.ic_save_24,
-                                onClick = {
-                                    // TODO ストレージ書き込みの権限をリクエストする
-                                    rootNavController.navigate(Screen.WelcomeScreen.route)
-                                    saveImage(applicationContext, density, layoutDirection, onDraw)
-                                },
-                            )
-                            Spacer(modifier = Modifier.width(40.dp))
-                            ActionButton(
-                                textResId = R.string.home_confirm_set_wallpaper,
-                                iconResId = R.drawable.ic_wallpaper_24,
-                                onClick = { uiLogic.onClickedSetWallpaper() },
-                            )
-                        }
-                    }
-
-                    if (openSetWallpaperDialog) {
-                        HomeConfirmSetWallpaperDialog(uiLogic)
-                    }
-
-                    LaunchedEffect(key1 = Unit) {
-                        uiLogic.setWallpaperEffect
-                            .onEach { target ->
-                                setWallpaper(
-                                    applicationContext,
-                                    localContext,
-                                    density,
-                                    layoutDirection,
-                                    target as PlatformSetWallpaperTargetUiModel,
-                                    onDraw,
-                                    onSuccess = {
-                                        // TODO メッセージを表示
-                                    },
-                                    onFailure = {
-                                        // TODO メッセージを表示
-                                    },
-                                )
-                            }
-                            .launchIn(this)
-                    }
-                }
+                )
             }
         }
+    }
+
+    if (openSetWallpaperDialog) {
+        HomeConfirmSetWallpaperDialog(uiLogic)
+    }
+}
+
+@Composable
+private fun LocalImageAssetConfirmContent(
+    modifier: Modifier = Modifier,
+    patternType: PatternType,
+    backgroundColor: ColorType,
+    localImageAsset: LocalImageAsset,
+    setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel>,
+    onClickedSaveWallpaper: (onDraw: DrawScope.() -> Unit) -> Unit,
+    onClickedSetWallpaper: () -> Unit,
+) {
+    val density = LocalDensity.current
+    val layoutDirection = LocalLayoutDirection.current
+    val applicationContext = requireNotNull(LocalContext.current.applicationContext)
+    val localContext = LocalContext.current
+
+    val imageBitmap = ImageBitmap.imageResource(id = localImageAsset.resId)
+
+    val onDraw: DrawScope.() -> Unit = {
+        drawPattern(
+            image = imageBitmap,
+            backgroundColor = Color(backgroundColor.hex),
+            drawNum = patternType.drawNum
+        )
+    }
+
+    ConstraintLayout(
+        modifier = modifier.fillMaxSize()
+    ) {
+        val (
+            stepAnnouncement,
+            canvas,
+            buttonContainer,
+        ) = createRefs()
+
+        StepAnnouncement(
+            modifier = Modifier.constrainAs(stepAnnouncement) {
+                top.linkTo(parent.top)
+            },
+            message = stringResource(R.string.home_step3_confirm)
+        )
+        Canvas(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(canvas) {
+                    top.linkTo(stepAnnouncement.bottom)
+                    bottom.linkTo(buttonContainer.top)
+                    height = Dimension.fillToConstraints
+                },
+            onDraw = onDraw,
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp)
+                .constrainAs(buttonContainer) {
+                    top.linkTo(canvas.bottom)
+                    bottom.linkTo(parent.bottom)
+                },
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            ActionButton(
+                textResId = R.string.home_confirm_save_image,
+                iconResId = R.drawable.ic_save_24,
+                onClick = { onClickedSaveWallpaper(onDraw) },
+            )
+            Spacer(modifier = Modifier.width(40.dp))
+            ActionButton(
+                textResId = R.string.home_confirm_set_wallpaper,
+                iconResId = R.drawable.ic_wallpaper_24,
+                onClick = onClickedSetWallpaper,
+            )
+        }
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        setWallpaperEffect
+            .onEach { target ->
+                setWallpaper(
+                    applicationContext,
+                    localContext,
+                    density,
+                    layoutDirection,
+                    target as PlatformSetWallpaperTargetUiModel,
+                    onDraw,
+                    onSuccess = {
+                        // TODO メッセージを表示
+                    },
+                    onFailure = {
+                        // TODO メッセージを表示
+                    },
+                )
+            }
+            .launchIn(this)
     }
 }
 
