@@ -3,9 +3,7 @@ package tech.takahana.iconwallpaper.repositoryimpl.asset
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
-import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
-import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.dummy.DummyImageAsset
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -45,9 +43,4 @@ class SelectImageAssetRepositoryImplTest {
 
         assertNull(actual2)
     }
-
-    data class DummyImageAsset(
-        override val id: AssetId = AssetId("assetId"),
-        override val name: AssetName = AssetName("assetName")
-    ) : ImageAsset
 }
