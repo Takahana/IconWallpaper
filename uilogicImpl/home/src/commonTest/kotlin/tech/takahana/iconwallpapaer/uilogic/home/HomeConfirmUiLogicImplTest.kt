@@ -3,8 +3,15 @@ package tech.takahana.iconwallpapaer.uilogic.home
 import app.cash.turbine.test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.dummy.DummyImageAsset
+import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 import tech.takahana.iconwallpaper.uilogic.home.SetWallpaperTargetUiModel
 import tech.takahana.iconwallpaper.usecase.FakeHomeConfirmUseCase
+import tech.takahana.iconwallpaper.usecase.home.ImageAssetUseCaseModel
+import tech.takahana.iconwallpaper.usecase.home.SelectedBackgroundColorUseCaseModel
+import tech.takahana.iconwallpaper.usecase.home.SelectedPatternUseCaseModel
 import tech.takahana.iconwallpaper.usecase.home.SetWallpaperTargetUseCaseModel
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -20,6 +27,78 @@ class HomeConfirmUiLogicImplTest {
     @BeforeTest
     fun setUp() {
         fakeUseCase = FakeHomeConfirmUseCase()
+    }
+
+    @Test
+    fun patternTypeStateFlow() = runTest {
+        val uiLogic = HomeConfirmUiLogicImpl(
+            viewModelScope = backgroundScope,
+            useCase = fakeUseCase,
+            setWallpaperTargetMapper = FakePlatformSetWallpaperTargetMapper()
+        )
+
+        uiLogic.patternTypeStateFlow.test {
+            // 初期値
+            assertEquals(PatternType.SMALL, awaitItem())
+
+            // パターンを変更
+            fakeUseCase.selectedPatternFlowImpl.emit(
+                SelectedPatternUseCaseModel(PatternType.MEDIUM)
+            )
+
+            assertEquals(PatternType.MEDIUM, awaitItem())
+        }
+    }
+
+    @Test
+    fun selectedImageAssetStateFlow() = runTest {
+        val uiLogic = HomeConfirmUiLogicImpl(
+            viewModelScope = backgroundScope,
+            useCase = fakeUseCase,
+            setWallpaperTargetMapper = FakePlatformSetWallpaperTargetMapper()
+        )
+        val imageAsset = DummyImageAsset()
+
+        uiLogic.selectedImageAssetStateFlow.test {
+            // 初期値
+            assertEquals(ImageAssetUiModel.None, awaitItem())
+
+            // 素材を変更
+            fakeUseCase.selectedImageAssetFlowImpl.emit(
+                ImageAssetUseCaseModel.HasAsset(
+                    imageAsset,
+                    isSelected = true
+                )
+            )
+
+            assertEquals(
+                ImageAssetUiModel.Selectable(
+                    imageAsset,
+                    isSelected = true
+                ), awaitItem()
+            )
+        }
+    }
+
+    @Test
+    fun backgroundColorStateFlow() = runTest {
+        val uiLogic = HomeConfirmUiLogicImpl(
+            viewModelScope = backgroundScope,
+            useCase = fakeUseCase,
+            setWallpaperTargetMapper = FakePlatformSetWallpaperTargetMapper()
+        )
+
+        uiLogic.backgroundColorStateFlow.test {
+            // 初期値
+            assertEquals(ColorType.Other(0xffffff), awaitItem())
+
+            // 背景色の変更
+            fakeUseCase.selectedBackgroundColorFlowImpl.emit(
+                SelectedBackgroundColorUseCaseModel(ColorType.Blue)
+            )
+
+            assertEquals(ColorType.Blue, awaitItem())
+        }
     }
 
     @Test
