@@ -25,7 +25,7 @@ class HomeConfirmUiLogicImplTest {
     @Test
     fun onClickedSetWallpaper() = runTest {
         val uiLogic = HomeConfirmUiLogicImpl(
-            viewModelScope = this,
+            viewModelScope = backgroundScope,
             useCase = fakeUseCase,
             setWallpaperTargetMapper = FakePlatformSetWallpaperTargetMapper()
         )
@@ -55,7 +55,7 @@ class HomeConfirmUiLogicImplTest {
     @Test
     fun onSetWallpaperTargetDialogDismissRequested() = runTest {
         val uiLogic = HomeConfirmUiLogicImpl(
-            viewModelScope = this,
+            viewModelScope = backgroundScope,
             useCase = fakeUseCase,
             setWallpaperTargetMapper = FakePlatformSetWallpaperTargetMapper()
         )
@@ -97,7 +97,7 @@ class HomeConfirmUiLogicImplTest {
     @Test
     fun onClickedSetWallpaperTarget() = runTest {
         val uiLogic = HomeConfirmUiLogicImpl(
-            viewModelScope = this,
+            viewModelScope = backgroundScope,
             useCase = fakeUseCase,
             setWallpaperTargetMapper = FakePlatformSetWallpaperTargetMapper()
         )
