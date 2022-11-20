@@ -24,4 +24,9 @@ interface SelectImageAssetRepository {
      * 選択済みの画像素材をクリアする
      */
     suspend fun clearSelectedImageAsset()
+
+    /**
+     * 画像素材のビットマップをリサイクルする
+     */
+    suspend fun recycleImageAsset()
 }

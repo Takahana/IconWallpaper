@@ -54,6 +54,8 @@ fun HomePreviewIconContent(
     }
     val bitmapImageAsset = imageAsset as BitmapImageAsset
 
+    bitmapImageAsset
+
     val bitmap = bitmapImageAsset.bitmap.rotate90()
 
     Column(

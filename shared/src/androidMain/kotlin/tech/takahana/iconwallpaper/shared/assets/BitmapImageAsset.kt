@@ -16,4 +16,10 @@ actual data class BitmapImageAsset actual constructor(
     constructor(id: AssetId, name: AssetName, bitmap: Bitmap) : this(id, name) {
         this.bitmap = bitmap
     }
+
+    actual fun recycle() {
+        if (::bitmap.isInitialized) {
+            bitmap.recycle()
+        }
+    }
 }

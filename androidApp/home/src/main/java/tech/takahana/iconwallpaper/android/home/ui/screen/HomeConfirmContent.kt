@@ -152,7 +152,7 @@ fun HomeConfirmContent(
                     target as PlatformSetWallpaperTargetUiModel,
                     onDraw,
                     onSuccess = {
-                        // TODO メッセージを表示
+                        uiLogic.onSuccessSetWallPaper()
                     },
                     onFailure = {
                         // TODO メッセージを表示

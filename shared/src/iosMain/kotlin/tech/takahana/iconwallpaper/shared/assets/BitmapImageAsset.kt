@@ -7,4 +7,8 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 actual class BitmapImageAsset actual constructor(
     override val id: AssetId,
     override val name: AssetName
-) : ImageAsset
+) : ImageAsset {
+    actual fun recycle() {
+        // iOS側での画像リサイクル処理
+    }
+}

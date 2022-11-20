@@ -7,4 +7,6 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 expect class BitmapImageAsset(
     id: AssetId,
     name: AssetName,
-) : ImageAsset
+) : ImageAsset {
+    fun recycle()
+}

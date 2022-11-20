@@ -23,6 +23,8 @@ interface HomeConfirmUiLogic {
         target: SetWallpaperTargetUiModel
     )
 
+    fun onSuccessSetWallPaper()
+
     interface Factory {
         fun create(viewModelScope: CoroutineScope): HomeConfirmUiLogic
     }
@@ -57,4 +59,6 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
 
     override fun onClickedSetWallpaperTarget(target: SetWallpaperTargetUiModel) =
         onClickedSetWallpaperTargetImpl(target)
+
+    override fun onSuccessSetWallPaper() {}
 }

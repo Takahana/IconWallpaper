@@ -1,6 +1,10 @@
 package tech.takahana.iconwallpaper.usecase.home
 
-class HomeConfirmUseCaseImpl : HomeConfirmUseCase {
+import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
+
+class HomeConfirmUseCaseImpl(
+    private val selectImageAssetRepository: SelectImageAssetRepository
+) : HomeConfirmUseCase {
     override fun saveWallpaper(): Result<Unit> {
         return Result.success(Unit)
     }
@@ -15,5 +19,9 @@ class HomeConfirmUseCaseImpl : HomeConfirmUseCase {
 
     override fun selectSetWallpaperTarget(target: SetWallpaperTargetUseCaseModel): Result<SetWallpaperTargetUseCaseModel> {
         return Result.success(target)
+    }
+
+    override suspend fun recycleWallpaper() {
+        selectImageAssetRepository.recycleImageAsset()
     }
 }

@@ -34,10 +34,12 @@ class HomeConfirmUiLogicImpl(
         mutableSetWallpaperEffect.asSharedFlow()
 
     override fun onClickedSetWallpaper() {
-        useCase.setWallpaper()
-            .onSuccess {
-                mutableSetWallpaperTargetDialogSource.value = true
-            }
+        viewModelScope.launch {
+            useCase.setWallpaper()
+                .onSuccess {
+                    mutableSetWallpaperTargetDialogSource.value = true
+                }
+        }
     }
 
     override fun onSetWallpaperTargetDialogDismissRequested() {
@@ -54,6 +56,12 @@ class HomeConfirmUiLogicImpl(
                     mutableSetWallpaperEffect.emit(setWallpaperTargetMapper.mapToUiModel(target))
                     mutableSetWallpaperTargetDialogSource.value = false
                 }
+        }
+    }
+
+    override fun onSuccessSetWallPaper() {
+        viewModelScope.launch {
+            useCase.recycleWallpaper()
         }
     }
 
