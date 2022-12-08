@@ -44,6 +44,8 @@ kotlin {
                 dependsOn(commonTest)
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
+                implementation("androidx.test:runner:1.5.1")
+                implementation("androidx.test:rules:1.5.0")
             }
         }
         val iosX64Main by getting
@@ -73,6 +75,7 @@ android {
     defaultConfig {
         minSdk = 23
         targetSdk = 31
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 dependencies {
