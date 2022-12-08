@@ -41,7 +41,11 @@ object UseCaseModule {
     }
 
     @Provides
-    fun provideHomeConfirmUseCase(): HomeConfirmUseCase {
-        return HomeConfirmUseCaseImpl()
+    fun provideHomeConfirmUseCase(
+        selectImageAssetRepository: SelectImageAssetRepository
+    ): HomeConfirmUseCase {
+        return HomeConfirmUseCaseImpl(
+            selectImageAssetRepository
+        )
     }
 }
