@@ -41,6 +41,7 @@ kotlin {
         }
         val androidTest by getting {
             dependencies {
+                dependsOn(commonTest)
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
             }
@@ -73,4 +74,7 @@ android {
         minSdk = 23
         targetSdk = 31
     }
+}
+dependencies {
+    implementation("androidx.test.ext:junit-ktx:1.1.4")
 }
