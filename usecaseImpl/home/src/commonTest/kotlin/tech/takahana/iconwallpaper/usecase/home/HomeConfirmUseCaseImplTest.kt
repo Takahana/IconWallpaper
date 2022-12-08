@@ -1,14 +1,34 @@
 package tech.takahana.iconwallpaper.usecase.home
 
+import tech.takahana.iconwallpaper.repository.asset.FakeSelectBackgroundColorRepository
+import tech.takahana.iconwallpaper.repository.asset.FakeSelectImageAssetRepository
+import tech.takahana.iconwallpaper.repository.asset.FakeSelectPatternTypeRepository
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class HomeConfirmUseCaseImplTest {
 
+    private lateinit var useCase: HomeConfirmUseCaseImpl
+    private lateinit var fakeSelectPatternTypeRepository: FakeSelectPatternTypeRepository
+    private lateinit var fakeSelectBackgroundColorRepository: FakeSelectBackgroundColorRepository
+    private lateinit var fakeSelectImageAssetRepository: FakeSelectImageAssetRepository
+
+    @BeforeTest
+    fun setUp() {
+        fakeSelectPatternTypeRepository = FakeSelectPatternTypeRepository()
+        fakeSelectBackgroundColorRepository = FakeSelectBackgroundColorRepository()
+        fakeSelectImageAssetRepository = FakeSelectImageAssetRepository()
+
+        useCase = HomeConfirmUseCaseImpl(
+            selectPatternTypeRepository = fakeSelectPatternTypeRepository,
+            selectBackgroundColorRepository = fakeSelectBackgroundColorRepository,
+            selectImageAssetRepository = fakeSelectImageAssetRepository,
+        )
+    }
+
     @Test
     fun saveWallpaper() {
-        val useCase = HomeConfirmUseCaseImpl()
-
         val actual = useCase.saveWallpaper()
 
         assertEquals(Result.success(Unit), actual)
@@ -16,8 +36,6 @@ class HomeConfirmUseCaseImplTest {
 
     @Test
     fun setWallpaper() {
-        val useCase = HomeConfirmUseCaseImpl()
-
         val actual = useCase.setWallpaper()
 
         assertEquals(Result.success(Unit), actual)
@@ -25,8 +43,6 @@ class HomeConfirmUseCaseImplTest {
 
     @Test
     fun cancelSetWallpaper() {
-        val useCase = HomeConfirmUseCaseImpl()
-
         val actual = useCase.cancelSetWallpaper()
 
         assertEquals(Result.success(Unit), actual)
@@ -34,8 +50,6 @@ class HomeConfirmUseCaseImplTest {
 
     @Test
     fun selectSetWallpaperTarget() {
-        val useCase = HomeConfirmUseCaseImpl()
-
         val target = FakePlatformSetWallpaperTargetUseCaseModel.Lock
         val actual = useCase.selectSetWallpaperTarget(target)
 

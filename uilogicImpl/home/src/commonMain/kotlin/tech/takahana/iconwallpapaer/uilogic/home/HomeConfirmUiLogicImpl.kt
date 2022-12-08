@@ -3,17 +3,24 @@ package tech.takahana.iconwallpapaer.uilogic.home
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import mapToUiModel
 import mapToUseCaseModel
 import tech.takahana.iconwallpaper.shared.coroutines.flow.MutableEffectSharedFlow
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 import tech.takahana.iconwallpaper.uilogic.home.PlatformSetWallpaperTargetUiModel
 import tech.takahana.iconwallpaper.uilogic.home.SetWallpaperTargetUiModel
 import tech.takahana.iconwallpaper.usecase.home.HomeConfirmUseCase
+import tech.takahana.iconwallpaper.usecase.home.ImageAssetUseCaseModel
 import tech.takahana.iconwallpaper.usecase.home.PlatformSetWallpaperTargetUseCaseModel
 import tech.takahana.iconwallpaper.usecase.home.SetWallpaperTargetUseCaseModel
 
@@ -32,6 +39,40 @@ class HomeConfirmUiLogicImpl(
         mutableSetWallpaperTargetDialogSource.asStateFlow()
     override val setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel> =
         mutableSetWallpaperEffect.asSharedFlow()
+
+    override val patternTypeStateFlow: StateFlow<PatternType> =
+        useCase.selectedPatternFlow.map { selectedPatternUseCaseModel ->
+            selectedPatternUseCaseModel.pattern
+        }.stateIn(
+            viewModelScope, SharingStarted.Eagerly,
+            PatternType.SMALL
+        )
+
+    override val selectedImageAssetStateFlow: StateFlow<ImageAssetUiModel> =
+        useCase.selectedImageAssetFlow.map { selectedImageAssetUseCaseModel ->
+            when (selectedImageAssetUseCaseModel) {
+                is ImageAssetUseCaseModel.HasAsset -> {
+                    ImageAssetUiModel.Selectable(
+                        imageAsset = selectedImageAssetUseCaseModel.asset,
+                        isSelected = selectedImageAssetUseCaseModel.isSelected
+                    )
+                }
+                ImageAssetUseCaseModel.None -> ImageAssetUiModel.None
+            }
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            ImageAssetUiModel.None
+        )
+
+    override val backgroundColorStateFlow: StateFlow<ColorType> =
+        useCase.selectedBackgroundColorFlow.map { selectedBackgroundColor ->
+            selectedBackgroundColor.backgroundColor
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            ColorType.Other(0xffffff)
+        )
 
     override fun onClickedSetWallpaper() {
         viewModelScope.launch {
