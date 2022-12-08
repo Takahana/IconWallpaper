@@ -44,8 +44,7 @@ kotlin {
                 dependsOn(commonTest)
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
-                implementation("androidx.test:runner:1.5.1")
-                implementation("androidx.test:rules:1.5.0")
+                implementation(libs.mockk)
             }
         }
         val iosX64Main by getting
@@ -71,11 +70,19 @@ kotlin {
 
 android {
     compileSdk = 31
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 23
         targetSdk = 31
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    with(sourceSets["main"]) {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        java.srcDirs("src/androidMain/kotlin", "src/commonMain/kotlin")
+        res.srcDirs("src/androidMain/res")
+    }
+    with(sourceSets["test"]) {
+        java.srcDirs("src/androidTest/kotlin", "src/commonTest/kotlin")
+        res.srcDirs("src/androidTest/res")
     }
 }
 dependencies {
