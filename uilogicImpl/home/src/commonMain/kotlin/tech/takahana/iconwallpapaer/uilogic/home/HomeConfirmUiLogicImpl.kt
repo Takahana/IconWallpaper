@@ -52,7 +52,7 @@ class HomeConfirmUiLogicImpl(
         useCase.selectedImageAssetFlow.map { selectedImageAssetUseCaseModel ->
             when (selectedImageAssetUseCaseModel) {
                 is ImageAssetUseCaseModel.HasAsset -> {
-                    ImageAssetUiModel.Selectable(
+                    ImageAssetUiModel.AssetSelectable(
                         imageAsset = selectedImageAssetUseCaseModel.asset,
                         isSelected = selectedImageAssetUseCaseModel.isSelected
                     )

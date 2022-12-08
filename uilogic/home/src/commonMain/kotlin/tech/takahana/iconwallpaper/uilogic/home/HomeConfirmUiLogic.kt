@@ -63,7 +63,7 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
     override val patternTypeStateFlow: StateFlow<PatternType> = MutableStateFlow(PatternType.MEDIUM)
 
     override val selectedImageAssetStateFlow: StateFlow<ImageAssetUiModel> = MutableStateFlow(
-        ImageAssetUiModel.Selectable(
+        ImageAssetUiModel.AssetSelectable(
             imageAsset = LocalImageAsset(
                 id = AssetId("assetId"),
                 name = AssetName("assetName"),

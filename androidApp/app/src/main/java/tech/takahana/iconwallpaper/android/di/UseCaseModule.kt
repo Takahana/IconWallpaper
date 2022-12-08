@@ -41,7 +41,13 @@ object UseCaseModule {
     }
 
     @Provides
-    fun provideHomeConfirmUseCase(): HomeConfirmUseCase {
-        return HomeConfirmUseCaseImpl()
+    fun provideHomeConfirmUseCase(
+        selectPatternTypeRepository: SelectPatternTypeRepository,
+        selectBackgroundColorRepository: SelectBackgroundColorRepository,
+        selectImageAssetRepository: SelectImageAssetRepository
+    ): HomeConfirmUseCase {
+        return HomeConfirmUseCaseImpl(
+            selectPatternTypeRepository, selectBackgroundColorRepository, selectImageAssetRepository
+        )
     }
 }

@@ -17,6 +17,8 @@ class FakeHomeConfirmUseCase : HomeConfirmUseCase {
 
     var cancelSetWallpaperImpl: () -> Result<Unit> = { Result.success(Unit) }
 
+    var recycleWallpaperImpl: () -> Unit = {}
+
     var selectSetWallpaperTargetImpl: (SetWallpaperTargetUseCaseModel) -> Result<SetWallpaperTargetUseCaseModel> =
         {
             Result.success(it)
@@ -47,4 +49,6 @@ class FakeHomeConfirmUseCase : HomeConfirmUseCase {
 
     override fun selectSetWallpaperTarget(target: SetWallpaperTargetUseCaseModel): Result<SetWallpaperTargetUseCaseModel> =
         selectSetWallpaperTargetImpl(target)
+
+    override suspend fun recycleWallpaper(): Unit = recycleWallpaperImpl()
 }
