@@ -53,7 +53,7 @@ fun ImageAssetItemGrid(
                         id = AssetId(
                             bitmap.hashCode().toString(),
                         ),
-                        name = AssetName("Cropped Image Material"),
+                        name = AssetName("Cropped Image Asset"),
                         bitmap = bitmap
                     ),
                     isSelected = false
