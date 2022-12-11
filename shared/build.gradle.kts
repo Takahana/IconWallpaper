@@ -32,6 +32,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation(libs.mockk)
             }
         }
         val androidMain by getting {
@@ -44,7 +45,6 @@ kotlin {
                 dependsOn(commonTest)
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
-                implementation(libs.mockk)
             }
         }
         val iosX64Main by getting

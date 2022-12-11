@@ -36,6 +36,7 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.mockk)
             }
         }
         val androidMain by getting
@@ -43,7 +44,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
-                implementation(libs.mockk)
             }
         }
         val iosX64Main by getting
