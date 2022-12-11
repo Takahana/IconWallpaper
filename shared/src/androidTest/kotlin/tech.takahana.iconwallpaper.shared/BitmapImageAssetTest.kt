@@ -11,7 +11,7 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 
 class BitmapImageAssetTest {
 
-    lateinit var bitmapImageAsset: BitmapImageAsset
+    private lateinit var bitmapImageAsset: BitmapImageAsset
 
     @Before
     fun before() {
