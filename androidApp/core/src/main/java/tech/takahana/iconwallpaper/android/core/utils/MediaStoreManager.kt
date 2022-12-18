@@ -12,8 +12,8 @@ import android.util.Log
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.core.content.ContextCompat
 import java.io.FileNotFoundException
-import java.util.TimeZone
 import java.util.Calendar
+import java.util.TimeZone
 
 /**
  * MediaStoreへのアクセスを行うManager。
@@ -88,9 +88,9 @@ class MediaStoreManager(
 
         contentValues.clear()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            contentValues.put(MediaStore.Audio.Media.IS_PENDING, 0)
+            contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
+            resolver.update(contentUri, contentValues, null, null)
         }
-        resolver.update(contentUri, contentValues, null, null)
 
         bitmap.recycle()
 
