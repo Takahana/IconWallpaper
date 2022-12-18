@@ -55,10 +55,10 @@ jobs:
         with:
           fetch-depth: 100
       - name: Setup ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-          architecture: 'x64'
+          bundler-cache: true
       - name: install danger
         run: |
           gem install bundler
