@@ -43,6 +43,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
                 implementation(libs.kotlinx.coroutines.test)
                 implementation(libs.mockk)
+                implementation(libs.turbine)
                 implementation(projects.repositoryFake)
             }
         }

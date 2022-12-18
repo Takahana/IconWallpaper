@@ -3,6 +3,7 @@ package tech.takahana.iconwallpaper.usecase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import tech.takahana.iconwallpaper.shared.coroutines.flow.MutableSharedFlowReplayable
 import tech.takahana.iconwallpaper.usecase.home.HomeConfirmUseCase
 import tech.takahana.iconwallpaper.usecase.home.ImageAssetUseCaseModel
 import tech.takahana.iconwallpaper.usecase.home.SelectedBackgroundColorUseCaseModel
@@ -22,13 +23,14 @@ class FakeHomeConfirmUseCase : HomeConfirmUseCase {
             Result.success(it)
         }
 
-    var selectedImageAssetFlowImpl: MutableSharedFlow<ImageAssetUseCaseModel> = MutableSharedFlow()
+    var selectedImageAssetFlowImpl: MutableSharedFlow<ImageAssetUseCaseModel> =
+        MutableSharedFlowReplayable()
 
     var selectedPatternFlowImpl: MutableSharedFlow<SelectedPatternUseCaseModel> =
-        MutableSharedFlow()
+        MutableSharedFlowReplayable()
 
     var selectedBackgroundColorFlowImpl: MutableSharedFlow<SelectedBackgroundColorUseCaseModel> =
-        MutableSharedFlow()
+        MutableSharedFlowReplayable()
 
     override val selectedImageAssetFlow: Flow<ImageAssetUseCaseModel> =
         selectedImageAssetFlowImpl.asSharedFlow()
