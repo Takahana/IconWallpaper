@@ -28,5 +28,5 @@ interface HomeConfirmUseCase {
 
     fun selectSetWallpaperTarget(target: SetWallpaperTargetUseCaseModel): Result<SetWallpaperTargetUseCaseModel>
 
-    suspend fun recycleWallpaper()
+    fun recycleWallpaper()
 }

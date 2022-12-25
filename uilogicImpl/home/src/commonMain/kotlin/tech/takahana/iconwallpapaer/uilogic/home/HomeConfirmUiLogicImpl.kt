@@ -101,9 +101,7 @@ class HomeConfirmUiLogicImpl(
     }
 
     override fun onSuccessSetWallPaper() {
-        viewModelScope.launch {
-            useCase.recycleWallpaper()
-        }
+        useCase.recycleWallpaper()
     }
 
     class Factory(

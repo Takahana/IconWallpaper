@@ -28,5 +28,5 @@ interface SelectImageAssetRepository {
     /**
      * 画像素材のビットマップをリサイクルする
      */
-    suspend fun recycleImageAsset()
+    fun recycleImageAsset()
 }

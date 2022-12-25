@@ -23,7 +23,7 @@ class SelectImageAssetRepositoryImpl : SelectImageAssetRepository {
         mutableSelectImageAssetSource.value = null
     }
 
-    override suspend fun recycleImageAsset() {
+    override fun recycleImageAsset() {
         when (mutableSelectImageAssetSource.value) {
             is BitmapImageAsset -> {
                 (mutableSelectImageAssetSource.value as BitmapImageAsset).recycle()

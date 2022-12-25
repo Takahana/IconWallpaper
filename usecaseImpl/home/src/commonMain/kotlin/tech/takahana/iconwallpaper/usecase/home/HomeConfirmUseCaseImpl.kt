@@ -44,7 +44,7 @@ class HomeConfirmUseCaseImpl(
         return Result.success(target)
     }
 
-    override suspend fun recycleWallpaper() {
+    override fun recycleWallpaper() {
         selectImageAssetRepository.recycleImageAsset()
     }
 }

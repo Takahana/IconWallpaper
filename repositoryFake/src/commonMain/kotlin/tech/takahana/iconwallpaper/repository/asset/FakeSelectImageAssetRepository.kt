@@ -22,7 +22,7 @@ class FakeSelectImageAssetRepository : SelectImageAssetRepository {
         selectedImageAssetFlowImpl.value = null
     }
 
-    override suspend fun recycleImageAsset() {
+    override fun recycleImageAsset() {
         when (selectedImageAssetFlowImpl.value) {
             is BitmapImageAsset -> {
                 (selectedImageAssetFlowImpl.value as BitmapImageAsset).recycle()
