@@ -22,11 +22,10 @@ class BitmapImageAssetTest {
 
     @Test
     fun recycleBitmap() {
-        val bitmap = bitmapImageAsset.bitmap
-        every { bitmap.recycle() } returns Unit
+        every { bitmapImageAsset.recycle() } returns Unit
 
-        bitmap.recycle()
+        bitmapImageAsset.recycle()
 
-        verify { bitmap.recycle() }
+        verify { bitmapImageAsset.recycle() }
     }
 }
