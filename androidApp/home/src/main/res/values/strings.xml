@@ -22,4 +22,7 @@
   <string name="home_confirm_set_wallpaper_to_lock">ロック画面</string>
   <string name="home_confirm_set_wallpaper_to_home_and_lock">ホーム画面とロック画面</string>
   <string name="home_confirm_set_wallpaper_with_other_app">他のアプリで設定する</string>
+  <string name="home_confirm_permission_dialog_title">ストレージへのアクセス権限が必要です</string>
+  <string name="home_confirm_permission_dialog_text">この後に表示されるダイアログで、アクセス権限のリクエストを許可してください。</string>
+  <string name="home_confirm_permission_confirmed">リクエストを確認する</string>
 </resources>
