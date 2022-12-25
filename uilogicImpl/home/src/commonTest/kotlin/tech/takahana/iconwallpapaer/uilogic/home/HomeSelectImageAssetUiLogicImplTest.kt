@@ -10,8 +10,7 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
-import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
-import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.dummy.DummyImageAsset
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 import tech.takahana.iconwallpaper.usecase.home.HomeSelectImageAssetUseCase
 import tech.takahana.iconwallpaper.usecase.home.ImageAssetUseCaseModel
@@ -120,9 +119,4 @@ class HomeSelectImageAssetUiLogicImplTest {
         coVerify(exactly = 0) { mockHomeSelectImageAssetUseCase.unselectImageAsset() }
         coVerify(exactly = 1) { mockHomeSelectImageAssetUseCase.selectImageAsset(dummyImageAsset) }
     }
-
-    data class DummyImageAsset(
-        override val id: AssetId = AssetId("assetId"),
-        override val name: AssetName = AssetName("assetName")
-    ) : ImageAsset
 }

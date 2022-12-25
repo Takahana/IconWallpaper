@@ -1,8 +1,13 @@
 package tech.takahana.iconwallpaper.usecase.home
 
+import app.cash.turbine.test
+import kotlinx.coroutines.test.runTest
 import tech.takahana.iconwallpaper.repository.asset.FakeSelectBackgroundColorRepository
 import tech.takahana.iconwallpaper.repository.asset.FakeSelectImageAssetRepository
 import tech.takahana.iconwallpaper.repository.asset.FakeSelectPatternTypeRepository
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.dummy.DummyImageAsset
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -25,6 +30,47 @@ class HomeConfirmUseCaseImplTest {
             selectBackgroundColorRepository = fakeSelectBackgroundColorRepository,
             selectImageAssetRepository = fakeSelectImageAssetRepository,
         )
+    }
+
+    @Test
+    fun selectedImageAssetFlow() = runTest {
+        val imageAsset = DummyImageAsset()
+        useCase.selectedImageAssetFlow.test {
+            fakeSelectImageAssetRepository.selectedImageAssetFlowImpl.emit(imageAsset)
+
+            assertEquals(
+                ImageAssetUseCaseModel.HasAsset(asset = imageAsset, isSelected = true),
+                awaitItem()
+            )
+
+            expectNoEvents()
+        }
+    }
+
+    @Test
+    fun selectedPatternFlow() = runTest {
+        useCase.selectedPatternFlow.test {
+            // 初期値
+            assertEquals(awaitItem(), SelectedPatternUseCaseModel(PatternType.SMALL))
+
+            // パターンの変更
+            fakeSelectPatternTypeRepository.selectedPatternTypeFlowImpl.value = PatternType.MEDIUM
+
+            assertEquals(awaitItem(), SelectedPatternUseCaseModel(PatternType.MEDIUM))
+        }
+    }
+
+    @Test
+    fun selectedBackgroundColorFlow() = runTest {
+        useCase.selectedBackgroundColorFlow.test {
+            // 初期値
+            assertEquals(awaitItem(), SelectedBackgroundColorUseCaseModel(ColorType.Blue))
+
+            // 背景色の変更
+            fakeSelectBackgroundColorRepository.selectBackgroundColorFlowImpl.value = ColorType.Red
+
+            assertEquals(awaitItem(), SelectedBackgroundColorUseCaseModel(ColorType.Red))
+        }
     }
 
     @Test

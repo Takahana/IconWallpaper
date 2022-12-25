@@ -42,8 +42,9 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation(libs.kotlinx.coroutines.test)
-                implementation(projects.repositoryFake)
                 implementation(libs.mockk)
+                implementation(libs.turbine)
+                implementation(projects.repositoryFake)
             }
         }
         val androidMain by getting
@@ -82,7 +83,4 @@ android {
         minSdk = 23
         targetSdk = 31
     }
-}
-dependencies {
-    testImplementation(project(mapOf("path" to ":repositoryFake")))
 }
