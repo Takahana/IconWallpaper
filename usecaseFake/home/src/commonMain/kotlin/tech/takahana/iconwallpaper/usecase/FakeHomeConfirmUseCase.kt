@@ -52,5 +52,5 @@ class FakeHomeConfirmUseCase : HomeConfirmUseCase {
     override fun selectSetWallpaperTarget(target: SetWallpaperTargetUseCaseModel): Result<SetWallpaperTargetUseCaseModel> =
         selectSetWallpaperTargetImpl(target)
 
-    override suspend fun recycleWallpaper(): Unit = recycleWallpaperImpl()
+    override fun recycleWallpaper(): Unit = recycleWallpaperImpl()
 }
