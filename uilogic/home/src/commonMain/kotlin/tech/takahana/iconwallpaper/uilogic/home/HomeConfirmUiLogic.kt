@@ -41,7 +41,6 @@ interface HomeConfirmUiLogic {
         target: SetWallpaperTargetUiModel
     )
 
-<<<<<<< HEAD
     fun onClickedConfirmPermission()
 
     fun onPermissionRequestRationaleDialogDismissRequested()
@@ -53,9 +52,8 @@ interface HomeConfirmUiLogic {
     )
 
     fun onPermissionStateChanged(isGranted: Boolean)
-=======
+
     fun onSuccessSetWallPaper()
->>>>>>> main
 
     interface Factory {
         fun create(viewModelScope: CoroutineScope): HomeConfirmUiLogic
@@ -113,7 +111,6 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
     override fun onClickedSetWallpaperTarget(target: SetWallpaperTargetUiModel) =
         onClickedSetWallpaperTargetImpl(target)
 
-<<<<<<< HEAD
     override fun onClickedSaveWallpaper(
         canSkipPermissionRequest: Boolean,
         isPermissionRequestGrant: Boolean,
@@ -125,7 +122,6 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
     override fun onPermissionRequestRationaleDialogDismissRequested() = Unit
 
     override fun onPermissionStateChanged(isGranted: Boolean) = Unit
-=======
+
     override fun onSuccessSetWallPaper() {}
->>>>>>> main
 }

@@ -117,7 +117,6 @@ class HomeConfirmUiLogicImpl(
         }
     }
 
-<<<<<<< HEAD
     override fun onClickedSaveWallpaper(
         canSkipPermissionRequest: Boolean,
         isPermissionRequestGrant: Boolean,
@@ -158,10 +157,10 @@ class HomeConfirmUiLogicImpl(
     private suspend fun executeSaveWallpaperEffect() {
         isSaveWallpaperRequested = false
         mutableSaveWallpaperEffect.emit(Unit)
-=======
+    }
+
     override fun onSuccessSetWallPaper() {
         useCase.recycleWallpaper()
->>>>>>> main
     }
 
     class Factory(
