@@ -1,5 +1,6 @@
 package tech.takahana.iconwallpaper.shared
 
+import android.graphics.Bitmap
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -12,20 +13,22 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 class BitmapImageAssetTest {
 
     private lateinit var bitmapImageAsset: BitmapImageAsset
+    private lateinit var mockBitmap: Bitmap
 
     @Before
     fun before() {
+        mockBitmap = mockk()
         bitmapImageAsset = BitmapImageAsset(
-            id = AssetId("assetId"), name = AssetName("assetName"), bitmap = mockk()
+            id = AssetId("assetId"), name = AssetName("assetName"), bitmap = mockBitmap
         )
     }
 
     @Test
     fun recycleBitmap() {
-        every { bitmapImageAsset.recycle() } returns Unit
+        every { mockBitmap.recycle() } returns Unit
 
         bitmapImageAsset.recycle()
 
-        verify { bitmapImageAsset.recycle() }
+        verify { mockBitmap.recycle() }
     }
 }
