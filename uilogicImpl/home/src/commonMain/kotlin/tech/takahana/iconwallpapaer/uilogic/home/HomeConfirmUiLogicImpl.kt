@@ -63,7 +63,7 @@ class HomeConfirmUiLogicImpl(
         useCase.selectedImageAssetFlow.map { selectedImageAssetUseCaseModel ->
             when (selectedImageAssetUseCaseModel) {
                 is ImageAssetUseCaseModel.HasAsset -> {
-                    ImageAssetUiModel.Selectable(
+                    ImageAssetUiModel.AssetSelectable(
                         imageAsset = selectedImageAssetUseCaseModel.asset,
                         isSelected = selectedImageAssetUseCaseModel.isSelected
                     )
@@ -92,10 +92,12 @@ class HomeConfirmUiLogicImpl(
         mutablePermissionRequestEffect.asSharedFlow()
 
     override fun onClickedSetWallpaper() {
-        useCase.setWallpaper()
-            .onSuccess {
-                mutableSetWallpaperTargetDialogSource.value = true
-            }
+        viewModelScope.launch {
+            useCase.setWallpaper()
+                .onSuccess {
+                    mutableSetWallpaperTargetDialogSource.value = true
+                }
+        }
     }
 
     override fun onSetWallpaperTargetDialogDismissRequested() {
@@ -115,6 +117,7 @@ class HomeConfirmUiLogicImpl(
         }
     }
 
+<<<<<<< HEAD
     override fun onClickedSaveWallpaper(
         canSkipPermissionRequest: Boolean,
         isPermissionRequestGrant: Boolean,
@@ -155,6 +158,10 @@ class HomeConfirmUiLogicImpl(
     private suspend fun executeSaveWallpaperEffect() {
         isSaveWallpaperRequested = false
         mutableSaveWallpaperEffect.emit(Unit)
+=======
+    override fun onSuccessSetWallPaper() {
+        useCase.recycleWallpaper()
+>>>>>>> main
     }
 
     class Factory(

@@ -3,6 +3,7 @@ package tech.takahana.iconwallpapaer.uilogic.home
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -29,17 +30,18 @@ class HomeSelectPatternUiLogicImpl(
         homeSelectPatternUseCase.selectedImageAssetFlow.map { selectedImageAssetUseCaseModel ->
             when (selectedImageAssetUseCaseModel) {
                 is ImageAssetUseCaseModel.HasAsset -> {
-                    ImageAssetUiModel.Selectable(
+                    ImageAssetUiModel.AssetSelectable(
                         imageAsset = selectedImageAssetUseCaseModel.asset,
                         isSelected = selectedImageAssetUseCaseModel.isSelected
                     )
                 }
-                ImageAssetUseCaseModel.None -> ImageAssetUiModel.None
+                ImageAssetUseCaseModel.None -> null
             }
-        }.stateIn(
-            viewModelScope, SharingStarted.Eagerly,
-            ImageAssetUiModel.None
-        )
+        }.filterIsInstance<ImageAssetUiModel.AssetSelectable>()
+            .stateIn(
+                viewModelScope, SharingStarted.Eagerly,
+                ImageAssetUiModel.None
+            )
 
     override fun onClickedPattern(patternType: PatternType) {
         viewModelScope.launch {

@@ -1,9 +1,15 @@
 package tech.takahana.iconwallpaper.repositoryimpl.asset
 
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import tech.takahana.iconwallpaper.shared.domain.domainobject.dummy.DummyImageAsset
+import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
+import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -43,4 +49,21 @@ class SelectImageAssetRepositoryImplTest {
 
         assertNull(actual2)
     }
+
+    @Test
+    fun recycleImageAsset() = runTest {
+        val bitmapImageAsset = mockk<BitmapImageAsset>()
+        repository.setSelectedImageAsset(bitmapImageAsset)
+
+        every { bitmapImageAsset.recycle() } returns Unit
+
+        repository.recycleImageAsset()
+
+        verify { bitmapImageAsset.recycle() }
+    }
+
+    data class DummyImageAsset(
+        override val id: AssetId = AssetId("assetId"),
+        override val name: AssetName = AssetName("assetName")
+    ) : ImageAsset
 }

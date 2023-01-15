@@ -83,6 +83,12 @@ fun HomeScreen(
                         viewModel = hiltViewModel()
                     )
                 }
+                composable(Screen.HomePreviewIconContent.route) {
+                    HomePreviewIconContent(
+                        homeNavController = homeNavHostController,
+                        viewModel = hiltViewModel()
+                    )
+                }
             }
         }
     )

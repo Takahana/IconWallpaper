@@ -57,7 +57,7 @@ fun HomeSelectPatternContent(
 ) {
     when (val imageAssetUiModel = selectPatternUiLogic.selectedImageAssetStateFlow.value) {
         ImageAssetUiModel.None -> TODO("素材選択ページに戻す")
-        is ImageAssetUiModel.Selectable -> {
+        is ImageAssetUiModel.AssetSelectable -> {
             val localImageAsset = imageAssetUiModel.imageAsset as? LocalImageAsset
             if (localImageAsset != null) {
                 HomeSelectPatternImageAssetSelected(

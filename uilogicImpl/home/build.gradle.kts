@@ -42,9 +42,9 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation(libs.kotlinx.coroutines.test)
-                implementation(libs.mockk)
                 implementation(libs.turbine)
                 implementation(projects.usecaseFake.home)
+                implementation(libs.mockk)
             }
         }
         val androidMain by getting

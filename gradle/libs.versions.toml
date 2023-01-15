@@ -23,6 +23,9 @@ accompanist = "0.27.1"
 dagger-hilt = "2.41"
 junit = "4.13.2"
 
+#other
+ucrop = "2.2.8-native"
+
 [libraries]
 # native
 koru = { module = "com.futuremind:koru", version.ref = "koru" }
@@ -63,6 +66,9 @@ junit = { module = "junit:junit", version.ref = "junit" }
 
 # plugin
 dagger-hilt-agp = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }
+
+# other
+ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
 
 [bundles]
 compose = ["androidx-lifecycle-viewmodel-compose", "androidx-activity-compose", "androidx-compose-ui", "androidx-compose-tooling", "androidx-compose-foundation", "androidx-compose-material-core", "androidx-compose-material-icons-core", "androidx-compose-material-icons-extended", "androidx-compose-runtime-livedata", "material-compose-theme-adapter", "androidx-nav-compose", "androidx-compose-constraintlayout", "androidx-hilt-navigation-compose"]

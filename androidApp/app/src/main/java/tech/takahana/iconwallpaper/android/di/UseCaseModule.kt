@@ -47,9 +47,7 @@ object UseCaseModule {
         selectImageAssetRepository: SelectImageAssetRepository
     ): HomeConfirmUseCase {
         return HomeConfirmUseCaseImpl(
-            selectPatternTypeRepository,
-            selectBackgroundColorRepository,
-            selectImageAssetRepository
+            selectPatternTypeRepository, selectBackgroundColorRepository, selectImageAssetRepository
         )
     }
 }

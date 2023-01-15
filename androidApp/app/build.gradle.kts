@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.coil.compose)
+    implementation(libs.ucrop)
     testImplementation(libs.junit)
 
     // Dagger Hilt
