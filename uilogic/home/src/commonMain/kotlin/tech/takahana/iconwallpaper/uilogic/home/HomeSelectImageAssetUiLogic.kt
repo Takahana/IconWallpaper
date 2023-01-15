@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface HomeSelectImageAssetUiLogic {
 
-    val imageAssetListStateFlow: StateFlow<List<ImageAssetUiModel.Selectable>>
+    val imageAssetListStateFlow: StateFlow<List<ImageAssetUiModel.AssetSelectable>>
 
     fun onClickedImageAsset(imageAsset: ImageAssetUiModel)
 

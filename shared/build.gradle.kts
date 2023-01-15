@@ -32,6 +32,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation(libs.mockk)
             }
         }
         val androidMain by getting {
@@ -41,6 +42,7 @@ kotlin {
         }
         val androidTest by getting {
             dependencies {
+                dependsOn(commonTest)
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
             }
@@ -68,9 +70,21 @@ kotlin {
 
 android {
     compileSdk = 31
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 23
         targetSdk = 31
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    with(sourceSets["main"]) {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        java.srcDirs("src/androidMain/kotlin", "src/commonMain/kotlin")
+        res.srcDirs("src/androidMain/res")
+    }
+    with(sourceSets["test"]) {
+        java.srcDirs("src/androidTest/kotlin", "src/commonTest/kotlin")
+        res.srcDirs("src/androidTest/res")
+    }
+}
+dependencies {
+    implementation("androidx.test.ext:junit-ktx:1.1.4")
 }

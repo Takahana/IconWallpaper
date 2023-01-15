@@ -34,6 +34,8 @@ interface HomeConfirmUiLogic {
         target: SetWallpaperTargetUiModel
     )
 
+    fun onSuccessSetWallPaper()
+
     interface Factory {
         fun create(viewModelScope: CoroutineScope): HomeConfirmUiLogic
     }
@@ -61,7 +63,7 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
     override val patternTypeStateFlow: StateFlow<PatternType> = MutableStateFlow(PatternType.MEDIUM)
 
     override val selectedImageAssetStateFlow: StateFlow<ImageAssetUiModel> = MutableStateFlow(
-        ImageAssetUiModel.Selectable(
+        ImageAssetUiModel.AssetSelectable(
             imageAsset = LocalImageAsset(
                 id = AssetId("assetId"),
                 name = AssetName("assetName"),
@@ -82,4 +84,6 @@ class FakeHomeConfirmUiLogic : HomeConfirmUiLogic {
 
     override fun onClickedSetWallpaperTarget(target: SetWallpaperTargetUiModel) =
         onClickedSetWallpaperTargetImpl(target)
+
+    override fun onSuccessSetWallPaper() {}
 }

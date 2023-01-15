@@ -3,6 +3,8 @@ package tech.takahana.iconwallpaper.repository.asset
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
+import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 
 class FakeSelectImageAssetRepository : SelectImageAssetRepository {
@@ -18,5 +20,16 @@ class FakeSelectImageAssetRepository : SelectImageAssetRepository {
 
     override suspend fun clearSelectedImageAsset() {
         selectedImageAssetFlowImpl.value = null
+    }
+
+    override fun recycleImageAsset() {
+        when (selectedImageAssetFlowImpl.value) {
+            is BitmapImageAsset -> {
+                (selectedImageAssetFlowImpl.value as BitmapImageAsset).recycle()
+            }
+            is LocalImageAsset -> {
+                // リサイクル処理が必要な場合は書く
+            }
+        }
     }
 }

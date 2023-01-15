@@ -52,7 +52,7 @@ class HomeConfirmUiLogicImpl(
         useCase.selectedImageAssetFlow.map { selectedImageAssetUseCaseModel ->
             when (selectedImageAssetUseCaseModel) {
                 is ImageAssetUseCaseModel.HasAsset -> {
-                    ImageAssetUiModel.Selectable(
+                    ImageAssetUiModel.AssetSelectable(
                         imageAsset = selectedImageAssetUseCaseModel.asset,
                         isSelected = selectedImageAssetUseCaseModel.isSelected
                     )
@@ -75,10 +75,12 @@ class HomeConfirmUiLogicImpl(
         )
 
     override fun onClickedSetWallpaper() {
-        useCase.setWallpaper()
-            .onSuccess {
-                mutableSetWallpaperTargetDialogSource.value = true
-            }
+        viewModelScope.launch {
+            useCase.setWallpaper()
+                .onSuccess {
+                    mutableSetWallpaperTargetDialogSource.value = true
+                }
+        }
     }
 
     override fun onSetWallpaperTargetDialogDismissRequested() {
@@ -96,6 +98,10 @@ class HomeConfirmUiLogicImpl(
                     mutableSetWallpaperTargetDialogSource.value = false
                 }
         }
+    }
+
+    override fun onSuccessSetWallPaper() {
+        useCase.recycleWallpaper()
     }
 
     class Factory(

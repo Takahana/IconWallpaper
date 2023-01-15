@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import tech.takahana.iconwallpaper.repository.asset.SelectImageAssetRepository
+import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
+import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 
 class SelectImageAssetRepositoryImpl : SelectImageAssetRepository {
@@ -19,5 +21,16 @@ class SelectImageAssetRepositoryImpl : SelectImageAssetRepository {
 
     override suspend fun clearSelectedImageAsset() {
         mutableSelectImageAssetSource.value = null
+    }
+
+    override fun recycleImageAsset() {
+        when (val selectedImageAsset = mutableSelectImageAssetSource.value) {
+            is BitmapImageAsset -> {
+                selectedImageAsset.recycle()
+            }
+            is LocalImageAsset -> {
+                // リサイクル処理が必要な場合は書く
+            }
+        }
     }
 }

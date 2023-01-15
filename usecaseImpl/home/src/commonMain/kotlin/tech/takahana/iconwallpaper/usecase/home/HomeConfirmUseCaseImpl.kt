@@ -10,7 +10,7 @@ import tech.takahana.iconwallpaper.repository.asset.SelectPatternTypeRepository
 class HomeConfirmUseCaseImpl(
     selectPatternTypeRepository: SelectPatternTypeRepository,
     selectBackgroundColorRepository: SelectBackgroundColorRepository,
-    selectImageAssetRepository: SelectImageAssetRepository
+    private val selectImageAssetRepository: SelectImageAssetRepository
 ) : HomeConfirmUseCase {
 
     override val selectedImageAssetFlow: Flow<ImageAssetUseCaseModel> =
@@ -42,5 +42,9 @@ class HomeConfirmUseCaseImpl(
 
     override fun selectSetWallpaperTarget(target: SetWallpaperTargetUseCaseModel): Result<SetWallpaperTargetUseCaseModel> {
         return Result.success(target)
+    }
+
+    override fun recycleWallpaper() {
+        selectImageAssetRepository.recycleImageAsset()
     }
 }

@@ -72,10 +72,11 @@ class HomeConfirmUiLogicImplTest {
             )
 
             assertEquals(
-                ImageAssetUiModel.Selectable(
+                ImageAssetUiModel.AssetSelectable(
                     imageAsset,
                     isSelected = true
-                ), awaitItem()
+                ),
+                awaitItem()
             )
         }
     }

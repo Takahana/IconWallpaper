@@ -6,4 +6,5 @@ sealed class Screen(val route: String) {
     object HomeSelectImageAssetContent : Screen("homeSelectImageAssetContent")
     object HomeSelectPatternContent : Screen("homeSelectPatternContent")
     object HomeConfirmContent : Screen("homeConfirmContent")
+    object HomePreviewIconContent : Screen("homePreviewIconContent")
 }

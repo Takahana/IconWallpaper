@@ -89,9 +89,9 @@ fun HomeConfirmContent(
         ImageAssetUiModel.None -> {
             // TODO エラー表示
         }
-        is ImageAssetUiModel.Selectable -> {
+        is ImageAssetUiModel.AssetSelectable -> {
             // スマートキャストを聞かせるためにasを利用する
-            val imageAsset = selectedImageAsset as ImageAssetUiModel.Selectable
+            val imageAsset = selectedImageAsset as ImageAssetUiModel.AssetSelectable
 
             when (imageAsset.imageAsset) {
                 is LocalImageAsset -> LocalImageAssetConfirmContent(
@@ -100,6 +100,7 @@ fun HomeConfirmContent(
                     backgroundColor = backgroundColor,
                     localImageAsset = imageAsset.imageAsset as LocalImageAsset,
                     setWallpaperEffect = uiLogic.setWallpaperEffect,
+                    uiLogic = uiLogic,
                     onClickedSaveWallpaper = { onDraw ->
                         // TODO ストレージ書き込みの権限をリクエストする
                         rootNavController.navigate(Screen.WelcomeScreen.route)
@@ -125,6 +126,7 @@ private fun LocalImageAssetConfirmContent(
     backgroundColor: ColorType,
     localImageAsset: LocalImageAsset,
     setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel>,
+    uiLogic: HomeConfirmUiLogic,
     onClickedSaveWallpaper: (onDraw: DrawScope.() -> Unit) -> Unit,
     onClickedSetWallpaper: () -> Unit,
 ) {
@@ -204,7 +206,7 @@ private fun LocalImageAssetConfirmContent(
                     target as PlatformSetWallpaperTargetUiModel,
                     onDraw,
                     onSuccess = {
-                        // TODO メッセージを表示
+                        uiLogic.onSuccessSetWallPaper()
                     },
                     onFailure = {
                         // TODO メッセージを表示

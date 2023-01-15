@@ -38,10 +38,12 @@ android {
 }
 
 dependencies {
+    implementation(projects.shared)
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.android.material)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.coil.compose)
+    implementation(libs.ucrop)
 }
