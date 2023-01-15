@@ -24,9 +24,9 @@ class SelectImageAssetRepositoryImpl : SelectImageAssetRepository {
     }
 
     override fun recycleImageAsset() {
-        when (mutableSelectImageAssetSource.value) {
+        when (val selectedImageAsset =  mutableSelectImageAssetSource.value) {
             is BitmapImageAsset -> {
-                (mutableSelectImageAssetSource.value as BitmapImageAsset).recycle()
+                selectedImageAsset.recycle()
             }
             is LocalImageAsset -> {
                 // リサイクル処理が必要な場合は書く
