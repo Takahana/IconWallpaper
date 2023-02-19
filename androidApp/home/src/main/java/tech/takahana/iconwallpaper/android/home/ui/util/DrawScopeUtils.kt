@@ -23,9 +23,14 @@ object DrawScopeUtils {
             // dstWidth, dstHeight = 画像のアスペクト比を保った出力画像のサイズ。
             val dstWidth = canvasWidth
             val dstHeight = (image.height / image.width) * dstWidth
+            val centerOffset = IntOffset(
+                x = 0,
+                y = ((canvasHeight - dstHeight) / 2).toInt(),
+            )
             drawImage(
                 image = image,
                 dstSize = IntSize(dstWidth.toInt(), dstHeight.toInt()),
+                dstOffset = centerOffset,
             )
             return
         }
@@ -35,6 +40,10 @@ object DrawScopeUtils {
         val dstHeight = (image.height / image.width) * dstWidth
         // 小数点は切り捨て
         val rowDrawNum = floor(canvasHeight / dstHeight).toInt()
+        val centerOffset = IntOffset(
+            x = 0,
+            y = ((canvasHeight - dstHeight * rowDrawNum) / 2).toInt(),
+        )
         var dstSize: IntSize
         var dstOffset: IntOffset
         for (rowIndex in 0 until rowDrawNum) {
@@ -60,7 +69,7 @@ object DrawScopeUtils {
                             dstOffset = IntOffset(
                                 x = 0,
                                 y = (dstHeight * rowIndex).toInt()
-                            ),
+                            ) + centerOffset,
                         )
                     }
                     dstOffset = IntOffset(
@@ -82,7 +91,7 @@ object DrawScopeUtils {
                     image = image,
                     srcSize = srcSize,
                     dstSize = dstSize,
-                    dstOffset = dstOffset
+                    dstOffset = dstOffset + centerOffset,
                 )
             }
         }
