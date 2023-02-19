@@ -37,10 +37,13 @@ fun HomeSelectPatternTab(
         Box(
             modifier = Modifier
                 .size(96.dp)
-                .background(color = Color(backgroundColor.hex))
                 .clickable { selectPatternUiLogic.onClickedPattern(PatternType.SMALL) },
         ) {
-            ImagePattern(patternType = PatternType.SMALL, resourceId = resId)
+            ImagePattern(
+                patternType = PatternType.SMALL,
+                resourceId = resId,
+                backgroundColorType = backgroundColor,
+            )
             if (patternType == PatternType.SMALL) {
                 Image(
                     painter = painterResource(R.drawable.ic_check_circle_24),
@@ -52,10 +55,13 @@ fun HomeSelectPatternTab(
         Box(
             modifier = Modifier
                 .size(96.dp)
-                .background(color = Color(backgroundColor.hex))
                 .clickable { selectPatternUiLogic.onClickedPattern(PatternType.MEDIUM) },
         ) {
-            ImagePattern(patternType = PatternType.MEDIUM, resourceId = resId)
+            ImagePattern(
+                patternType = PatternType.MEDIUM,
+                resourceId = resId,
+                backgroundColorType = backgroundColor,
+            )
             if (patternType == PatternType.MEDIUM) {
                 Image(
                     painter = painterResource(R.drawable.ic_check_circle_24),
@@ -67,10 +73,13 @@ fun HomeSelectPatternTab(
         Box(
             modifier = Modifier
                 .size(96.dp)
-                .background(color = Color(backgroundColor.hex))
                 .clickable { selectPatternUiLogic.onClickedPattern(PatternType.LARGE) },
         ) {
-            ImagePattern(patternType = PatternType.LARGE, resourceId = resId)
+            ImagePattern(
+                patternType = PatternType.LARGE,
+                resourceId = resId,
+                backgroundColorType = backgroundColor,
+            )
             if (patternType == PatternType.LARGE) {
                 Image(
                     painter = painterResource(R.drawable.ic_check_circle_24),
