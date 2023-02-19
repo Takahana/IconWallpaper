@@ -1,12 +1,11 @@
 package tech.takahana.iconwallpaper.android.home.ui.util
 
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
+import kotlin.math.floor
 
 object DrawScopeUtils {
     fun DrawScope.drawPattern(
@@ -16,62 +15,74 @@ object DrawScopeUtils {
     ) {
         val canvasWidth = size.width
         val canvasHeight = size.height
+
+        // 背景を描画。
+        drawRect(color = backgroundColor)
+
         if (drawNum == 1) {
+            // dstWidth, dstHeight = 画像のアスペクト比を保った出力画像のサイズ。
+            val dstWidth = canvasWidth
+            val dstHeight = (image.height / image.width) * dstWidth
             drawImage(
                 image = image,
-                dstSize = IntSize(canvasWidth.toInt(), canvasHeight.toInt())
+                dstSize = IntSize(dstWidth.toInt(), dstHeight.toInt()),
             )
             return
         }
-        val dstSize = IntSize((canvasWidth / drawNum).toInt(), (canvasHeight / drawNum).toInt())
-        val coverSize = Size((canvasWidth / drawNum / 2), (canvasHeight / drawNum))
+
+        // dstWidth, dstHeight = 画像のアスペクト比を保った出力画像のサイズ。
+        val dstWidth = canvasWidth / drawNum
+        val dstHeight = (image.height / image.width) * dstWidth
+        // 小数点は切り捨て
+        val rowDrawNum = floor(canvasHeight / dstHeight).toInt()
+        var dstSize: IntSize
         var dstOffset: IntOffset
-        for (rowIndex in 0 until drawNum) {
+        for (rowIndex in 0 until rowDrawNum) {
             for (columnIndex in 0 until drawNum) {
+                val isLastColumn = columnIndex == drawNum - 1
+
                 if (rowIndex % 2 == 0) {
                     dstOffset = IntOffset(
-                        x = (canvasWidth / drawNum * columnIndex).toInt(),
-                        y = (canvasHeight / drawNum * rowIndex).toInt()
+                        x = (dstWidth * columnIndex).toInt(),
+                        y = (dstHeight * rowIndex).toInt()
                     )
                 } else {
                     if (columnIndex == 0) {
+                        dstSize = IntSize(dstWidth.toInt(), dstHeight.toInt())
                         drawImage(
                             image = image,
+                            // 元画像の右半分だけ描画する。
+                            srcOffset = IntOffset(
+                                x = image.width / 2,
+                                y = 0,
+                            ),
                             dstSize = dstSize,
                             dstOffset = IntOffset(
-                                x = (canvasWidth / drawNum * -1 / 2).toInt(),
-                                y = (canvasHeight / drawNum * rowIndex).toInt()
-                            )
+                                x = 0,
+                                y = (dstHeight * rowIndex).toInt()
+                            ),
                         )
                     }
                     dstOffset = IntOffset(
-                        x = (canvasWidth / drawNum * (columnIndex + columnIndex + 1) / 2).toInt(),
-                        y = (canvasHeight / drawNum * rowIndex).toInt()
+                        x = (dstWidth * (columnIndex + columnIndex + 1) / 2).toInt(),
+                        y = (dstHeight * rowIndex).toInt()
                     )
+                }
+
+                val srcSize: IntSize
+                if (rowIndex % 2 != 0 && isLastColumn) {
+                    // 元画像の左半分だけ描画する。
+                    srcSize = IntSize(image.width / 2, image.height)
+                    dstSize = IntSize((dstWidth / 2).toInt(), dstHeight.toInt())
+                } else {
+                    srcSize = IntSize(image.width, image.height)
+                    dstSize = IntSize(dstWidth.toInt(), dstHeight.toInt())
                 }
                 drawImage(
                     image = image,
+                    srcSize = srcSize,
                     dstSize = dstSize,
                     dstOffset = dstOffset
-                )
-            }
-            // 要素がはみ出てしまうので背景と同じ色の長方形でカバー
-            if (rowIndex % 2 != 0) {
-                drawRect(
-                    color = backgroundColor,
-                    topLeft = Offset(
-                        x = canvasWidth / drawNum * -1 / 2,
-                        y = canvasHeight / drawNum * rowIndex
-                    ),
-                    size = coverSize
-                )
-                drawRect(
-                    color = backgroundColor,
-                    topLeft = Offset(
-                        x = canvasWidth / drawNum * drawNum * 2 / 2,
-                        y = canvasHeight / drawNum * rowIndex
-                    ),
-                    size = coverSize
                 )
             }
         }
