@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -91,6 +92,13 @@ fun HomeConfirmContent(
     val density = LocalDensity.current
     val layoutDirection = LocalLayoutDirection.current
     val applicationContext = requireNotNull(LocalContext.current.applicationContext)
+    val localConfiguration = LocalConfiguration.current
+    val screenWidthDp = localConfiguration.screenWidthDp.dp
+    val screenHeightDp = localConfiguration.screenHeightDp.dp
+    val (screenWidthPx, screenHeightPx) = with(LocalDensity.current) {
+        screenWidthDp.toPx() to screenHeightDp.toPx()
+    }
+
     val patternType by uiLogic.patternTypeStateFlow.collectAsState()
     val backgroundColor by uiLogic.backgroundColorStateFlow.collectAsState()
     val selectedImageAsset by uiLogic.selectedImageAssetStateFlow.collectAsState()
@@ -111,7 +119,14 @@ fun HomeConfirmContent(
         uiLogic.saveWallpaperEffect
             .onEach {
                 rootNavController.navigate(Screen.WelcomeScreen.route)
-                saveImage(applicationContext, density, layoutDirection, rememberedOnDraw)
+                saveImage(
+                    width = screenWidthPx.toInt(),
+                    height = screenHeightPx.toInt(),
+                    applicationContext,
+                    density,
+                    layoutDirection,
+                    rememberedOnDraw,
+                )
                 // rememberedOnDrawのラムダ内で参照しているものがリークしないように、空のラムダをセットしておく。
                 rememberedOnDraw = {}
             }.launchIn(this)
@@ -133,6 +148,8 @@ fun HomeConfirmContent(
             when (imageAsset.imageAsset) {
                 is LocalImageAsset -> LocalImageAssetConfirmContent(
                     modifier = modifier,
+                    screenWidthPx = screenWidthPx,
+                    screenHeightPx = screenHeightPx,
                     patternType = patternType,
                     backgroundColor = backgroundColor,
                     localImageAsset = imageAsset.imageAsset as LocalImageAsset,
@@ -166,6 +183,8 @@ fun HomeConfirmContent(
 @Composable
 private fun LocalImageAssetConfirmContent(
     modifier: Modifier = Modifier,
+    screenWidthPx: Float,
+    screenHeightPx: Float,
     patternType: PatternType,
     backgroundColor: ColorType,
     localImageAsset: LocalImageAsset,
@@ -243,12 +262,14 @@ private fun LocalImageAssetConfirmContent(
         setWallpaperEffect
             .onEach { target ->
                 setWallpaper(
-                    applicationContext,
-                    localContext,
-                    density,
-                    layoutDirection,
-                    target as PlatformSetWallpaperTargetUiModel,
-                    onDraw,
+                    width = screenWidthPx.toInt(),
+                    height = screenHeightPx.toInt(),
+                    applicationContext = applicationContext,
+                    localContext = localContext,
+                    density = density,
+                    layoutDirection = layoutDirection,
+                    target = target as PlatformSetWallpaperTargetUiModel,
+                    onDraw = onDraw,
                     onSuccess = {
                         uiLogic.onSuccessSetWallPaper()
                     },
@@ -302,13 +323,12 @@ fun PreviewHomeConfirmContent() {
 }
 
 private fun createImageBitmap(
+    width: Int,
+    height: Int,
     density: Density,
     layoutDirection: LayoutDirection,
     onDraw: DrawScope.() -> Unit,
 ): ImageBitmap {
-    // TODO 端末の縦幅と横幅を指定する
-    val width = 512
-    val height = 512
     val imageBitmap = ImageBitmap(width, height)
     val size = Size(
         width = width.toFloat(),
@@ -328,12 +348,14 @@ private fun createImageBitmap(
 }
 
 private fun saveImage(
+    width: Int,
+    height: Int,
     applicationContext: Context,
     density: Density,
     layoutDirection: LayoutDirection,
     onDraw: DrawScope.() -> Unit,
 ) {
-    val imageBitmap = createImageBitmap(density, layoutDirection, onDraw)
+    val imageBitmap = createImageBitmap(width, height, density, layoutDirection, onDraw)
     val manager = MediaStoreManager(applicationContext)
     manager.saveToMediaImages(
         bitmap = imageBitmap.asAndroidBitmap(),
@@ -342,6 +364,8 @@ private fun saveImage(
 }
 
 private fun setWallpaper(
+    width: Int,
+    height: Int,
     applicationContext: Context,
     localContext: Context,
     density: Density,
@@ -351,7 +375,7 @@ private fun setWallpaper(
     onSuccess: () -> Unit,
     onFailure: () -> Unit,
 ) {
-    val imageBitmap = createImageBitmap(density, layoutDirection, onDraw)
+    val imageBitmap = createImageBitmap(width, height, density, layoutDirection, onDraw)
     val manager = WallpaperManagerWrapper(applicationContext)
 
     when (target) {

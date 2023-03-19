@@ -95,13 +95,13 @@ private fun HomeSelectPatternImageAssetSelected(
         Box(
             modifier = Modifier
                 .heightIn(Dp.Unspecified, 360.dp)
-                .widthIn(Dp.Unspecified, 360.dp)
-                .background(color = Color(backgroundColor.hex)),
+                .widthIn(Dp.Unspecified, 360.dp),
             contentAlignment = Alignment.Center
         ) {
             ImagePattern(
                 patternType = patternType,
                 resourceId = imageAsset.resId,
+                backgroundColorType = backgroundColor,
             )
         }
         Row(
