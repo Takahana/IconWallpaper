@@ -23,6 +23,9 @@ accompanist = "0.27.1"
 dagger-hilt = "2.41"
 junit = "4.13.2"
 
+# Firebase
+firebase-bom = "31.2.3"
+
 #other
 ucrop = "2.2.8-native"
 
@@ -63,6 +66,10 @@ dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref =
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger-hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
+
+# Firebase
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 
 # plugin
 dagger-hilt-agp = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }
