@@ -264,12 +264,12 @@ private fun LocalImageAssetConfirmContent(
                 setWallpaper(
                     width = screenWidthPx.toInt(),
                     height = screenHeightPx.toInt(),
-                    applicationContext,
-                    localContext,
-                    density,
-                    layoutDirection,
-                    target as PlatformSetWallpaperTargetUiModel,
-                    onDraw,
+                    applicationContext = applicationContext,
+                    localContext = localContext,
+                    density = density,
+                    layoutDirection = layoutDirection,
+                    target = target as PlatformSetWallpaperTargetUiModel,
+                    onDraw = onDraw,
                     onSuccess = {
                         uiLogic.onSuccessSetWallPaper()
                     },
