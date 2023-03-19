@@ -35,8 +35,19 @@ class HomeConfirmUiLogicImpl(
     private val mutableSetWallpaperEffect =
         MutableEffectSharedFlow<SetWallpaperTargetUiModel>()
 
+    private val mutableSaveWallpaperEffect = MutableEffectSharedFlow<Unit>()
+
+    private val mutableOpenPermissionRequestRationaleDialogSource = MutableStateFlow(false)
+
+    private val mutablePermissionRequestEffect = MutableEffectSharedFlow<Unit>()
+
+    private var isSaveWallpaperRequested = false
+
     override val openSetWallpaperTargetDialogStateFlow: StateFlow<Boolean> =
         mutableSetWallpaperTargetDialogSource.asStateFlow()
+
+    override val saveWallpaperEffect: SharedFlow<Unit> = mutableSaveWallpaperEffect.asSharedFlow()
+
     override val setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel> =
         mutableSetWallpaperEffect.asSharedFlow()
 
@@ -74,6 +85,12 @@ class HomeConfirmUiLogicImpl(
             ColorType.Other(0xffffff)
         )
 
+    override val openPermissionRequestRationaleDialogStateFlow: StateFlow<Boolean> =
+        mutableOpenPermissionRequestRationaleDialogSource.asStateFlow()
+
+    override val permissionRequestEffect: SharedFlow<Unit> =
+        mutablePermissionRequestEffect.asSharedFlow()
+
     override fun onClickedSetWallpaper() {
         viewModelScope.launch {
             useCase.setWallpaper()
@@ -98,6 +115,48 @@ class HomeConfirmUiLogicImpl(
                     mutableSetWallpaperTargetDialogSource.value = false
                 }
         }
+    }
+
+    override fun onClickedSaveWallpaper(
+        canSkipPermissionRequest: Boolean,
+        isPermissionRequestGrant: Boolean,
+        shouldShowPermissionRequestRationale: Boolean,
+    ) {
+        viewModelScope.launch {
+            isSaveWallpaperRequested = true
+            when {
+                canSkipPermissionRequest -> executeSaveWallpaperEffect()
+                isPermissionRequestGrant -> executeSaveWallpaperEffect()
+                shouldShowPermissionRequestRationale -> mutableOpenPermissionRequestRationaleDialogSource.value = true
+                !isPermissionRequestGrant -> mutablePermissionRequestEffect.emit(Unit)
+            }
+        }
+    }
+
+    override fun onClickedConfirmPermission() {
+        viewModelScope.launch {
+            mutableOpenPermissionRequestRationaleDialogSource.value = false
+            isSaveWallpaperRequested = true
+            mutablePermissionRequestEffect.emit(Unit)
+        }
+    }
+
+    override fun onPermissionRequestRationaleDialogDismissRequested() {
+        mutableOpenPermissionRequestRationaleDialogSource.value = false
+    }
+
+    override fun onPermissionStateChanged(isGranted: Boolean) {
+        viewModelScope.launch {
+            mutableOpenPermissionRequestRationaleDialogSource.value = false
+            if (isSaveWallpaperRequested && isGranted) {
+                executeSaveWallpaperEffect()
+            }
+        }
+    }
+
+    private suspend fun executeSaveWallpaperEffect() {
+        isSaveWallpaperRequested = false
+        mutableSaveWallpaperEffect.emit(Unit)
     }
 
     override fun onSuccessSetWallPaper() {

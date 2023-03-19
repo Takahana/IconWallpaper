@@ -1,5 +1,6 @@
 package tech.takahana.iconwallpaper.android.home.ui.screen
 
+import android.Manifest
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
@@ -27,6 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
@@ -51,7 +56,12 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import tech.takahana.iconwallpaper.android.core.Screen
@@ -70,6 +80,7 @@ import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 import tech.takahana.iconwallpaper.uilogic.home.PlatformSetWallpaperTargetUiModel
 import tech.takahana.iconwallpaper.uilogic.home.SetWallpaperTargetUiModel
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomeConfirmContent(
     modifier: Modifier = Modifier,
@@ -84,6 +95,32 @@ fun HomeConfirmContent(
     val backgroundColor by uiLogic.backgroundColorStateFlow.collectAsState()
     val selectedImageAsset by uiLogic.selectedImageAssetStateFlow.collectAsState()
     val openSetWallpaperDialog: Boolean by uiLogic.openSetWallpaperTargetDialogStateFlow.collectAsState()
+    val openConfirmPermissionDialog: Boolean by uiLogic.openPermissionRequestRationaleDialogStateFlow.collectAsState()
+    val permissionState =
+        rememberPermissionState(permission = Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    var rememberedOnDraw by remember { mutableStateOf<DrawScope.() -> Unit>({}) }
+
+    LaunchedEffect(Unit) {
+        snapshotFlow { permissionState.status }
+            .drop(1)
+            .onEach {
+                uiLogic.onPermissionStateChanged(it.isGranted)
+            }
+            .launchIn(this)
+
+        uiLogic.saveWallpaperEffect
+            .onEach {
+                rootNavController.navigate(Screen.WelcomeScreen.route)
+                saveImage(applicationContext, density, layoutDirection, rememberedOnDraw)
+                // rememberedOnDrawのラムダ内で参照しているものがリークしないように、空のラムダをセットしておく。
+                rememberedOnDraw = {}
+            }.launchIn(this)
+
+        uiLogic.permissionRequestEffect
+            .onEach {
+                permissionState.launchPermissionRequest()
+            }.launchIn(this)
+    }
 
     when (selectedImageAsset) {
         ImageAssetUiModel.None -> {
@@ -102,9 +139,12 @@ fun HomeConfirmContent(
                     setWallpaperEffect = uiLogic.setWallpaperEffect,
                     uiLogic = uiLogic,
                     onClickedSaveWallpaper = { onDraw ->
-                        // TODO ストレージ書き込みの権限をリクエストする
-                        rootNavController.navigate(Screen.WelcomeScreen.route)
-                        saveImage(applicationContext, density, layoutDirection, onDraw)
+                        rememberedOnDraw = onDraw
+                        uiLogic.onClickedSaveWallpaper(
+                            canSkipPermissionRequest = MediaStoreManager.canSkipPermissionRequest,
+                            isPermissionRequestGrant = permissionState.status.isGranted,
+                            shouldShowPermissionRequestRationale = permissionState.status.shouldShowRationale,
+                        )
                     },
                     onClickedSetWallpaper = {
                         uiLogic.onClickedSetWallpaper()
@@ -116,6 +156,10 @@ fun HomeConfirmContent(
 
     if (openSetWallpaperDialog) {
         HomeConfirmSetWallpaperDialog(uiLogic)
+    }
+
+    if (openConfirmPermissionDialog) {
+        HomeConfirmPermissionRequestRationaleDialog(uiLogic)
     }
 }
 

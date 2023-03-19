@@ -10,18 +10,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.uilogic.home.FakeHomeConfirmUiLogic
+import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
 
 @Composable
 fun HomeConfirmPermissionRequestRationaleDialog(
+    uiLogic: HomeConfirmUiLogic,
     modifier: Modifier = Modifier,
 ) {
     AlertDialog(
         onDismissRequest = {
-            // TODO
+            uiLogic.onPermissionRequestRationaleDialogDismissRequested()
         },
         confirmButton = {
             TextButton(onClick = {
-                // TODO
+                uiLogic.onClickedConfirmPermission()
             }) {
                 Text(
                     text = stringResource(id = R.string.home_confirm_permission_confirmed),
@@ -32,7 +35,7 @@ fun HomeConfirmPermissionRequestRationaleDialog(
         modifier = modifier,
         dismissButton = {
             TextButton(onClick = {
-                // TODO
+                uiLogic.onPermissionRequestRationaleDialogDismissRequested()
             }) {
                 Text(
                     text = stringResource(id = R.string.cancel),
@@ -57,6 +60,6 @@ fun HomeConfirmPermissionRequestRationaleDialog(
 @Composable
 fun PreviewHomeConfirmPermissionDialog() {
     IconWallPaperTheme {
-        HomeConfirmPermissionRequestRationaleDialog()
+        HomeConfirmPermissionRequestRationaleDialog(uiLogic = FakeHomeConfirmUiLogic())
     }
 }

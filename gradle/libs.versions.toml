@@ -58,6 +58,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger-hilt" }
@@ -71,4 +72,4 @@ ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
 
 [bundles]
 compose = ["androidx-lifecycle-viewmodel-compose", "androidx-activity-compose", "androidx-compose-ui", "androidx-compose-tooling", "androidx-compose-foundation", "androidx-compose-material-core", "androidx-compose-material-icons-core", "androidx-compose-material-icons-extended", "androidx-compose-runtime-livedata", "material-compose-theme-adapter", "androidx-nav-compose", "androidx-compose-constraintlayout", "androidx-hilt-navigation-compose"]
-accompanist = ["accompanist-pager", "accompanist-systemuicontroller", "accompanist-insets"]
+accompanist = ["accompanist-pager", "accompanist-systemuicontroller", "accompanist-insets", "accompanist-permissions"]

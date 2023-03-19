@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.core.content.ContextCompat
 import java.io.FileNotFoundException
 import java.util.Calendar
@@ -38,7 +39,7 @@ class MediaStoreManager(
         // Android 10 以上なら Manifest.permission.WRITE_EXTERNAL_STORAGE の権限がなくても、
         // MediaStore経由でストレージに書き込める
         val canSaveImage =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q || ContextCompat.checkSelfPermission(
+            canSkipPermissionRequest || ContextCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
@@ -87,9 +88,9 @@ class MediaStoreManager(
 
         contentValues.clear()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            contentValues.put(MediaStore.Audio.Media.IS_PENDING, 0)
+            contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
+            resolver.update(contentUri, contentValues, null, null)
         }
-        resolver.update(contentUri, contentValues, null, null)
 
         bitmap.recycle()
 
@@ -156,5 +157,10 @@ class MediaStoreManager(
 
         // ユーザが壁紙を保存するアクションをした時の保存先
         TmpForSetWallpaperByOtherApp("TmpForSetWallpaperByOtherApp"),
+    }
+
+    companion object {
+        @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
+        val canSkipPermissionRequest: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
     }
 }
