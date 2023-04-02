@@ -28,4 +28,4 @@ androidApp/onbording/build
 androidApp/app/build
 androidApp/home/build
 gradle/projectDependencyGraph.gradle
-androidApp/app/google-services.json
+androidApp/app/google-services-local.json

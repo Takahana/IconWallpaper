@@ -74,10 +74,31 @@ kapt {
     correctErrorTypes = true
 }
 
+/**
+ * google-services.json の変更を無視する。
+ */
+val skipWorktreeWithGoogleServicesJson by tasks.register(
+    "skipWorktreeWithGoogleServicesJson",
+    Exec::class.java
+) {
+    commandLine = listOf(
+        "git",
+        "update-index",
+        "--skip-worktree",
+        "${project.projectDir.absolutePath}/google-services.json"
+    )
+}
+
+/**
+ * ローカルにあるデータを google-services.json にコピーする。
+ */
 val replaceGoogleServicesJson by tasks.register("replaceGoogleServicesJson") {
+    dependsOn(skipWorktreeWithGoogleServicesJson)
     doLast {
-        val localGoogleServiceJson = Paths.get("./google-services-local.json")
-        val googleServiceJson = Paths.get("./google-services.json")
+        val localGoogleServiceJson =
+            Paths.get("${project.projectDir.absolutePath}/google-services-local.json")
+        val googleServiceJson = Paths.get("${project.projectDir.absolutePath}/google-services.json")
         Files.copy(localGoogleServiceJson, googleServiceJson, StandardCopyOption.REPLACE_EXISTING)
     }
 }
+
