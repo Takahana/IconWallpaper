@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "stub",
+    "project_id": "stub",
+    "storage_bucket": "stub"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "stub",
+        "android_client_info": {
+          "package_name": "tech.takahana.iconwallpaper.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "stub",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.takahana.iconwallpaper.android",
+            "certificate_hash": "stub"
+          }
+        },
+        {
+          "client_id": "stub",,
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "stub"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "stub",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
