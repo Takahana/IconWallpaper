@@ -1,5 +1,7 @@
 package tech.takahana.iconwallpaper.android.home.ui.screen
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,8 +9,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
-import tech.takahana.iconwallpaper.android.core.utils.bitmap.rotate90
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
 import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
@@ -33,6 +37,7 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun HomePreviewIconContent(
     homeNavController: NavHostController,
@@ -47,23 +52,28 @@ fun HomePreviewIconContent(
         }
         is ImageAssetUiModel.None -> {
             LocalImageAsset(
-                id = AssetId(""),
-                name = AssetName("")
+                id = AssetId("none"), name = AssetName("none")
             )
         }
     }
-    val bitmapImageAsset = imageAsset as BitmapImageAsset
 
-    bitmapImageAsset
-
-    val bitmap = bitmapImageAsset.bitmap.rotate90()
+    val bitmap: Bitmap? = if (imageAsset.id != AssetId("none")) {
+        (imageAsset as BitmapImageAsset).bitmap
+    } else {
+        null
+    }
 
     Column(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(bitmap = bitmap.asImageBitmap(), contentDescription = null)
+        if (bitmap != null) {
+            Image(bitmap = bitmap.asImageBitmap(), contentDescription = null, modifier = Modifier.fillMaxWidth().height(256.dp))
+        } else {
+            CircularProgressIndicator()
+        }
+        Spacer(modifier = Modifier.height(8.dp))
         Text(text = "この画像でよろしいですか？")
         Row(
             modifier = Modifier.padding(12.dp), horizontalArrangement = Arrangement.SpaceEvenly
@@ -77,7 +87,11 @@ fun HomePreviewIconContent(
             Spacer(modifier = Modifier.width(8.dp))
             RoundButton(
                 modifier = Modifier,
-                onClick = { /*TODO  パターン選択画面に遷移*/ },
+                onClick = {
+                    if (bitmap != null) {
+                        homeNavController.navigate(Screen.HomeSelectPatternContent.route)
+                    }
+                },
                 backgroundColor = MaterialTheme.colors.primary,
                 text = "はい",
             )

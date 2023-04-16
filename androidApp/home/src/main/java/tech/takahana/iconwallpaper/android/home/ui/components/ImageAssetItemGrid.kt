@@ -1,5 +1,7 @@
 package tech.takahana.iconwallpaper.android.home.ui.components
 
+import android.graphics.Bitmap
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -27,6 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.slowmac.autobackgroundremover.BackgroundRemover
+import com.slowmac.autobackgroundremover.OnBackgroundChangeListener
 import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.ui.theme.LightBlue50
@@ -47,18 +51,32 @@ fun ImageAssetItemGrid(
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
             bitmap ?: return@rememberLauncherForActivityResult
-            onClickItem(
-                ImageAssetUiModel.AssetSelectable(
-                    imageAsset = BitmapImageAsset(
-                        id = AssetId(
-                            bitmap.hashCode().toString(),
-                        ),
-                        name = AssetName("Cropped Image Asset"),
-                        bitmap = bitmap
-                    ),
-                    isSelected = false
-                )
+
+            BackgroundRemover.bitmapForProcessing(
+                bitmap, false,
+                object :
+                    OnBackgroundChangeListener {
+                    override fun onSuccess(bitmap: Bitmap) {
+                        Log.i("BackgroundRemover Success", "BackgroundRemover Success")
+                        onClickItem(
+                            ImageAssetUiModel.AssetSelectable(
+                                imageAsset = BitmapImageAsset(
+                                    id = AssetId(
+                                        bitmap.hashCode().toString(),
+                                    ),
+                                    name = AssetName("Cropped Image Asset"),
+                                    bitmap = bitmap
+                                ),
+                                isSelected = false
+                            )
+                        )
+                    }
+                    override fun onFailed(exception: Exception) {
+                        Log.e("BackgroundRemover Failed", "$exception")
+                    }
+                }
             )
+
             homeNavController.navigate(Screen.HomePreviewIconContent.route)
         }
     val cellsSize = 120.dp
