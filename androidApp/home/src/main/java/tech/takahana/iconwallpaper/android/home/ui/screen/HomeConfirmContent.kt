@@ -38,6 +38,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalConfiguration
@@ -73,8 +74,10 @@ import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.StepAnnouncement
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeConfirmViewModel
 import tech.takahana.iconwallpaper.android.home.ui.util.DrawScopeUtils.drawPattern
+import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
 import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
 import tech.takahana.iconwallpaper.uilogic.home.HomeConfirmUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
@@ -109,65 +112,59 @@ fun HomeConfirmContent(
     var rememberedOnDraw by remember { mutableStateOf<DrawScope.() -> Unit>({}) }
 
     LaunchedEffect(Unit) {
-        snapshotFlow { permissionState.status }
-            .drop(1)
-            .onEach {
-                uiLogic.onPermissionStateChanged(it.isGranted)
-            }
-            .launchIn(this)
+        snapshotFlow { permissionState.status }.drop(1).onEach {
+            uiLogic.onPermissionStateChanged(it.isGranted)
+        }.launchIn(this)
 
-        uiLogic.saveWallpaperEffect
-            .onEach {
-                rootNavController.navigate(Screen.WelcomeScreen.route)
-                saveImage(
-                    width = screenWidthPx.toInt(),
-                    height = screenHeightPx.toInt(),
-                    applicationContext,
-                    density,
-                    layoutDirection,
-                    rememberedOnDraw,
-                )
-                // rememberedOnDrawのラムダ内で参照しているものがリークしないように、空のラムダをセットしておく。
-                rememberedOnDraw = {}
-            }.launchIn(this)
+        uiLogic.saveWallpaperEffect.onEach {
+            rootNavController.navigate(Screen.WelcomeScreen.route)
+            saveImage(
+                width = screenWidthPx.toInt(),
+                height = screenHeightPx.toInt(),
+                applicationContext,
+                density,
+                layoutDirection,
+                rememberedOnDraw,
+            )
+            // rememberedOnDrawのラムダ内で参照しているものがリークしないように、空のラムダをセットしておく。
+            rememberedOnDraw = {}
+        }.launchIn(this)
 
-        uiLogic.permissionRequestEffect
-            .onEach {
-                permissionState.launchPermissionRequest()
-            }.launchIn(this)
+        uiLogic.permissionRequestEffect.onEach {
+            permissionState.launchPermissionRequest()
+        }.launchIn(this)
     }
 
     when (selectedImageAsset) {
         ImageAssetUiModel.None -> {
             // TODO エラー表示
         }
+
         is ImageAssetUiModel.AssetSelectable -> {
             // スマートキャストを聞かせるためにasを利用する
             val imageAsset = selectedImageAsset as ImageAssetUiModel.AssetSelectable
 
-            when (imageAsset.imageAsset) {
-                is LocalImageAsset -> LocalImageAssetConfirmContent(
-                    modifier = modifier,
-                    screenWidthPx = screenWidthPx,
-                    screenHeightPx = screenHeightPx,
-                    patternType = patternType,
-                    backgroundColor = backgroundColor,
-                    localImageAsset = imageAsset.imageAsset as LocalImageAsset,
-                    setWallpaperEffect = uiLogic.setWallpaperEffect,
-                    uiLogic = uiLogic,
-                    onClickedSaveWallpaper = { onDraw ->
-                        rememberedOnDraw = onDraw
-                        uiLogic.onClickedSaveWallpaper(
-                            canSkipPermissionRequest = MediaStoreManager.canSkipPermissionRequest,
-                            isPermissionRequestGrant = permissionState.status.isGranted,
-                            shouldShowPermissionRequestRationale = permissionState.status.shouldShowRationale,
-                        )
-                    },
-                    onClickedSetWallpaper = {
-                        uiLogic.onClickedSetWallpaper()
-                    }
-                )
-            }
+            ImageAssetConfirmContent(
+                modifier = modifier,
+                screenWidthPx = screenWidthPx,
+                screenHeightPx = screenHeightPx,
+                patternType = patternType,
+                backgroundColor = backgroundColor,
+                imageAsset = imageAsset.imageAsset,
+                setWallpaperEffect = uiLogic.setWallpaperEffect,
+                uiLogic = uiLogic,
+                onClickedSaveWallpaper = { onDraw ->
+                    rememberedOnDraw = onDraw
+                    uiLogic.onClickedSaveWallpaper(
+                        canSkipPermissionRequest = MediaStoreManager.canSkipPermissionRequest,
+                        isPermissionRequestGrant = permissionState.status.isGranted,
+                        shouldShowPermissionRequestRationale = permissionState.status.shouldShowRationale,
+                    )
+                },
+                onClickedSetWallpaper = {
+                    uiLogic.onClickedSetWallpaper()
+                }
+            )
         }
     }
 
@@ -181,13 +178,13 @@ fun HomeConfirmContent(
 }
 
 @Composable
-private fun LocalImageAssetConfirmContent(
+private fun ImageAssetConfirmContent(
     modifier: Modifier = Modifier,
     screenWidthPx: Float,
     screenHeightPx: Float,
     patternType: PatternType,
     backgroundColor: ColorType,
-    localImageAsset: LocalImageAsset,
+    imageAsset: ImageAsset,
     setWallpaperEffect: SharedFlow<SetWallpaperTargetUiModel>,
     uiLogic: HomeConfirmUiLogic,
     onClickedSaveWallpaper: (onDraw: DrawScope.() -> Unit) -> Unit,
@@ -198,7 +195,11 @@ private fun LocalImageAssetConfirmContent(
     val applicationContext = requireNotNull(LocalContext.current.applicationContext)
     val localContext = LocalContext.current
 
-    val imageBitmap = ImageBitmap.imageResource(id = localImageAsset.resId)
+    val imageBitmap = when (imageAsset) {
+        is LocalImageAsset -> ImageBitmap.imageResource(id = imageAsset.resId)
+        is BitmapImageAsset -> imageAsset.bitmap.asImageBitmap()
+        else -> Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888).asImageBitmap()
+    }
 
     val onDraw: DrawScope.() -> Unit = {
         drawPattern(
@@ -259,26 +260,24 @@ private fun LocalImageAssetConfirmContent(
     }
 
     LaunchedEffect(key1 = Unit) {
-        setWallpaperEffect
-            .onEach { target ->
-                setWallpaper(
-                    width = screenWidthPx.toInt(),
-                    height = screenHeightPx.toInt(),
-                    applicationContext = applicationContext,
-                    localContext = localContext,
-                    density = density,
-                    layoutDirection = layoutDirection,
-                    target = target as PlatformSetWallpaperTargetUiModel,
-                    onDraw = onDraw,
-                    onSuccess = {
-                        uiLogic.onSuccessSetWallPaper()
-                    },
-                    onFailure = {
-                        // TODO メッセージを表示
-                    },
-                )
-            }
-            .launchIn(this)
+        setWallpaperEffect.onEach { target ->
+            setWallpaper(
+                width = screenWidthPx.toInt(),
+                height = screenHeightPx.toInt(),
+                applicationContext = applicationContext,
+                localContext = localContext,
+                density = density,
+                layoutDirection = layoutDirection,
+                target = target as PlatformSetWallpaperTargetUiModel,
+                onDraw = onDraw,
+                onSuccess = {
+                    uiLogic.onSuccessSetWallPaper()
+                },
+                onFailure = {
+                    // TODO メッセージを表示
+                },
+            )
+        }.launchIn(this)
     }
 }
 
@@ -331,15 +330,11 @@ private fun createImageBitmap(
 ): ImageBitmap {
     val imageBitmap = ImageBitmap(width, height)
     val size = Size(
-        width = width.toFloat(),
-        height = height.toFloat()
+        width = width.toFloat(), height = height.toFloat()
     )
 
     CanvasDrawScope().draw(
-        density,
-        layoutDirection,
-        androidx.compose.ui.graphics.Canvas(imageBitmap),
-        size
+        density, layoutDirection, androidx.compose.ui.graphics.Canvas(imageBitmap), size
     ) {
         onDraw(this)
     }
