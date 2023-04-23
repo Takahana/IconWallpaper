@@ -201,9 +201,14 @@ private fun ImageAssetConfirmContent(
         else -> Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888).asImageBitmap()
     }
 
-    val onDraw: DrawScope.() -> Unit = {
+    val copiedImageBitmap = remember(Unit) {
+        imageBitmap.asAndroidBitmap()
+            .copy(Bitmap.Config.ARGB_8888, false).asImageBitmap()
+    }
+
+    val onDrawForPreview: DrawScope.() -> Unit = {
         drawPattern(
-            image = imageBitmap,
+            image = copiedImageBitmap,
             backgroundColor = Color(backgroundColor.hex),
             drawNum = patternType.drawNum
         )
@@ -232,7 +237,7 @@ private fun ImageAssetConfirmContent(
                     bottom.linkTo(buttonContainer.top)
                     height = Dimension.fillToConstraints
                 },
-            onDraw = onDraw,
+            onDraw = onDrawForPreview,
         )
 
         Row(
@@ -248,7 +253,7 @@ private fun ImageAssetConfirmContent(
             ActionButton(
                 textResId = R.string.home_confirm_save_image,
                 iconResId = R.drawable.ic_save_24,
-                onClick = { onClickedSaveWallpaper(onDraw) },
+                onClick = { onClickedSaveWallpaper(onDrawForPreview) },
             )
             Spacer(modifier = Modifier.width(40.dp))
             ActionButton(
@@ -269,7 +274,7 @@ private fun ImageAssetConfirmContent(
                 density = density,
                 layoutDirection = layoutDirection,
                 target = target as PlatformSetWallpaperTargetUiModel,
-                onDraw = onDraw,
+                onDraw = onDrawForPreview,
                 onSuccess = {
                     uiLogic.onSuccessSetWallPaper()
                 },
