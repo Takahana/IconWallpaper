@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
 import tech.takahana.iconwallpaper.gradle.propertyAsInt
 
 plugins {
@@ -5,6 +8,8 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -58,8 +63,42 @@ dependencies {
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 }
 
 kapt {
     correctErrorTypes = true
 }
+
+/**
+ * google-services.json の変更を無視する。
+ */
+val skipWorktreeWithGoogleServicesJson by tasks.register(
+    "skipWorktreeWithGoogleServicesJson",
+    Exec::class.java
+) {
+    commandLine = listOf(
+        "git",
+        "update-index",
+        "--skip-worktree",
+        "${project.projectDir.absolutePath}/google-services.json"
+    )
+}
+
+/**
+ * ローカルにあるデータを google-services.json にコピーする。
+ */
+val replaceGoogleServicesJson by tasks.register("replaceGoogleServicesJson") {
+    dependsOn(skipWorktreeWithGoogleServicesJson)
+    doLast {
+        val localGoogleServiceJson =
+            Paths.get("${project.projectDir.absolutePath}/google-services-local.json")
+        val googleServiceJson = Paths.get("${project.projectDir.absolutePath}/google-services.json")
+        Files.copy(localGoogleServiceJson, googleServiceJson, StandardCopyOption.REPLACE_EXISTING)
+    }
+}
+
