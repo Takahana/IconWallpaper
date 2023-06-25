@@ -1,6 +1,5 @@
 package tech.takahana.iconwallpaper.android.home.ui.screen
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +36,6 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 
-@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun HomePreviewIconContent(
     homeNavController: NavHostController,
@@ -50,6 +48,7 @@ fun HomePreviewIconContent(
         is ImageAssetUiModel.AssetSelectable -> {
             (imageAssetUiModel as ImageAssetUiModel.AssetSelectable).imageAsset
         }
+
         is ImageAssetUiModel.None -> {
             LocalImageAsset(
                 id = AssetId("none"), name = AssetName("none")
@@ -69,7 +68,13 @@ fun HomePreviewIconContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (bitmap != null) {
-            Image(bitmap = bitmap.asImageBitmap(), contentDescription = null, modifier = Modifier.fillMaxWidth().height(256.dp))
+            Image(
+                bitmap = bitmap.asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(256.dp)
+            )
         } else {
             CircularProgressIndicator()
         }
