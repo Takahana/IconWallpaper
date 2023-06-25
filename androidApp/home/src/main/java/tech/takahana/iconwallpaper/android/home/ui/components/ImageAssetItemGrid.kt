@@ -57,6 +57,7 @@ fun ImageAssetItemGrid(
                 object :
                     OnBackgroundChangeListener {
                     override fun onSuccess(bitmap: Bitmap) {
+                        bitmap.setHasAlpha(true)
                         Log.i("BackgroundRemover Success", "BackgroundRemover Success")
                         onClickItem(
                             ImageAssetUiModel.AssetSelectable(
@@ -71,6 +72,7 @@ fun ImageAssetItemGrid(
                             )
                         )
                     }
+
                     override fun onFailed(exception: Exception) {
                         Log.e("BackgroundRemover Failed", "$exception")
                     }
