@@ -2,6 +2,7 @@ package tech.takahana.iconwallpaper.android.home.ui.screen
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -9,8 +10,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -42,6 +45,8 @@ fun HomeScreen(
                         }
                     }
                 },
+                backgroundColor = Color.White,
+                elevation = 0.dp,
             )
         },
         content = {
