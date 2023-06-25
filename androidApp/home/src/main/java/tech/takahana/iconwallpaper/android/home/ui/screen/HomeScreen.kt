@@ -6,17 +6,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.home.R
@@ -29,7 +28,20 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) },
+                title = {  },
+                navigationIcon = {
+                    val navBackStackEntry by homeNavHostController.currentBackStackEntryAsState()
+                    if (navBackStackEntry?.destination?.route != Screen.HomeSelectImageAssetContent.route) {
+                        IconButton(
+                            onClick = { homeNavHostController.popBackStack() }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.ArrowBack,
+                                contentDescription = stringResource(id = R.string.back),
+                            )
+                        }
+                    }
+                },
             )
         },
         content = {
