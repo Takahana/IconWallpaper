@@ -30,9 +30,6 @@ import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.home.ui.screen.viewmodel.HomeSelectPatternViewModel
 import tech.takahana.iconwallpaper.shared.assets.BitmapImageAsset
-import tech.takahana.iconwallpaper.shared.assets.LocalImageAsset
-import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetId
-import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.ImageAssetUiModel
 
@@ -49,18 +46,10 @@ fun HomePreviewIconContent(
             (imageAssetUiModel as ImageAssetUiModel.AssetSelectable).imageAsset
         }
 
-        is ImageAssetUiModel.None -> {
-            LocalImageAsset(
-                id = AssetId("none"), name = AssetName("none")
-            )
-        }
+        is ImageAssetUiModel.None -> null
     }
 
-    val bitmap: Bitmap? = if (imageAsset.id != AssetId("none")) {
-        (imageAsset as BitmapImageAsset).bitmap
-    } else {
-        null
-    }
+    val bitmap: Bitmap? = (imageAsset as? BitmapImageAsset)?.bitmap
 
     Column(
         Modifier.fillMaxSize(),
