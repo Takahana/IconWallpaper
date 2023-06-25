@@ -19,7 +19,7 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 @Composable
 fun ColorButton(
     color: ColorType,
-    isChecked: Boolean,
+    backgroundColor: ColorType,
     onClick: (ColorType) -> Unit
 ) {
     Box(
@@ -29,6 +29,7 @@ fun ColorButton(
             .size(40.dp)
             .background(Color(color.hex))
     ) {
+        val isChecked = color == backgroundColor
         if (isChecked) {
             Image(
                 painter = painterResource(R.drawable.ic_check_circle_24),
