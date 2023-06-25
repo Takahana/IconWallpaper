@@ -28,6 +28,7 @@ firebase-bom = "31.2.3"
 
 #other
 ucrop = "2.2.8-native"
+background-remover = "1.0.3"
 
 [libraries]
 # native
@@ -77,6 +78,7 @@ dagger-hilt-agp = { module = "com.google.dagger:hilt-android-gradle-plugin", ver
 
 # other
 ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
+background-remover = { module = "com.github.GhayasAhmad:auto-background-remover", version.ref = "background-remover" }
 
 [bundles]
 compose = ["androidx-lifecycle-viewmodel-compose", "androidx-activity-compose", "androidx-compose-ui", "androidx-compose-tooling", "androidx-compose-foundation", "androidx-compose-material-core", "androidx-compose-material-icons-core", "androidx-compose-material-icons-extended", "androidx-compose-runtime-livedata", "material-compose-theme-adapter", "androidx-nav-compose", "androidx-compose-constraintlayout", "androidx-hilt-navigation-compose"]

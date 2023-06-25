@@ -1,6 +1,5 @@
 package tech.takahana.iconwallpaper.android.home.ui.screen
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +16,9 @@ import androidx.compose.ui.unit.dp
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.ImageAsset
 import tech.takahana.iconwallpaper.shared.domain.domainobject.PatternType
+import tech.takahana.iconwallpaper.shared.domain.domainobject.dummy.DummyImageAsset
 import tech.takahana.iconwallpaper.uilogic.home.FakeHomeSelectPatternUiLogic
 import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 
@@ -25,7 +26,7 @@ import tech.takahana.iconwallpaper.uilogic.home.HomeSelectPatternUiLogic
 fun HomeSelectPatternTab(
     modifier: Modifier = Modifier,
     selectPatternUiLogic: HomeSelectPatternUiLogic,
-    @DrawableRes resId: Int,
+    imageAsset: ImageAsset,
     patternType: PatternType,
     backgroundColor: ColorType
 ) {
@@ -39,7 +40,7 @@ fun HomeSelectPatternTab(
         ) {
             ImagePattern(
                 patternType = PatternType.SMALL,
-                resourceId = resId,
+                imageAsset = imageAsset,
                 backgroundColorType = backgroundColor,
             )
             if (patternType == PatternType.SMALL) {
@@ -57,7 +58,7 @@ fun HomeSelectPatternTab(
         ) {
             ImagePattern(
                 patternType = PatternType.MEDIUM,
-                resourceId = resId,
+                imageAsset = imageAsset,
                 backgroundColorType = backgroundColor,
             )
             if (patternType == PatternType.MEDIUM) {
@@ -75,7 +76,7 @@ fun HomeSelectPatternTab(
         ) {
             ImagePattern(
                 patternType = PatternType.LARGE,
-                resourceId = resId,
+                imageAsset = imageAsset,
                 backgroundColorType = backgroundColor,
             )
             if (patternType == PatternType.LARGE) {
@@ -94,7 +95,7 @@ fun HomeSelectPatternTab(
 private fun PreviewSelectPatternTab() {
     HomeSelectPatternTab(
         selectPatternUiLogic = FakeHomeSelectPatternUiLogic(),
-        resId = R.drawable.cat,
+        imageAsset = DummyImageAsset(),
         patternType = PatternType.SMALL,
         backgroundColor = ColorType.Other(0xffb2dfdb)
     )
