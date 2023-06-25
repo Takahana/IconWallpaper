@@ -74,7 +74,7 @@ fun HomePreviewIconContent(
         ) {
             RoundButton(
                 modifier = Modifier.fillMaxWidth(0.5F),
-                onClick = { /*TODO  前の画面に戻る*/ },
+                onClick = { homeNavController.popBackStack() },
                 backgroundColor = Color.LightGray,
                 text = "いいえ",
             )
