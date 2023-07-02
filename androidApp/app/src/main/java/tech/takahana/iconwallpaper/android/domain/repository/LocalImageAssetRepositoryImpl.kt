@@ -8,11 +8,11 @@ import tech.takahana.iconwallpaper.shared.domain.domainobject.AssetName
 
 class LocalImageAssetRepositoryImpl : LocalImageAssetRepository {
 
-    override fun getAll(): List<LocalImageAsset> = (1..100).map { num ->
+    override fun getAll(): List<LocalImageAsset> = listOf(
         LocalImageAsset(
-            id = AssetId("cat_$num"),
+            id = AssetId(R.drawable.cat.toString()),
             name = AssetName("cat"),
             resId = R.drawable.cat
         )
-    }
+    )
 }
