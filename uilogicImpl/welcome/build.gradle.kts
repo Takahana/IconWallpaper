@@ -1,3 +1,5 @@
+import tech.takahana.iconwallpaper.gradle.propertyAsInt
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -65,10 +67,10 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = propertyAsInt("android.compileSdk")
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 23
-        targetSdk = 31
+        minSdk = propertyAsInt("android.minSdk")
+        targetSdk = propertyAsInt("android.targetSdk")
     }
 }

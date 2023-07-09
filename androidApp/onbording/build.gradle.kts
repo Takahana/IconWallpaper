@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         minSdk = propertyAsInt("android.minSdk")
-        targetSdk = propertyAsInt("android.minSdk")
+        targetSdk = propertyAsInt("android.targetSdk")
         consumerProguardFiles("consumer-rules.pro")
     }
 
