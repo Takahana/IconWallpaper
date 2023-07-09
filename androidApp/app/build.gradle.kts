@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "tech.takahana.iconwallpaper.android"
         minSdk = propertyAsInt("android.minSdk")
-        targetSdk = propertyAsInt("android.minSdk")
+        targetSdk = propertyAsInt("android.targetSdk")
         versionCode = 1
         versionName = "1.0"
     }
