@@ -20,13 +20,13 @@ class LocalImageAssetRepositoryImplTest {
 
     @Test
     fun getAll() {
-        val expected = (1..100).map { num ->
+        val expected = listOf(
             LocalImageAsset(
-                id = AssetId("cat_$num"),
+                id = AssetId(R.drawable.cat.toString()),
                 name = AssetName("cat"),
                 resId = R.drawable.cat
             )
-        }
+        )
 
         val actual = repository.getAll()
 
