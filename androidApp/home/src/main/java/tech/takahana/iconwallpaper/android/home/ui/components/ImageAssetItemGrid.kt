@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.slowmac.autobackgroundremover.BackgroundRemover
 import com.slowmac.autobackgroundremover.OnBackgroundChangeListener
+import tech.takahana.iconwallpaper.android.core.CoreResDrawable
 import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.ui.theme.LightBlue50
@@ -119,7 +120,7 @@ fun ImageAssetItemGrid(
                         )
                         if (item.isSelected) {
                             Image(
-                                painter = painterResource(R.drawable.ic_check_circle_24),
+                                painter = painterResource(CoreResDrawable.ic_check_circle_24),
                                 contentDescription = null,
                                 modifier = Modifier.padding(8.dp)
                             )
@@ -142,7 +143,7 @@ private fun PreviewItemGrid() {
                         imageAsset = LocalImageAsset(
                             id = AssetId.requireGet("cat_$num"),
                             name = AssetName("cat"),
-                            resId = R.drawable.cat
+                            resId = CoreResDrawable.cat
                         ),
                         isSelected = num.mod(2) == 0
                     )

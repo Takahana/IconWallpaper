@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import tech.takahana.iconwallpaper.android.home.R
+import tech.takahana.iconwallpaper.android.core.CoreResDrawable
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
 
 @Composable
@@ -31,7 +31,7 @@ fun ColorButton(
     ) {
         if (isChecked) {
             Image(
-                painter = painterResource(R.drawable.ic_check_circle_24),
+                painter = painterResource(id = CoreResDrawable.ic_check_circle_24),
                 contentDescription = null,
                 modifier = Modifier.padding(8.dp)
             )

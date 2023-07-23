@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import tech.takahana.iconwallpaper.android.core.CoreResString
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.uilogic.home.FakeHomeConfirmUiLogic
@@ -38,7 +39,7 @@ fun HomeConfirmPermissionRequestRationaleDialog(
                 uiLogic.onPermissionRequestRationaleDialogDismissRequested()
             }) {
                 Text(
-                    text = stringResource(id = R.string.cancel),
+                    text = stringResource(id = CoreResString.cancel),
                     color = MaterialTheme.colors.onBackground
                 )
             }

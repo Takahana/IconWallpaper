@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import tech.takahana.iconwallpaper.android.core.CoreResDrawable
 import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.components.RoundButton
 import tech.takahana.iconwallpaper.android.onbording.R
@@ -36,7 +37,7 @@ fun WelcomeScreen(
         verticalArrangement = Arrangement.Bottom,
     ) {
         Image(
-            painter = painterResource(id = R.drawable.welcome),
+            painter = painterResource(id = CoreResDrawable.welcome),
             contentDescription = stringResource(R.string.welcome_dog),
             modifier = Modifier
                 .weight(1f)
