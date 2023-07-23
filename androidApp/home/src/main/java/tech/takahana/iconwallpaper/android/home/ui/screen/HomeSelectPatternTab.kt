@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import tech.takahana.iconwallpaper.android.core.CoreResDrawable
 import tech.takahana.iconwallpaper.android.home.R
 import tech.takahana.iconwallpaper.android.home.ui.components.ImagePattern
 import tech.takahana.iconwallpaper.shared.domain.domainobject.ColorType
@@ -45,7 +46,7 @@ fun HomeSelectPatternTab(
             )
             if (patternType == PatternType.SMALL) {
                 Image(
-                    painter = painterResource(R.drawable.ic_check_circle_24),
+                    painter = painterResource(CoreResDrawable.ic_check_circle_24),
                     contentDescription = null,
                     modifier = Modifier.padding(8.dp)
                 )
@@ -63,7 +64,7 @@ fun HomeSelectPatternTab(
             )
             if (patternType == PatternType.MEDIUM) {
                 Image(
-                    painter = painterResource(R.drawable.ic_check_circle_24),
+                    painter = painterResource(CoreResDrawable.ic_check_circle_24),
                     contentDescription = null,
                     modifier = Modifier.padding(8.dp)
                 )
@@ -81,7 +82,7 @@ fun HomeSelectPatternTab(
             )
             if (patternType == PatternType.LARGE) {
                 Image(
-                    painter = painterResource(R.drawable.ic_check_circle_24),
+                    painter = painterResource(CoreResDrawable.ic_check_circle_24),
                     contentDescription = null,
                     modifier = Modifier.padding(8.dp)
                 )

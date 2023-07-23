@@ -66,6 +66,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import tech.takahana.iconwallpaper.android.core.CoreResDrawable
 import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.core.ui.theme.IconWallPaperTheme
 import tech.takahana.iconwallpaper.android.core.utils.MediaStoreManager
@@ -252,13 +253,13 @@ private fun ImageAssetConfirmContent(
         ) {
             ActionButton(
                 textResId = R.string.home_confirm_save_image,
-                iconResId = R.drawable.ic_save_24,
+                iconResId = CoreResDrawable.ic_save_24,
                 onClick = { onClickedSaveWallpaper(onDrawForPreview) },
             )
             Spacer(modifier = Modifier.width(40.dp))
             ActionButton(
                 textResId = R.string.home_confirm_set_wallpaper,
-                iconResId = R.drawable.ic_wallpaper_24,
+                iconResId = CoreResDrawable.ic_wallpaper_24,
                 onClick = onClickedSetWallpaper,
             )
         }

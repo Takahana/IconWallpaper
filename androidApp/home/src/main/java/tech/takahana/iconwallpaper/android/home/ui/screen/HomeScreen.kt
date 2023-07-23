@@ -20,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import tech.takahana.iconwallpaper.android.core.CoreResString
 import tech.takahana.iconwallpaper.android.core.Screen
 import tech.takahana.iconwallpaper.android.home.R
 
@@ -40,7 +41,7 @@ fun HomeScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.ArrowBack,
-                                contentDescription = stringResource(id = R.string.back),
+                                contentDescription = stringResource(id = CoreResString.back),
                             )
                         }
                     }

@@ -23,6 +23,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     buildTypes {
         getByName("release") {
@@ -32,6 +33,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.1.0-rc01"
     }
+    namespace = "tech.takahana.iconwallpaper.android"
 }
 
 dependencies {

@@ -73,4 +73,5 @@ android {
         minSdk = propertyAsInt("android.minSdk")
         targetSdk = propertyAsInt("android.targetSdk")
     }
+    namespace = "tech.takahana.iconwallpapaer.uilogic.welcome"
 }
