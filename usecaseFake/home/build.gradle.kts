@@ -72,4 +72,5 @@ android {
         minSdk = propertyAsInt("android.minSdk")
         targetSdk = propertyAsInt("android.targetSdk")
     }
+    namespace = "tech.takahana.iconwallpaper.usecase.home"
 }

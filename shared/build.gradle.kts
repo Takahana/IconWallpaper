@@ -86,6 +86,7 @@ android {
         java.srcDirs("src/androidTest/kotlin", "src/commonTest/kotlin")
         res.srcDirs("src/androidTest/res")
     }
+    namespace = "tech.takahana.iconwallpaper"
 }
 dependencies {
     implementation("androidx.test.ext:junit-ktx:1.1.4")

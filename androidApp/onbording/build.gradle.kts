@@ -37,6 +37,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.1.0-rc01"
     }
+    namespace = "tech.takahana.iconwallpaper.android.onbording"
 }
 
 dependencies {
