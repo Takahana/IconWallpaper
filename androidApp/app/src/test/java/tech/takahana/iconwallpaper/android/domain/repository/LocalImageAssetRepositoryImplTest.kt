@@ -25,6 +25,61 @@ class LocalImageAssetRepositoryImplTest {
                 id = AssetId(R.drawable.cat.toString()),
                 name = AssetName("cat"),
                 resId = R.drawable.cat
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.bird.toString()),
+                name = AssetName("bird"),
+                resId = R.drawable.bird
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.dog.toString()),
+                name = AssetName("dog"),
+                resId = R.drawable.dog
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.elephantidae.toString()),
+                name = AssetName("elephantidae"),
+                resId = R.drawable.elephantidae
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.hawks.toString()),
+                name = AssetName("hawks"),
+                resId = R.drawable.hawks
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.hedgehog.toString()),
+                name = AssetName("hedgedog"),
+                resId = R.drawable.hedgehog
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.penguin.toString()),
+                name = AssetName("penguin"),
+                resId = R.drawable.penguin
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.rabbit.toString()),
+                name = AssetName("rabbit"),
+                resId = R.drawable.rabbit
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.rat.toString()),
+                name = AssetName("rat"),
+                resId = R.drawable.rat
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.shark.toString()),
+                name = AssetName("shark"),
+                resId = R.drawable.shark
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.snowman.toString()),
+                name = AssetName("snowman"),
+                resId = R.drawable.snowman
+            ),
+            LocalImageAsset(
+                id = AssetId(R.drawable.sunflower.toString()),
+                name = AssetName("sunflower"),
+                resId = R.drawable.sunflower
             )
         )
 
