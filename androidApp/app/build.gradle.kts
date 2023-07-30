@@ -18,8 +18,8 @@ android {
         applicationId = "tech.takahana.iconwallpaper.android"
         minSdk = propertyAsInt("android.minSdk")
         targetSdk = propertyAsInt("android.targetSdk")
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
     buildFeatures {
         compose = true
