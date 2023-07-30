@@ -2,9 +2,7 @@ package tech.takahana.iconwallpaper.android.home.ui.screen
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
@@ -31,7 +29,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {  },
+                title = { },
                 navigationIcon = {
                     val navBackStackEntry by homeNavHostController.currentBackStackEntryAsState()
                     if (navBackStackEntry?.destination?.route != Screen.HomeSelectImageAssetContent.route) {

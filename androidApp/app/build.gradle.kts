@@ -1,7 +1,7 @@
+import tech.takahana.iconwallpaper.gradle.propertyAsInt
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
-import tech.takahana.iconwallpaper.gradle.propertyAsInt
 
 plugins {
     id("com.android.application")
@@ -101,4 +101,3 @@ val replaceGoogleServicesJson by tasks.register("replaceGoogleServicesJson") {
         Files.copy(localGoogleServiceJson, googleServiceJson, StandardCopyOption.REPLACE_EXISTING)
     }
 }
-
